@@ -6,7 +6,6 @@ import Popper from 'popper.js/dist/umd/popper';
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-window.Vue = require('vue').default;
 
 try {
     window.$ = window.jQuery = require('jquery');
@@ -20,13 +19,16 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.swal = require('sweetalert2');
 
 
-// Register Vue Components
-Vue.component('example-component', require('./components/example-component').default);
+// Configuration VUE3 + Components
+import { createApp } from 'vue'
+import example from './components/example-component'
 
-// Initialize Vue
-const app = new Vue({
-    el: '#app',
-});
+//Inicializar VUE3
+const app = createApp({})
+
+app.component('example-component', example)
+app.mount('#app')
+
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
