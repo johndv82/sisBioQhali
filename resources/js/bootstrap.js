@@ -22,11 +22,13 @@ window.swal = require('sweetalert2');
 // Configuration VUE3 + Components
 import { createApp } from 'vue'
 import example from './components/example-component'
+import producto from './components/producto/table-producto-component'
 
 //Inicializar VUE3
 const app = createApp({})
 
 app.component('example-component', example)
+app.component('table-producto-component', producto)
 app.mount('#app')
 
 

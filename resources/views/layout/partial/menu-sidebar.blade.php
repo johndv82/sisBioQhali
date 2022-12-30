@@ -9,8 +9,8 @@
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
                 <li>
-                    <a href="#">
-                        <i class="fas fa-users"></i>Clientes</a>
+                    <a href="{{route('productos.index')}}">
+                        <i class="fas fa-box"></i>Productos</a>
                 </li>
 
                 <!-- Mantenimiento -->

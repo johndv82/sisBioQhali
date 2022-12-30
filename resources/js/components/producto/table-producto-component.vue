@@ -1,18 +1,86 @@
 <template>
-    <div class="row">
-        <div class="lg-8 offset-lg-2">
-            <div class="table-responsive">
-            </div>
-        </div>
-    </div>
+    <DataTable
+        class="table table-striped table-bordered display"
+        :data="productos" :columns="columnas"
+        :options="{
+            responsive:true,
+            autoWidth:false,
+            dom:'Bfrtip',
+            language:{
+                search: 'Buscar',
+                zeroRecords: 'No hay registros para mostrar.',
+                info: 'Mostrando de _START_ a _END_ de _TOTAL_ registros.',
+                paginate: {
+                    first:'Primero',
+                    previous:'Anterior',
+                    next:'Siguiente',
+                    last: 'Último'
+                }
+            }}">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Categoría</th>
+                <th>Puntos</th>
+                <th>Precio C.</th>
+                <th>Precio V.</th>
+            </tr>
+        </thead>
+    </DataTable>
 </template>
 
 <script>
+import axios from 'axios'
+import DataTable from 'datatables.net-vue3'
+import DataTableLib from 'datatables.net-bs4'
+import Buttons from 'datatables.net-buttons-bs4'
+import ButtonHtml5 from 'datatables.net-buttons/js/buttons.html5'
+import print from 'datatables.net-buttons/js/buttons.print'
+import pdfmake from 'pdfmake'
+import pdfFonts from 'pdfmake/build/vfs_fonts'
+import 'datatables.net-responsive-bs4'
+import JsZip from 'jszip'
+
+window.JsZip = JsZip;
+DataTable.use(DataTableLib);
+DataTable.use(pdfmake);
+DataTable.use(ButtonHtml5);
+
 export default {
-    name: "table-producto-component.vue"
+    components: {DataTable},
+    data(){
+        return{
+            productos:null,
+            columnas:[
+                {data:null, render: function(data, type, row, meta){
+                        return `${meta.row+1}`
+                    }},
+                {data:'nombre_prod'},
+                {data:'codigo_prod'},
+                {data:'idcat_prod'},
+                {data:'puntos_prod'},
+                {data:'precioc_prod'},
+                {data:'preciov_prod'},
+            ]
+        }
+    },
+    mounted() {
+        this.getProductos()
+    },
+    methods:{
+        getProductos(){
+            axios.get('/productos/list').then(
+                response=>(
+                    this.productos = response.data
+                )
+            );
+        }
+    }
 }
 </script>
 
-<style scoped>
-
+<style>
+@import 'datatables.net-bs4';
 </style>

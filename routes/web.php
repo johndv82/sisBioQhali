@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
+
 Route::resources([
     'productos' => ProductoController::class
 ]);
+
+
+

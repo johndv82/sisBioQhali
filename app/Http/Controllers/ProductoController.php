@@ -2,19 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ProductoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar vista blade de Productos.
      *
      * @return Response
      */
     public function index()
     {
+        return response()
+            ->view('producto.listado');
+    }
 
+
+    public function list(Request $request){
+        $productos = Producto::all();
+        return response()->json($productos, 200);
     }
 
     /**
