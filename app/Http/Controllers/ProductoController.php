@@ -16,14 +16,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return response()
-            ->view('producto.listado');
-    }
-
-
-    public function list(Request $request){
         $productos = Producto::all();
-        return response()->json($productos, 200);
+        return response()
+            ->view('producto.listado',compact('productos'));
     }
 
     /**

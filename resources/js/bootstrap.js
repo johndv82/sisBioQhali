@@ -16,20 +16,22 @@ try {
 
 window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.swal = require('sweetalert2');
-
 
 // Configuration VUE3 + Components
 import { createApp } from 'vue'
 import example from './components/example-component'
-import producto from './components/producto/table-producto-component'
+import table_producto from './components/producto/table-producto-component'
+import nuevo_producto from './components/producto/nuevo-producto-component'
 
 //Inicializar VUE3
 const app = createApp({})
 
 app.component('example-component', example)
-app.component('table-producto-component', producto)
+app.component('table-producto-component', table_producto)
+app.component('nuevo-producto-component', nuevo_producto)
 app.mount('#app')
+
+
 
 
 /**

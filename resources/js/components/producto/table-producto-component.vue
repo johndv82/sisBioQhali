@@ -26,6 +26,8 @@
                 <th>Puntos</th>
                 <th>Precio C.</th>
                 <th>Precio V.</th>
+
+                <th>Acción</th>
             </tr>
         </thead>
     </DataTable>
@@ -49,6 +51,7 @@ DataTable.use(pdfmake);
 DataTable.use(ButtonHtml5);
 
 export default {
+    name: "table-producto-component",
     components: {DataTable},
     data(){
         return{
@@ -63,20 +66,30 @@ export default {
                 {data:'puntos_prod'},
                 {data:'precioc_prod'},
                 {data:'preciov_prod'},
+                {data:null, render: function(data, type, row, meta){
+                    return `<a href='#' class="btn btn-warning btn-sm">Editar</a>`
+                    }}
             ]
         }
     },
     mounted() {
-        this.getProductos()
+        //this.getProductos()
+        this.productos = this.data_prod;
+    },
+    props: {
+        data_prod: {
+            type: Array,
+            default: () => []
+        }
     },
     methods:{
-        getProductos(){
+        /*getProductos(){
             axios.get('/productos/list').then(
                 response=>(
                     this.productos = response.data
                 )
             );
-        }
+        }*/
     }
 }
 </script>

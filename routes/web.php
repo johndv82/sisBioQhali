@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +19,11 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
-
 Route::resources([
-    'productos' => ProductoController::class
+    'productos' => ProductoController::class,
+    'categorias' => CategoriaController::class
 ]);
+
 
 
 

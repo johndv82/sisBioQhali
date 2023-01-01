@@ -11,7 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.21",
-        "bootstrap": "^4.1.0",
+        "bootstrap": "^4.6.1",
         "jquery": "^3.2.1",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
@@ -27,7 +27,6 @@
         "datatables.net-responsive-bs4": "^2.4.0",
         "datatables.net-vue3": "^2.0.0",
         "jszip": "^3.10.1",
-        "pdfmake": "^0.2.7",
-        "sweetalert2": "^10.5.1"
+        "pdfmake": "^0.2.7"
     }
 }
