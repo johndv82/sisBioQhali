@@ -22,6 +22,8 @@ import { createApp } from 'vue'
 import example from './components/example-component'
 import table_producto from './components/producto/table-producto-component'
 import nuevo_producto from './components/producto/nuevo-producto-component'
+import nuevo_categoria from './components/categoria/nuevo-categoria-component'
+import ModalLayout from './components/ModalLayout'
 
 //Inicializar VUE3
 const app = createApp({})
@@ -29,6 +31,8 @@ const app = createApp({})
 app.component('example-component', example)
 app.component('table-producto-component', table_producto)
 app.component('nuevo-producto-component', nuevo_producto)
+app.component('nuevo-categoria-component', nuevo_categoria)
+app.component('ModalLayout', ModalLayout)
 app.mount('#app')
 
 

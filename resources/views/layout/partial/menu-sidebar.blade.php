@@ -12,6 +12,10 @@
                     <a href="{{route('productos.index')}}">
                         <i class="fas fa-box"></i>Productos</a>
                 </li>
+                <li>
+                    <a href="{{route('categorias.index')}}">
+                        <i class="fas fa-box"></i>Categorias</a>
+                </li>
 
                 <!-- Mantenimiento -->
                 <li class="has-sub">
