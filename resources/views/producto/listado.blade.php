@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Listado de Trabajadores</strong>
+                <strong class="card-title">Listado de Productos</strong>
             </div>
             <div class="card-body">
                 <div id="app">
