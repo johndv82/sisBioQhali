@@ -24,7 +24,7 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <div class="table-responsive table--no-card m-b-30">
-                            <!--<table-categoria-component :data="{{$categorias}}"></table-categoria-component>-->
+                            <table-categoria-component :datos="{{$categorias}}"></table-categoria-component>
                         </div>
                     </div>
                 </div>
@@ -35,8 +35,5 @@
 @endsection
 
 @section('modal')
-    <div id="app">
-        <nuevo-categoria-component></nuevo-categoria-component>
-    </div>
-    
+    <new-categoria-component id="{{$nombreModal}}"></new-categoria-component>
 @endsection

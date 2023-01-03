@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div id="app">
                     <div class="row form-group">
-                        <nuevo-producto-component></nuevo-producto-component>
+                        <new-producto-component></new-producto-component>
                     </div>
                     <div class="row form-group">
                         <div class="col-md-12">

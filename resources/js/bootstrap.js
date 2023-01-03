@@ -21,18 +21,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import { createApp } from 'vue'
 import example from './components/example-component'
 import table_producto from './components/producto/table-producto-component'
-import nuevo_producto from './components/producto/nuevo-producto-component'
-import nuevo_categoria from './components/categoria/nuevo-categoria-component'
-import ModalLayout from './components/ModalLayout'
+import table_categoria from './components/categoria/table-categoria-component'
+import new_producto from './components/producto/new-producto-component'
+import new_categoria from './components/categoria/new-categoria-component'
 
 //Inicializar VUE3
 const app = createApp({})
 
 app.component('example-component', example)
 app.component('table-producto-component', table_producto)
-app.component('nuevo-producto-component', nuevo_producto)
-app.component('nuevo-categoria-component', nuevo_categoria)
-app.component('ModalLayout', ModalLayout)
+app.component('table-categoria-component', table_categoria)
+app.component('new-producto-component', new_producto)
+app.component('new-categoria-component', new_categoria)
 app.mount('#app')
 
 

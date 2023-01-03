@@ -1,5 +1,5 @@
 <template>
-    <ModalLayout>
+    <ModalLayout :id=id titulo="Registro de Nueva Categoria">
         <template #mbody>
             <div class="row form-group">
                 <div class="col-md-12">
@@ -29,13 +29,16 @@
 import ModalLayout from '../ModalLayout.vue';
 
 export default {
-    name:"nuevo-categoria-component",
+    name:"new-categoria-component",
     components:{
         ModalLayout
     },
     data(){
     },
     methods:{
+    },
+    props:{
+        id: String
     }
 }
 </script>

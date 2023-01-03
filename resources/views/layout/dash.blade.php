@@ -39,9 +39,11 @@
 
     <!-- PAGE CONTAINER-->
     <div class="page-container">
-        @include('layout.partial.header-desktop')
+        <div id="app">
+            @include('layout.partial.header-desktop')
 
-        @include('layout.partial.main-content')
+            @include('layout.partial.main-content')
+        </div>
     </div>
     <!-- END PAGE CONTAINER-->
 </div>
