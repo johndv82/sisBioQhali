@@ -16,7 +16,8 @@
                     next:'Siguiente',
                     last: 'Último'
                 }
-            }}">
+            },
+            buttons: botones}">
         <thead>
         <tr>
             <th>#</th>
@@ -41,7 +42,10 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import 'datatables.net-responsive-bs4'
 import JsZip from 'jszip'
 
-window.JsZip = JsZip;
+//Exportar a PDF
+pdfmake.vfs = pdfFonts.pdfMake.vfs;
+
+window.JSZip = JsZip;
 DataTable.use(DataTableLib);
 DataTable.use(pdfmake);
 DataTable.use(ButtonHtml5);
@@ -62,6 +66,32 @@ export default {
                 {data:null, render: function(data, type, row, meta){
                         return `<a href='#' class="btn btn-warning btn-sm">Editar</a>`
                     }}
+            ],
+            botones: [
+                {
+                    title: "Reporte de Categorías",
+                    extend: "excelHtml5",
+                    text: "<i class='fas fa-file-excel'></i> Excel",
+                    className: "btn btn-success"
+                },
+                {
+                    title: "Reporte de Categorías",
+                    extend: "pdfHtml5",
+                    text: "<i class='fas fa-file-pdf'></i> PDF",
+                    className: "btn btn-danger"
+                },
+                {
+                    title: "Reporte de Categorías",
+                    extend: "print",
+                    text: "<i class='fas fa-print'></i> Imprimir",
+                    className: "btn btn-dark"
+                },
+                {
+                    title: "Reporte de Categorías",
+                    extend: "copy",
+                    text: "<i class='fas fa-copy'></i> Copiar texto",
+                    className: "btn btn-light"
+                },
             ]
         }
     },
