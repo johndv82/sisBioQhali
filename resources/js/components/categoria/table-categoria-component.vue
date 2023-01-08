@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import DataTable from 'datatables.net-vue3'
 import DataTableLib from 'datatables.net-bs4'
 import Buttons from 'datatables.net-buttons-bs4'
@@ -71,27 +70,30 @@ export default {
                 {
                     title: "Reporte de Categorías",
                     extend: "excelHtml5",
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    },
                     text: "<i class='fas fa-file-excel'></i> Excel",
                     className: "btn btn-success"
                 },
                 {
                     title: "Reporte de Categorías",
                     extend: "pdfHtml5",
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    },
                     text: "<i class='fas fa-file-pdf'></i> PDF",
                     className: "btn btn-danger"
                 },
                 {
                     title: "Reporte de Categorías",
                     extend: "print",
+                    exportOptions: {
+                        columns: [ 0, 1, 2, 3 ]
+                    },
                     text: "<i class='fas fa-print'></i> Imprimir",
                     className: "btn btn-dark"
-                },
-                {
-                    title: "Reporte de Categorías",
-                    extend: "copy",
-                    text: "<i class='fas fa-copy'></i> Copiar texto",
-                    className: "btn btn-light"
-                },
+                }
             ]
         }
     },
