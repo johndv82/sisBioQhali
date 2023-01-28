@@ -18,11 +18,13 @@ use App\Http\Controllers\CategoriaController;
 Route::get('/', function () {
     return view('index');
 });
-
+Route::get('/categorias/list', [CategoriaController::class, 'list'])->name('categorias.list');
 Route::resources([
     'productos' => ProductoController::class,
     'categorias' => CategoriaController::class
 ]);
+
+
 
 
 

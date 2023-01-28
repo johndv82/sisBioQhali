@@ -24,7 +24,7 @@
                 <div class="row form-group">
                     <div class="col-md-12">
                         <div class="table-responsive table--no-card m-b-30">
-                            <table-categoria-component :datos="{{$categorias}}"></table-categoria-component>
+                            <table-categoria-component list="{{ route('categorias.list') }}"></table-categoria-component>
                         </div>
                     </div>
                 </div>
@@ -35,5 +35,5 @@
 @endsection
 
 @section('modal')
-    <new-categoria-component id="{{$nombreModal}}"></new-categoria-component>
+    <new-categoria-component id="{{$nombreModal}}" store="{{ route('categorias.store') }}"></new-categoria-component>
 @endsection

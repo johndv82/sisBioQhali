@@ -40,6 +40,7 @@ import pdfmake from 'pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import 'datatables.net-responsive-bs4'
 import JsZip from 'jszip'
+import axios from 'axios'
 
 //Exportar a PDF
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
@@ -97,15 +98,14 @@ export default {
             ]
         }
     },
-    mounted() {
-        this.categorias = this.datos;
+    async mounted(){
+        //Call endpoint categorias.list
+        const response = await axios.get(this.list);
+        this.categorias = response.data.data;
     },
-    props: {
-        datos: {
-            type: Array,
-            default: () => []
-        }
-    },
+    props:{
+        list: String
+    }
 }
 </script>
 

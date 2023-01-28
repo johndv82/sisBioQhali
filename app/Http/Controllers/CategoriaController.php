@@ -9,15 +9,28 @@ use Illuminate\Http\Response;
 class CategoriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display index of the resource.
      *
      * @return Response
      */
     public function index()
     {
+        return response()->view('categoria.listado');
+    }
+
+    /**
+     * Return a listing of the resource.
+     *
+     * @return Response
+     */
+    public function list()
+    {
+        $respuesta = 404;
         $categorias = Categoria::all();
-        return response()
-            ->view('categoria.listado', compact('categorias'));
+        if($categorias != null){
+            $respuesta = 200;
+        }
+        return response()->json(['data' => $categorias, 'code' => $respuesta]);
     }
 
     /**
@@ -38,7 +51,16 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        return Response();
+        $categoria = new Categoria();
+        $categoria->id_cat = 1001;
+        $categoria->nombre_cat = $request->input('nombre');
+        $categoria->codigo_cat = "EJM01";
+        $categoria->obs_cat = $request->input('observaciones');
+        $categoria->usercreated_cat = "USR1";
+        $categoria->save();
+        return Response()->json([
+            'msg' => 'OK'
+        ]);
     }
 
     /**
