@@ -17,7 +17,9 @@
                     last: 'Último'
                 }
             },
-            buttons: botones}">
+            buttons: botones
+        }"
+        ref="table">
         <thead>
         <tr>
             <th>#</th>
@@ -41,6 +43,8 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import 'datatables.net-responsive-bs4'
 import JsZip from 'jszip'
 import axios from 'axios'
+import {datos} from './datos.js'
+import {ref} from 'vue';
 
 //Exportar a PDF
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
@@ -55,7 +59,8 @@ export default {
     components: {DataTable},
     data(){
         return{
-            categorias:null,
+            categorias: [],
+            table: ref(),
             columnas:[
                 {data:null, render: function(data, type, row, meta){
                         return `${meta.row+1}`
@@ -94,14 +99,25 @@ export default {
                     },
                     text: "<i class='fas fa-print'></i> Imprimir",
                     className: "btn btn-dark"
+                },
+                {
+                    text: "Actualizar", 
+                    action: function (e, dt, node, config ) {
+                        dt = datos.categoriaRepo;
+                    }
                 }
             ]
         }
     },
-    async mounted(){
+    mounted(){
         //Call endpoint categorias.list
-        const response = await axios.get(this.list);
-        this.categorias = response.data.data;
+        let d = this;
+        axios.get(this.list).then(response =>{
+            datos.categoriaRepo = response.data.data;
+            d.categorias = response.data.data;
+        });
+    
+        //this.dt = this.table.value.dt();
     },
     props:{
         list: String

@@ -39,10 +39,10 @@
 import ModalLayout from '../ModalLayout.vue'
 import useVuelidate from '@vuelidate/core'
 import { required, minLength, maxLength, helpers } from '@vuelidate/validators'
-import axios from 'axios'
+import {datos} from './datos.js'
 
 export default {
-    name:"new-categoria-component",
+    name:"NewCategoria",
     components:{
         ModalLayout
     },
@@ -70,14 +70,20 @@ export default {
         guardar() {      
             this.v$.$validate()
             if (!this.v$.$error) {
+                let ruta = this.list;
                 axios.post(this.store, this.categoria)
                 .then(function (response) {
-                    console.log(response);
+                    //refresh repository reactivo
+                    axios.get(ruta).then(resp => {
+                        datos.categoriaRepo = resp.data.data;
+                        console.log(datos.categoriaRepo);
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
             }
+            
         },
         cancelar(){
             this.v$.$reset() 
@@ -85,7 +91,8 @@ export default {
     },
     props:{
         id: String,
-        store: String
+        store: String,
+        list: String
     }
 }
 </script>

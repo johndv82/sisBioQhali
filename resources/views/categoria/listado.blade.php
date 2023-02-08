@@ -25,6 +25,7 @@
                     <div class="col-md-12">
                         <div class="table-responsive table--no-card m-b-30">
                             <table-categoria-component list="{{ route('categorias.list') }}"></table-categoria-component>
+                            <!--<react-ejemplo-component></react-ejemplo-component>-->
                         </div>
                     </div>
                 </div>
@@ -35,5 +36,5 @@
 @endsection
 
 @section('modal')
-    <new-categoria-component id="{{$nombreModal}}" store="{{ route('categorias.store') }}"></new-categoria-component>
+    <new-categoria-component id="{{$nombreModal}}" store="{{ route('categorias.store') }}" list="{{ route('categorias.list') }}"></new-categoria-component>
 @endsection

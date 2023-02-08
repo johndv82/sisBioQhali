@@ -51,8 +51,9 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
+        $nuevoIdCategoria = Categoria::count() + 1;
         $categoria = new Categoria();
-        $categoria->id_cat = 1001;
+        $categoria->id_cat = $nuevoIdCategoria;
         $categoria->nombre_cat = $request->input('nombre');
         $categoria->codigo_cat = "EJM01";
         $categoria->obs_cat = $request->input('observaciones');
@@ -61,6 +62,7 @@ class CategoriaController extends Controller
         return Response()->json([
             'msg' => 'OK'
         ]);
+        
     }
 
     /**
