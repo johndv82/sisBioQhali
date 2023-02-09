@@ -42,7 +42,7 @@
         <div id="app">
             @include('layout.partial.header-desktop')
 
-            @include('layout.partial.main-content')
+            @yield('contenido')
         </div>
     </div>
     <!-- END PAGE CONTAINER-->

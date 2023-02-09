@@ -1,7 +1,7 @@
 <template>
     <DataTable
         class="table table-striped table-bordered display"
-        :data="categorias" :columns="columnas"
+        :data="datos" :columns="columnas"
         :options="{
             responsive:true,
             autoWidth:false,
@@ -18,17 +18,7 @@
                 }
             },
             buttons: botones
-        }"
-        ref="table">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Nombre</th>
-            <th>Código</th>
-            <th>Observación</th>
-            <th>Acción</th>
-        </tr>
-        </thead>
+        }">
     </DataTable>
 </template>
 
@@ -42,9 +32,6 @@ import pdfmake from 'pdfmake'
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import 'datatables.net-responsive-bs4'
 import JsZip from 'jszip'
-import axios from 'axios'
-import {datos} from './datos.js'
-import {ref} from 'vue';
 
 //Exportar a PDF
 pdfmake.vfs = pdfFonts.pdfMake.vfs;
@@ -55,22 +42,21 @@ DataTable.use(pdfmake);
 DataTable.use(ButtonHtml5);
 
 export default {
-    name: "table-categoria-component",
+    name: "TableCategoriaComponent",
     components: {DataTable},
     data(){
         return{
-            categorias: [],
-            table: ref(),
+            //categorias: [],
             columnas:[
                 {data:null, render: function(data, type, row, meta){
                         return `${meta.row+1}`
-                    }},
-                {data:'nombre_cat'},
-                {data:'codigo_cat'},
-                {data:'obs_cat'},
-                {data:null, render: function(data, type, row, meta){
-                        return `<a href='#' class="btn btn-warning btn-sm">Editar</a>`
-                    }}
+                    }, title:'#'},
+                {data:'nombre_cat', title:'Nombre'},
+                {data:'codigo_cat', title: 'Código'},
+                {data:'obs_cat', title: 'Observación'},
+                {data:'id_cat', render: function(data, type, row, meta){
+                        return `<button id="btnEditar" class="btn btn-warning btn-sm">Editar</button>`
+                    }, title:'Acción'}
             ],
             botones: [
                 {
@@ -99,28 +85,21 @@ export default {
                     },
                     text: "<i class='fas fa-print'></i> Imprimir",
                     className: "btn btn-dark"
-                },
-                {
-                    text: "Actualizar", 
-                    action: function (e, dt, node, config ) {
-                        dt = datos.categoriaRepo;
-                    }
                 }
             ]
         }
     },
-    mounted(){
-        //Call endpoint categorias.list
-        let d = this;
-        axios.get(this.list).then(response =>{
-            datos.categoriaRepo = response.data.data;
-            d.categorias = response.data.data;
-        });
-    
-        //this.dt = this.table.value.dt();
+    methods:{
+        editar(){
+            console.log("click");
+        }
     },
     props:{
-        list: String
+        routelist: String,
+        datos:{
+            type: [Object, Array],
+            default: () => {}
+        }
     }
 }
 </script>

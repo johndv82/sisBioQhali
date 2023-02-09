@@ -1,9 +1,16 @@
 <template>
-    <div>Hello, Example Component!</div>
+    <MainLayout>
+        <template #mbody>
+            <div>Hello, Example Component!</div>
+        </template>
+    </MainLayout>
 </template>
 
 <script>
+import MainLayout from "./MainLayout";
+
 export default {
+    components: {MainLayout},
     mounted() {
         console.log('Example component mounted.')
     }

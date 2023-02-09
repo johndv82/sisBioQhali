@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" :id="id" tabindex="-1" role="dialog"
-         aria-labelledby="mediumModalLabel" aria-hidden="true">
+         aria-labelledby="mediumModalLabel" aria-hidden="true" ref="modalEle">
         <div class="modal-dialog modal-md" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -9,23 +9,38 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <mbody class="modal-body">
-                    <slot name="mbody"></slot>
-                </mbody>
-                <mfooter class="modal-footer">
-                    <slot name="mfooter"></slot>
-                </mfooter>
+                <slot name="mcontenido"></slot>
             </div>
         </div>
     </div>
 </template>
 
-<script lang="js">
-export default{
-    name: "ModalLayout",
-    props:{
-        id: String,
-        titulo: String,
-    }
+<script setup>
+import { onMounted, ref } from "vue";
+import { Modal } from "bootstrap";
+
+defineProps({
+    titulo: {
+        type: String,
+        default: "Sin Titulo",
+    },
+    id: String
+});
+
+let modalEle = ref(null);
+let thisModalObj = null;
+
+onMounted(() => {
+    thisModalObj = new Modal(modalEle.value);
+});
+
+function _show() {
+    thisModalObj.show();
 }
+
+function _close(){
+    thisModalObj.hide()
+}
+
+defineExpose({ show: _show, close: _close });
 </script>
