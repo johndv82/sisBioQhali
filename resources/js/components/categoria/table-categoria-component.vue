@@ -17,7 +17,7 @@
                     last: 'Último'
                 }
             },
-            buttons: botones
+            buttons: botones, select: true
         }">
     </DataTable>
 </template>
@@ -53,45 +53,28 @@ export default {
                     }, title:'#'},
                 {data:'nombre_cat', title:'Nombre'},
                 {data:'codigo_cat', title: 'Código'},
-                {data:'obs_cat', title: 'Observación'},
-                {data:'id_cat', render: function(data, type, row, meta){
-                        return `<button id="btnEditar" class="btn btn-warning btn-sm">Editar</button>`
-                    }, title:'Acción'}
+                {data:'obs_cat', title: 'Observación'}
             ],
             botones: [
                 {
                     title: "Reporte de Categorías",
                     extend: "excelHtml5",
-                    exportOptions: {
-                        columns: [ 0, 1, 2, 3 ]
-                    },
                     text: "<i class='fas fa-file-excel'></i> Excel",
                     className: "btn btn-success"
                 },
                 {
                     title: "Reporte de Categorías",
                     extend: "pdfHtml5",
-                    exportOptions: {
-                        columns: [ 0, 1, 2, 3 ]
-                    },
                     text: "<i class='fas fa-file-pdf'></i> PDF",
                     className: "btn btn-danger"
                 },
                 {
                     title: "Reporte de Categorías",
                     extend: "print",
-                    exportOptions: {
-                        columns: [ 0, 1, 2, 3 ]
-                    },
                     text: "<i class='fas fa-print'></i> Imprimir",
                     className: "btn btn-dark"
                 }
             ]
-        }
-    },
-    methods:{
-        editar(){
-            console.log("click");
         }
     },
     props:{

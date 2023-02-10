@@ -6,6 +6,6 @@
 
 @section('contenido')
 
-<categoria-component routestore="{{ route('categorias.store') }}" routelist="{{route('categorias.list')}}"></categoria-component>
+    <categoria-component routestore="{{ route('categorias.store') }}" routelist="{{route('categorias.list')}}"></categoria-component>
 
 @endsection
