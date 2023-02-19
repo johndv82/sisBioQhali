@@ -15,7 +15,7 @@
                         <div class="row form-group">
                             <div class="col-md-12">
                                 <div class="table-responsive table--no-card m-b-30">
-                                    <TableCategoriaComponent :routelist="routelist" :datos="datos"></TableCategoriaComponent>
+                                    <ListCategoriaComponent :datos="datos" ></ListCategoriaComponent>
                                 </div>
                             </div>
                         </div>
@@ -34,16 +34,16 @@
 
 <script lang="js">
 
-import MainLayout from "../MainLayout";
-import TableCategoriaComponent from "./table-categoria-component";
-import RegistroCategoriaComponent from "./registro-categoria-component";
+import MainLayout from "../MainLayout.vue";
+import RegistroCategoriaComponent from "./registro-categoria-component.vue";
+import ListCategoriaComponent from "./list-categoria-component.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout'
 import axios from "axios";
 
 export default {
     name: "categoria-component",
-    components: {MainLayout, TableCategoriaComponent, RegistroCategoriaComponent, ModalLayout},
+    components: {MainLayout, ListCategoriaComponent, RegistroCategoriaComponent, ModalLayout},
     data(){
         return{
             NombreModal: 'modalRegistroCategoria',
