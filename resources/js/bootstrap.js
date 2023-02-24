@@ -19,6 +19,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 // Configuration VUE3 + Components
 import { createApp } from 'vue'
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
 import example from './components/example-component'
 import table_producto from './components/producto/table-producto-component'
 import new_producto from './components/producto/new-producto-component'
@@ -27,6 +30,7 @@ import categoriaComponent from "./components/categoria/categoria-component";
 //Inicializar VUE3
 const app = createApp({})
 
+app.use(VueSweetalert2);
 app.component('example-component', example)
 app.component('table-producto-component', table_producto)
 app.component('new-producto-component', new_producto)

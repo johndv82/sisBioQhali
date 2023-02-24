@@ -26,21 +26,11 @@ class CategoriaController extends Controller
     public function list()
     {
         $respuesta = 404;
-        $categorias = Categoria::all();
+        $categorias = Categoria::where('estado_cat', 1)->get();
         if($categorias != null){
             $respuesta = 200;
         }
         return response()->json(['data' => $categorias, 'code' => $respuesta]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -54,15 +44,15 @@ class CategoriaController extends Controller
         $nuevoIdCategoria = Categoria::count() + 1;
         $categoria = new Categoria();
         $categoria->id_cat = $nuevoIdCategoria;
-        $categoria->nombre_cat = $request->input('nombre');
+        $categoria->nombre_cat = $request->input('nombre_cat');
         $categoria->codigo_cat = "EJM01";
-        $categoria->obs_cat = $request->input('observaciones');
+        $categoria->obs_cat = $request->input('obs_cat')??'';
         $categoria->usercreated_cat = "USR1";
         $categoria->save();
         return Response()->json([
-            'msg' => 'OK'
+            'msg' => 'Se registró correctamente',
+            'code' => 200
         ]);
-        
     }
 
     /**
@@ -73,18 +63,14 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        return Response();
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        return Response();
+        $respuesta = 404;
+        $categoria = Categoria::find($id);
+        if($categoria != null){
+            $respuesta = 200;
+        }
+        return Response()->json([
+            'data' => $categoria, 'code' => $respuesta
+        ]);
     }
 
     /**
@@ -96,7 +82,17 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Response();
+        $categoria = Categoria::find($id);
+        $categoria->nombre_cat = $request->input('nombre_cat');
+        $categoria->codigo_cat = "EJM01_EDIT";
+        $categoria->obs_cat = $request->input('obs_cat');
+        $categoria->usercreated_cat = "USR1_EDIT";
+        $categoria->usermodified_cat = "USR1";
+        $categoria->save();
+        return Response()->json([
+            'msg' => 'Se actualizó correctamente',
+            'code' => 200
+        ]);
     }
 
     /**
@@ -107,6 +103,12 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        return Response();
+        $categoria = Categoria::find($id);
+        $categoria->estado_cat = 0;
+        $categoria->save();
+        return Response()->json([
+            'msg' => 'Se eliminó correctamente',
+            'code' => 200
+        ]);
     }
 }

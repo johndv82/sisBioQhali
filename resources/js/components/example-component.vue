@@ -6,7 +6,7 @@
     </MainLayout>
 </template>
 
-<script>
+<script lang="js">
 import MainLayout from "./MainLayout";
 
 export default {

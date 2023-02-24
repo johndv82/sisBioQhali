@@ -6,6 +6,8 @@
 
 @section('contenido')
 
-    <categoria-component routestore="{{ route('categorias.store') }}" routelist="{{route('categorias.list')}}"></categoria-component>
+    <categoria-component 
+        routebase="{{ URL::to('/categorias') }}">
+    </categoria-component>
 
 @endsection

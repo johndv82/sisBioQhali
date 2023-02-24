@@ -3,12 +3,13 @@
         <form id="frmCategoria" autocomplete="off" onsubmit="return false;">
             <div class="row form-group">
                 <div class="col-md-12">
+                    {{ categoria }}
                     <div class="form-group">
                         <label for="nombre" class="form-control-label">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" class="form-control"
-                               :class="{ 'is-invalid': v$.categoria.nombre.$error }"
-                               v-model="v$.categoria.nombre.$model">
-                        <div v-for="(error, index) of v$.categoria.nombre.$errors" :key="index">
+                               :class="{ 'is-invalid': v$.categoria.nombre_cat.$error }"
+                               v-model="v$.categoria.nombre_cat.$model">
+                        <div v-for="(error, index) of v$.categoria.nombre_cat.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}
                             </div>
@@ -21,7 +22,7 @@
                     <div class="form-group">
                         <label for="observaciones" class="form-control-label">Observaciones:</label>
                         <textarea rows="3" id="observaciones" name="observaciones" class="form-control" style="resize: none;"
-                                  v-model="categoria.observaciones"></textarea>
+                                  v-model="categoria.obs_cat"></textarea>
                     </div>
                 </div>
             </div>
@@ -42,18 +43,10 @@ export default {
     setup () {
         return { v$: useVuelidate() }
     },
-    data(){
-        return {
-            categoria: {
-                nombre: '',
-                observaciones: '',
-            }
-        }
-    },
     validations() {
         return {
             categoria: {
-                nombre: {
+                nombre_cat: {
                     required: helpers.withMessage('Nombre de Categoria es Obligatorio', required),
                 }
             }
@@ -65,10 +58,29 @@ export default {
             this.v$.$validate()
             if (!this.v$.$error) {
                 let self = this;
-                axios.post(this.routestore, this.categoria)
-                .then(function (response) {
+                let idcategoria = this.categoria.id_cat;
+                let peticion = null;
+                if(idcategoria == 0){
+                    peticion = axios.post(this.routebase, this.categoria)
+                }else{
+                    peticion = axios.put(this.routebase + '/' + idcategoria, this.categoria)
+                }
+
+                peticion.then(function (response) {
                     //Actualizar Tabla
                     self.$emit('refresh-table');
+                    self.$swal({
+                        title: response.data.msg,
+                        icon: 'success',
+                        iconColor: 'white',
+                        color: 'white',
+                        toast: true,
+                        position: 'top-right',
+                        background: '#62c429',
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -80,7 +92,8 @@ export default {
         }
     },
     props:{
-        routestore: String
+        routebase: String,
+        categoria: Object
     }
 }
 </script>
