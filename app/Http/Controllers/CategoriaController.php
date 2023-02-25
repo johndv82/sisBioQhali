@@ -15,7 +15,7 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return response()->view('categoria.listado');
+        return response()->view('mantenimiento.categorias');
     }
 
     /**
@@ -84,9 +84,7 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
         $categoria->nombre_cat = $request->input('nombre_cat');
-        $categoria->codigo_cat = "EJM01_EDIT";
         $categoria->obs_cat = $request->input('obs_cat');
-        $categoria->usercreated_cat = "USR1_EDIT";
         $categoria->usermodified_cat = "USR1";
         $categoria->save();
         return Response()->json([

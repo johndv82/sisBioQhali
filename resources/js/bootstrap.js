@@ -22,15 +22,15 @@ import { createApp } from 'vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import example from './components/example-component'
 import categoriaComponent from "./components/categoria/categoria-component";
+import productoComponent from './components/producto/producto-component';
 
 //Inicializar VUE3
 const app = createApp({})
 
 app.use(VueSweetalert2);
-app.component('example-component', example)
 app.component('categoria-component', categoriaComponent)
+app.component('producto-component', productoComponent)
 app.mount('#app')
 
 

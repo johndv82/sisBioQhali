@@ -16,7 +16,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        return response()->view('producto.listado');
+        return response()->view('mantenimiento.productos');
     }
 
     /**
@@ -35,20 +35,6 @@ class ProductoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        
-        return Response()->json([
-            'msg' => 'Se registró correctamente',
-            'code' => 200
-        ]);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request
@@ -56,7 +42,25 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nuevoIdProducto = Producto::count() + 1;
+        while(Producto::where('id_prod', $nuevoIdProducto)->exists()){
+            $nuevoIdProducto++;
+        }
+        $producto = new Producto();
+        $producto->id_prod = $nuevoIdProducto;
+        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->codigo_prod = 'PRD' . sprintf('%05d', $nuevoIdProducto);
+        $producto->idcat_prod = $request->input('idcat_prod');
+        $producto->puntos_prod = $request->input('puntos_prod');
+        $producto->precioc_prod = $request->input('precioc_prod');
+        $producto->preciov_prod = $request->input('preciov_prod');
+        $producto->obs_prod = $request->input('obs_prod');
+        $producto->usercreated_prod = "USR1";
+        $producto->save();
+        return Response()->json([
+            'msg' => 'Se registró correctamente',
+            'code' => 200
+        ]);
     }
 
     /**
@@ -67,18 +71,14 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        //
+        $respuesta = 404;
+        $producto = Producto::find($id);
+        if($producto != null){
+            $respuesta = 200;
+        }
+        return Response()->json([
+            'data' => $producto, 'code' => $respuesta
+        ]);
     }
 
     /**
@@ -90,7 +90,19 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $producto = Producto::find($id);
+        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->idcat_prod = $request->input('idcat_prod');
+        $producto->puntos_prod = $request->input('puntos_prod');
+        $producto->precioc_prod = $request->input('precioc_prod');
+        $producto->preciov_prod = $request->input('preciov_prod');
+        $producto->obs_prod = $request->input('obs_prod');
+        $producto->usermodified_prod = "USR1_EDIT";
+        $producto->save();
+        return Response()->json([
+            'msg' => 'Se actualizó correctamente',
+            'code' => 200
+        ]);
     }
 
     /**
@@ -101,6 +113,12 @@ class ProductoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $producto = Producto::find($id);
+        $producto->estado_cat = 0;
+        $producto->save();
+        return Response()->json([
+            'msg' => 'Se eliminó correctamente',
+            'code' => 200
+        ]);
     }
 }

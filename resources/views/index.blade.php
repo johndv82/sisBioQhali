@@ -5,7 +5,5 @@
 @endsection
 
 @section('contenido')
-
-<example-component></example-component>
-
+    Dashboard
 @endsection

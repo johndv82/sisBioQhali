@@ -6,8 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 class Producto extends Model
 {
     protected $table = "tb_producto";
+    protected $primaryKey = 'id_prod';
+    protected $hidden = ['modified_prod' ,'usercreated_prod', 'usermodified_prod'];
+
+    protected $attributes = [
+        'idmed_prod' => 1,
+        'contenido_prod' => 1
+    ];
 
     protected $casts = [
-        'created_at' => 'date:d/m/Y',
+        'created_prod' => 'date:d/m/Y',
     ];
+
+    public $timestamps = false;
 }

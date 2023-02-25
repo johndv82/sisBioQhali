@@ -19,9 +19,11 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/categorias/list', [CategoriaController::class, 'list'])->name('categorias.list');
+Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
+
 Route::resources([
-    'productos' => ProductoController::class,
-    'categorias' => CategoriaController::class
+    'categorias' => CategoriaController::class,
+    'productos' => ProductoController::class
 ]);
 
 
