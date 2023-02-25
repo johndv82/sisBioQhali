@@ -16,9 +16,22 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
-        return response()
-            ->view('producto.listado',compact('productos'));
+        return response()->view('producto.listado');
+    }
+
+    /**
+     * Return a listing of the resource.
+     *
+     * @return Response
+     */
+    public function list()
+    {
+        $respuesta = 404;
+        $productos = Producto::where('estado_prod', 1)->get();
+        if($productos != null){
+            $productos = 200;
+        }
+        return response()->json(['data' => $categorias, 'code' => $respuesta]);
     }
 
     /**
@@ -28,7 +41,11 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+        
+        return Response()->json([
+            'msg' => 'Se registró correctamente',
+            'code' => 200
+        ]);
     }
 
     /**

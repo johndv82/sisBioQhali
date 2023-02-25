@@ -1,7 +1,7 @@
 <template>
     <div class="form-group row">
         <label for="txtBuscar" class="col-sm-2 col-form-label">Buscar [Nombre]: </label>
-        <div class="col-sm-9">
+        <div class="col-sm-10">
             <input type="seach" class="form-control" id="txtBuscar" placeholder="Criterio de búsqueda"
                 v-model="busqueda" />
         </div>
