@@ -29,9 +29,9 @@ class ProductoController extends Controller
         $respuesta = 404;
         $productos = Producto::where('estado_prod', 1)->get();
         if($productos != null){
-            $productos = 200;
+            $respuesta = 200;
         }
-        return response()->json(['data' => $categorias, 'code' => $respuesta]);
+        return response()->json(['data' => $productos, 'code' => $respuesta]);
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductoController extends Controller
         $producto->puntos_prod = $request->input('puntos_prod');
         $producto->precioc_prod = $request->input('precioc_prod');
         $producto->preciov_prod = $request->input('preciov_prod');
-        $producto->obs_prod = $request->input('obs_prod');
+        $producto->obs_prod = $request->input('obs_prod')??'';
         $producto->usercreated_prod = "USR1";
         $producto->save();
         return Response()->json([
@@ -96,7 +96,7 @@ class ProductoController extends Controller
         $producto->puntos_prod = $request->input('puntos_prod');
         $producto->precioc_prod = $request->input('precioc_prod');
         $producto->preciov_prod = $request->input('preciov_prod');
-        $producto->obs_prod = $request->input('obs_prod');
+        $producto->obs_prod = $request->input('obs_prod')??'';
         $producto->usermodified_prod = "USR1_EDIT";
         $producto->save();
         return Response()->json([

@@ -3,7 +3,6 @@
         <form id="frmCategoria" autocomplete="off" onsubmit="return false;">
             <div class="row form-group">
                 <div class="col-md-12">
-                    {{ categoria }}
                     <div class="form-group">
                         <label for="nombre" class="form-control-label">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" class="form-control"

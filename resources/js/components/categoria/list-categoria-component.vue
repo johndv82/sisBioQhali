@@ -112,7 +112,6 @@ export default {
         }
     },
     props: {
-        routeUpdate: String,
         datos: {
             type: [Object, Array],
             default: () => { }
