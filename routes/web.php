@@ -20,10 +20,12 @@ Route::get('/', function () {
 });
 Route::get('/categorias/list', [CategoriaController::class, 'list'])->name('categorias.list');
 Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
+Route::get('/clientes/list', [ClienteController::class, 'list'])->name('clientes.list');
 
 Route::resources([
     'categorias' => CategoriaController::class,
-    'productos' => ProductoController::class
+    'productos' => ProductoController::class,
+    'clientes' => ClienteController::class,
 ]);
 
 

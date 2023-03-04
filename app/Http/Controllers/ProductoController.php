@@ -114,7 +114,7 @@ class ProductoController extends Controller
     public function destroy($id)
     {
         $producto = Producto::find($id);
-        $producto->estado_cat = 0;
+        $producto->estado_prod = 0;
         $producto->save();
         return Response()->json([
             'msg' => 'Se eliminó correctamente',
