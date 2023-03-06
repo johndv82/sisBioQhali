@@ -42,6 +42,9 @@ class CategoriaController extends Controller
     public function store(Request $request)
     {
         $nuevoIdCategoria = Categoria::count() + 1;
+        while(Categoria::where('id_cat', $nuevoIdCategoria)->exists()){
+            $nuevoIdCategoria++;
+        }
         $categoria = new Categoria();
         $categoria->id_cat = $nuevoIdCategoria;
         $categoria->nombre_cat = $request->input('nombre_cat');

@@ -56,7 +56,7 @@ class ClienteController extends Controller
         $cliente->email_cli = $request->input('email_cli')??'';
         $cliente->idmembresia_cli = $request->input('idmembresia_cli');
         $cliente->obs_cli = $request->input('obs_cli')??'';
-        $cliente->usercreated_prod = "USR1";
+        $cliente->usercreated_cli = "USR1";
         $cliente->save();
         return Response()->json([
             'msg' => 'Se registró correctamente',
@@ -101,7 +101,7 @@ class ClienteController extends Controller
         $cliente->email_cli = $request->input('email_cli')??'';
         $cliente->idmembresia_cli = $request->input('idmembresia_cli');
         $cliente->obs_cli = $request->input('obs_cli')??'';
-        $cliente->usermodified_prod = "USR1";
+        $cliente->usermodified_cli = "USR1";
         $cliente->save();
         return Response()->json([
             'msg' => 'Se actualizó correctamente',
