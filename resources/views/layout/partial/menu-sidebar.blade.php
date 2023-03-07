@@ -8,30 +8,34 @@
     <div class="menu-sidebar__content js-scrollbar1">
         <nav class="navbar-sidebar">
             <ul class="list-unstyled navbar__list">
-                <li>
-                    <a href="{{route('productos.index')}}">
-                        <i class="fas fa-box"></i>Productos</a>
-                </li>
-                <li>
-                    <a href="{{route('categorias.index')}}">
-                        <i class="fas fa-box"></i>Categorias</a>
-                </li>
 
                 <!-- Mantenimiento -->
                 <li class="has-sub">
                     <a class="js-arrow" href="#"><i class="fas fa-gears"></i>Mantenimiento</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="#"><i class="fas fa-gear"></i>Estado Civil</a>
+                            <a href="{{route('productos.index')}}">
+                                <i class="fas fa-box"></i>Productos</a>
+                        </li>
+                        <li>
+                            <a href="{{route('categorias.index')}}">
+                                <i class="fas fa-gear"></i>Categorías</a>
+                        </li>
+                        <li>
+                            <a href="{{route('membresias.index')}}">
+                                <i class="fas fa-user-circle"></i>Membresias</a>
                         </li>
                     </ul>
                 </li>
-                <!-- Ubigeo -->
+                <!-- Ventas -->
                 <li class="has-sub">
-                    <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ubigeo</a>
+                    <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ventas</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="#"><i class="fas fa-map"></i>Paises</a>
+                            <a href="#"><i class="fas fa-map"></i>Nueva Venta</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-map"></i>Consulta de Ventas</a>
                         </li>
                     </ul>
                 </li>

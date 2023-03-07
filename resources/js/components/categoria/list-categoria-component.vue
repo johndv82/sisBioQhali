@@ -39,7 +39,7 @@
                 <nav aria-label="...">
                     <ul class="pagination">
                         <li class="page-item" :class="current_page == 1 ? 'disabled' : ''">
-                            <a class="page-link" @click="previous_page_click()">Previous</a>
+                            <a class="page-link" @click="previous_page_click()">Anterior</a>
                         </li>
                         <template v-for="b in botones_a_pintar">
                             <li class="page-item" :class="current_page == b ? 'active' : ''">
@@ -47,7 +47,7 @@
                             </li>
                         </template>
                         <li class="page-item" :class="current_page == botones_a_pintar ? 'disabled' : ''">
-                            <a class="page-link" @click="next_page_click()">Next</a>
+                            <a class="page-link" @click="next_page_click()">Siguiente</a>
                         </li>
                     </ul>
                 </nav>

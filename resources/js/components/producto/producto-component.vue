@@ -25,7 +25,7 @@
         </template>
     </MainLayout>
 
-    <ModalLayout id="modalRegistroCategoria" titulo="Registro de Nueva Categoria" ref="thisModal">
+    <ModalLayout id="modalRegistroCategoria" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
             <RegistroProductoComponent 
                 :routebase="routebase"
@@ -51,8 +51,7 @@ export default {
     components: {MainLayout, ListProductoComponent, RegistroProductoComponent, ModalLayout},
     data(){
         return{
-            NombreModal: 'modalRegistroProducto',
-            IdModal: '#modalRegistroProducto',
+            titulomodal: '',
             datos: ref([]),
             producto: {},
             categoria_list: []
@@ -81,6 +80,7 @@ export default {
                 preciov_prod: 0,
                 obs_prod: ''
             };
+            this.titulomodal = 'Registro de Nuevo Producto';
             this.cargarCategoriasList();
             this.abrirModal();
         },
@@ -95,6 +95,7 @@ export default {
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.producto = response.data.data;
             });
+            this.titulomodal = 'Actualización de Producto';
             this.cargarCategoriasList();
             this.abrirModal();
         },

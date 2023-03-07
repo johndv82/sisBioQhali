@@ -24,6 +24,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 import categoriaComponent from "./components/categoria/categoria-component";
 import productoComponent from './components/producto/producto-component';
+import membresiaComponent from './components/membresia/membresia-component';
 
 //Inicializar VUE3
 const app = createApp({})
@@ -31,6 +32,7 @@ const app = createApp({})
 app.use(VueSweetalert2);
 app.component('categoria-component', categoriaComponent)
 app.component('producto-component', productoComponent)
+app.component('membresia-component', membresiaComponent)
 app.mount('#app')
 
 

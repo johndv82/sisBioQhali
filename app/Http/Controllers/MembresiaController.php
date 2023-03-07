@@ -19,6 +19,21 @@ class MembresiaController extends Controller
     }
 
     /**
+     * Return a listing of the resource.
+     *
+     * @return Response
+     */
+    public function list()
+    {
+        $respuesta = 404;
+        $membresias = Membresia::where('estado_mem', 1)->get();
+        if($membresias != null){
+            $respuesta = 200;
+        }
+        return response()->json(['data' => $membresias, 'code' => $respuesta]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -32,7 +47,7 @@ class MembresiaController extends Controller
         }
         $membresia = new Membresia();
         $membresia->id_mem = $nuevoIdMembresia;
-        $membresia->nombre_cat = $request->input('nombre_mem');
+        $membresia->nombre_mem = $request->input('nombre_mem');
         $membresia->monto_mem = $request->input('monto_mem');
         $membresia->descuento_mem = $request->input('descuento_mem');
         $membresia->obs_mem = $request->input('obs_mem')??'';
@@ -72,7 +87,7 @@ class MembresiaController extends Controller
     public function update(Request $request, $id)
     {
         $membresia = Membresia::find($id);
-        $membresia->nombre_cat = $request->input('nombre_mem');
+        $membresia->nombre_mem = $request->input('nombre_mem');
         $membresia->monto_mem = $request->input('monto_mem');
         $membresia->descuento_mem = $request->input('descuento_mem');
         $membresia->obs_mem = $request->input('obs_mem')??'';
