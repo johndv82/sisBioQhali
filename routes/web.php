@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MembresiaController;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------

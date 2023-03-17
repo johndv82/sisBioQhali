@@ -48,7 +48,7 @@ class ClienteController extends Controller
         $cliente = new Cliente();
         $cliente->id_cli = $nuevoIdCliente;
         $cliente->nombrec_cli = $request->input('nombrec_cli');
-        $cliente->codigocli = 'CLI' . sprintf('%05d', $nuevoIdCliente);
+        $cliente->codigo_cli = 'CLI' . sprintf('%05d', $nuevoIdCliente);
         $cliente->tipodoc_cli = $request->input('tipodoc_cli');
         $cliente->numerodoc_cli = $request->input('numerodoc_cli');
         $cliente->domicilio_cli = $request->input('domicilio_cli')??'';
@@ -119,6 +119,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::find($id);
         $cliente->estado_cli = 0;
+        $cliente->usermodified_cli = "USR1_DELETE";
         $cliente->save();
         return Response()->json([
             'msg' => 'Se eliminó correctamente',

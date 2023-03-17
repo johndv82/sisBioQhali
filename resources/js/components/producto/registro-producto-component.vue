@@ -23,7 +23,7 @@
                         <select name="categoria" id="categoria" class="form-control"
                             :class="{ 'is-invalid': v$.producto.idcat_prod.$error }"
                             v-model="v$.producto.idcat_prod.$model">
-                            <option value="0">Seleccione Categoria</option>
+                            <option value="0">Seleccione</option>
                             <template v-for="item in categoria_list">
                                 <option :value="item.id_cat" :selected="item.id_cat == producto.idcat_prod">
                                     {{ item.nombre_cat }}

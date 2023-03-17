@@ -25,7 +25,7 @@
         </template>
     </MainLayout>
 
-    <ModalLayout id="modalRegistroCategoria" :titulo="titulomodal" ref="thisModal">
+    <ModalLayout id="modalRegistroProducto" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
             <RegistroProductoComponent 
                 :routebase="routebase"
