@@ -27,7 +27,7 @@
                             <td>{{ item.codigo_cli }}</td>
                             <td>{{ item.tipodoc_cli }}</td>
                             <td>{{ item.numerodoc_cli }}</td>
-                            <td>{{ item.idmembresia_cli }}</td>
+                            <td>{{ item.membresia.nombre_mem }}</td>
                             <td>
                                 <button v-bind:id="'btnEditar-' + item.id_cli" class="btn btn-sm btn-warning"
                                     @click="editar(item.id_cli)">Editar</button>&nbsp;

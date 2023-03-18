@@ -16,4 +16,8 @@ class Cliente extends Model
     ];
 
     public $timestamps = false;
+    
+    public function membresia(){
+        return $this->belongsTo(Membresia::class, 'idmembresia_cli', 'id_mem');
+    }
 }

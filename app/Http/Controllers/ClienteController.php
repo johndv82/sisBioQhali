@@ -26,7 +26,7 @@ class ClienteController extends Controller
     public function list()
     {
         $respuesta = 404;
-        $clientes = Cliente::where('estado_cli', 1)->get();
+        $clientes = Cliente::with('membresia')->where('estado_cli', 1)->get();
         if($clientes != null){
             $respuesta = 200;
         }
