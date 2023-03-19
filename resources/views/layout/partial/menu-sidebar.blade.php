@@ -25,6 +25,10 @@
                             <a href="{{route('membresias.index')}}">
                                 <i class="fas fa-user-circle"></i>Membresias</a>
                         </li>
+                        <li>
+                            <a href="{{route('clientes.index')}}">
+                                <i class="fas fa-users"></i>Clientes</a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Ventas -->

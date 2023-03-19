@@ -131,7 +131,8 @@ export default {
                     minValue: helpers.withMessage('Campo de selección obligatorio.', minValue(1))
                 },
                 puntos_prod:{
-                    minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1))
+                    minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1)),
+                    maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
                 },
                 precioc_prod:{
                     minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1)),

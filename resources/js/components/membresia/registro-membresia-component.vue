@@ -67,7 +67,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, minValue, helpers } from '@vuelidate/validators'
+import { required, maxValue, helpers } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
@@ -80,13 +80,13 @@ export default {
         return {
             membresia: {
                 nombre_mem: {
-                    required: helpers.withMessage('Nombre de Membresia es Obligatorio', required),
+                    required: helpers.withMessage('Campo de Ingreso es Obligatorio', required),
                 },
                 monto_mem:{
-                    minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1))
+                    maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
                 },
                 descuento_mem:{
-                    minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1))
+                    maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
                 },
             }
         }
