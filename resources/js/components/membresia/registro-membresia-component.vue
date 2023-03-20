@@ -53,7 +53,13 @@
                     <div class="form-group">
                         <label for="observaciones" class="form-control-label">Observaciones:</label>
                         <textarea rows="3" id="observaciones" name="observaciones" class="form-control" style="resize: none;"
-                                  v-model="membresia.obs_mem"></textarea>
+                                :class="{ 'is-invalid': v$.membresia.obs_mem.$error }"
+                                v-model="v$.membresia.obs_mem.$model"></textarea>
+                        <div v-for="(error, index) of v$.membresia.obs_mem.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,7 +73,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, maxValue, helpers } from '@vuelidate/validators'
+import { required, maxValue, helpers, maxLength } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
@@ -81,12 +87,16 @@ export default {
             membresia: {
                 nombre_mem: {
                     required: helpers.withMessage('Campo de Ingreso es Obligatorio', required),
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(100))
                 },
                 monto_mem:{
                     maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
                 },
                 descuento_mem:{
                     maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
+                },
+                obs_mem:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(250))
                 },
             }
         }

@@ -20,8 +20,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="observaciones" class="form-control-label">Observaciones:</label>
-                        <textarea rows="3" id="observaciones" name="observaciones" class="form-control" style="resize: none;"
-                                  v-model="categoria.obs_cat"></textarea>
+                        <textarea rows="3" id="observaciones" name="observaciones" class="form-control"
+                            :class="{ 'is-invalid': v$.categoria.obs_cat.$error }"
+                            v-model="v$.categoria.obs_cat.$model"></textarea>
+                        <div v-for="(error, index) of v$.categoria.obs_cat.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -35,7 +41,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, minLength, maxLength, helpers } from '@vuelidate/validators'
+import { required, maxLength, helpers } from '@vuelidate/validators'
 
 export default {
     name: "RegistroCategoriaComponent",
@@ -46,7 +52,11 @@ export default {
         return {
             categoria: {
                 nombre_cat: {
-                    required: helpers.withMessage('Nombre de Categoria es Obligatorio', required),
+                    required: helpers.withMessage('Campo de ingreso obligatorio.', required),
+                    maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(100))
+                },
+                obs_cat:{
+                    maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(250))
                 }
             }
         }
@@ -97,5 +107,7 @@ export default {
 }
 </script>
 <style scoped>
-
+#observaciones{
+    resize: none;
+}
 </style>

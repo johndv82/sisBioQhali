@@ -4,10 +4,10 @@
             <div class="row form-group">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="nombre" class="form-control-label">Nombre:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control"
+                        <label for="nombre" class="form-control-label">Nombre/Descripción:</label>
+                        <textarea rows="2" id="nombre" name="nombre" class="form-control" style="resize: none;" 
                             :class="{ 'is-invalid': v$.producto.nombre_prod.$error }"
-                            v-model="v$.producto.nombre_prod.$model">
+                            v-model="v$.producto.nombre_prod.$model"></textarea>
                         <div v-for="(error, index) of v$.producto.nombre_prod.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}
@@ -42,7 +42,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="codigo" class="form-control-label">Código:</label>
-                        <input type="text" id="codigo" name="codigo" class="form-control" v-model="producto.codigo_prod">
+                        <input type="text" id="codigo" name="codigo" class="form-control" 
+                            :class="{ 'is-invalid': v$.producto.codigo_prod.$error }"
+                            v-model="v$.producto.codigo_prod.$model">
+                        <div v-for="(error, index) of v$.producto.codigo_prod.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -98,7 +105,13 @@
                     <div class="form-group">
                         <label for="observaciones" class="form-control-label">Observaciones:</label>
                         <textarea rows="3" id="observaciones" name="observaciones" class="form-control"
-                            style="resize: none;" v-model="producto.obs_prod"></textarea>
+                            :class="{ 'is-invalid': v$.producto.obs_prod.$error }"
+                            v-model="v$.producto.obs_prod.$model"></textarea>
+                        <div v-for="(error, index) of v$.producto.obs_prod.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -112,7 +125,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, minLength, maxLength, helpers, minValue, maxValue } from '@vuelidate/validators'
+import { required, maxLength, helpers, minValue, maxValue } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
@@ -125,13 +138,16 @@ export default {
         return {
             producto: {
                 nombre_prod: {
-                    required: helpers.withMessage('Campo de ingreso obligatorio.', required)
+                    required: helpers.withMessage('Campo de ingreso obligatorio.', required),
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(300)),
+                },
+                codigo_prod:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(20)),
                 },
                 idcat_prod: {
                     minValue: helpers.withMessage('Campo de selección obligatorio.', minValue(1))
                 },
                 puntos_prod:{
-                    minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1)),
                     maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
                 },
                 precioc_prod:{
@@ -141,6 +157,9 @@ export default {
                 preciov_prod:{
                     minValue: helpers.withMessage('Valor mínimo es 1.', minValue(1)),
                     maxValue: helpers.withMessage('Valor mínimo es 10000.', maxValue(10000))
+                },
+                obs_prod:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(250)),
                 }
             }
         }
@@ -194,5 +213,11 @@ export default {
 <style scoped>
 .form-group {
     margin-bottom: 3px !important;
+}
+#codigo{
+    text-transform:uppercase;
+}
+#observacion{
+    resize: none;
 }
 </style>

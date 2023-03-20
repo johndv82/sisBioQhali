@@ -79,6 +79,7 @@ export default {
                 domicilio_cli: '',
                 telefono_cli: '',
                 email_cli: '',
+                idmembresia_cli: 0,
                 membresia: {},
                 obs_cli: ''
             };

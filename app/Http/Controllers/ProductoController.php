@@ -49,7 +49,13 @@ class ProductoController extends Controller
         $producto = new Producto();
         $producto->id_prod = $nuevoIdProducto;
         $producto->nombre_prod = $request->input('nombre_prod');
-        $producto->codigo_prod = 'PRD' . sprintf('%05d', $nuevoIdProducto);
+        
+        $codigo = trim($request->input('codigo_prod') ?? '');
+        if($codigo){
+            $producto->codigo_prod = strtoupper($codigo);
+        }else{
+            $producto->codigo_prod = 'PRD' . sprintf('%05d', $nuevoIdProducto);
+        }
         $producto->idcat_prod = $request->input('idcat_prod');
         $producto->puntos_prod = $request->input('puntos_prod');
         $producto->precioc_prod = $request->input('precioc_prod');

@@ -20,7 +20,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="codigo" class="form-control-label">Código:</label>
-                        <input type="text" id="codigo" name="codigo" class="form-control" v-model="cliente.codigo_cli">
+                        <input type="text" id="codigo" name="codigo" class="form-control" 
+                            :class="{ 'is-invalid': v$.cliente.codigo_cli.$error }"
+                            v-model="v$.cliente.codigo_cli.$model">
+                        <div v-for="(error, index) of v$.cliente.codigo_cli.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -81,7 +88,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="domicilio" class="form-control-label">Domicilio:</label>
-                        <input type="text" id="domicilio" name="domicilio" class="form-control" v-model="cliente.domicilio_cli">
+                        <input type="text" id="domicilio" name="domicilio" class="form-control" 
+                            :class="{ 'is-invalid': v$.cliente.domicilio_cli.$error }"
+                            v-model="v$.cliente.domicilio_cli.$model">
+                        <div v-for="(error, index) of v$.cliente.domicilio_cli.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -89,7 +103,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="telefono" class="form-control-label">Teléfono:</label>
-                        <input type="text" id="telefono" name="telefono" class="form-control" v-model="cliente.telefono_cli">
+                        <input type="text" id="telefono" name="telefono" class="form-control" 
+                            :class="{ 'is-invalid': v$.cliente.telefono_cli.$error }"
+                            v-model="v$.cliente.telefono_cli.$model">
+                        <div v-for="(error, index) of v$.cliente.telefono_cli.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,7 +118,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="email" class="form-control-label">E-mail:</label>
-                        <input type="text" id="email" name="email" class="form-control" v-model="cliente.email_cli">
+                        <input type="text" id="email" name="email" class="form-control" 
+                            :class="{ 'is-invalid': v$.cliente.email_cli.$error }"
+                            v-model="v$.cliente.email_cli.$model">
+                        <div v-for="(error, index) of v$.cliente.email_cli.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,8 +133,14 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="observaciones" class="form-control-label">Observaciones:</label>
-                        <textarea rows="3" id="observaciones" name="observaciones" class="form-control"
-                            style="resize: none;" v-model="cliente.obs_cli"></textarea>
+                        <textarea rows="3" id="observaciones" name="observaciones" class="form-control" 
+                            :class="{ 'is-invalid': v$.cliente.obs_cli.$error }"
+                            v-model="v$.cliente.obs_cli.$model"></textarea>
+                        <div v-for="(error, index) of v$.cliente.obs_cli.$errors" :key="index">
+                            <div class="invalid-feedback d-block">
+                                {{ error.$message }}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,7 +154,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, maxLength, minLength, helpers, minValue } from '@vuelidate/validators'
+import { required, maxLength, minLength, helpers, minValue, email } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
@@ -138,7 +172,11 @@ export default {
         return {
             cliente: {
                 nombrec_cli: {
-                    required: helpers.withMessage('Campo de ingreso obligatorio.', required)
+                    required: helpers.withMessage('Campo de ingreso obligatorio.', required),
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200))
+                },
+                codigo_cli:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(20))
                 },
                 tipodoc_cli:{
                     required: helpers.withMessage('Campo de selección obligatorio.', required)
@@ -150,6 +188,19 @@ export default {
                 },
                 idmembresia_cli: {
                     minValue: helpers.withMessage('Campo de selección obligatorio.', minValue(1))
+                },
+                domicilio_cli:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200))
+                },
+                telefono_cli:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(20)),
+                },
+                email_cli:{
+                    email: helpers.withMessage('E-mail inválido.', email),
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(150))
+                },
+                obs_cli:{
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(250))
                 }
             }
         }
@@ -168,7 +219,8 @@ export default {
                     peticion = axios.put(this.routebase + '/' + idcliente, this.cliente)
                 }
 
-                peticion.then(function (response) {
+                peticion
+                .then(function (response) {
                     //Actualizar Tabla
                     self.$emit('refresh-table');
                     self.$swal({
@@ -183,10 +235,10 @@ export default {
                         timer: 2500,
                         timerProgressBar: true
                     });
-                })
-                    .catch(function (error) {
-                        console.log(error);
-                    });
+                }
+                ).catch(function (error) {
+                    console.log(error);
+                });
             }
         },
         cancelar() {
@@ -213,5 +265,11 @@ export default {
 <style scoped>
 .form-group {
     margin-bottom: 3px !important;
+}
+#codigo{
+    text-transform:uppercase;
+}
+#observaciones{
+    resize: none;
 }
 </style>

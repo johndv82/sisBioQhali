@@ -45,10 +45,17 @@ class ClienteController extends Controller
         while(Cliente::where('id_cli', $nuevoIdCliente)->exists()){
             $nuevoIdCliente++;
         }
+        
         $cliente = new Cliente();
         $cliente->id_cli = $nuevoIdCliente;
         $cliente->nombrec_cli = $request->input('nombrec_cli');
-        $cliente->codigo_cli = 'CLI' . sprintf('%05d', $nuevoIdCliente);
+
+        $codigo = trim($request->input('codigo_cli') ?? '');
+        if($codigo){
+            $cliente->codigo_cli = strtoupper($codigo);
+        }else{
+            $cliente->codigo_cli = 'CLI' . sprintf('%05d', $nuevoIdCliente);
+        }
         $cliente->tipodoc_cli = $request->input('tipodoc_cli');
         $cliente->numerodoc_cli = $request->input('numerodoc_cli');
         $cliente->domicilio_cli = $request->input('domicilio_cli')??'';
