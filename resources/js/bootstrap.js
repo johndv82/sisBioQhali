@@ -26,6 +26,7 @@ import categoriaComponent from "./components/categoria/categoria-component";
 import productoComponent from './components/producto/producto-component';
 import membresiaComponent from './components/membresia/membresia-component';
 import clienteComponent from './components/cliente/cliente-component';
+import ProveedorComponent from './components/proveedor/ProveedorComponent';
 
 //Inicializar VUE3
 const app = createApp({})
@@ -35,6 +36,7 @@ app.component('categoria-component', categoriaComponent)
 app.component('producto-component', productoComponent)
 app.component('membresia-component', membresiaComponent)
 app.component('cliente-component', clienteComponent);
+app.component('proveedor-component', ProveedorComponent);
 app.mount('#app')
 
 
