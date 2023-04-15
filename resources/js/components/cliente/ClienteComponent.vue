@@ -4,35 +4,35 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Listado de Producto</strong>
+                        <strong class="card-title">Listado de Clientes</strong>
                     </div>
                     <div class="card-body">
                         <div class="row form-group">
                             <div class="col-md-3">
                                 <button class="btn btn-outline-secondary" id="btnNuevo" @click="nuevoRegistro">
-                                    Nuevo Producto
+                                    Nuevo Cliente
                                 </button>
                             </div>
                         </div>
-                        <ListProductoComponent 
+                        <ListaCliente
                             :datos="datos" 
                             @editar_trigger="editarRegistro" 
                             @eliminar_trigger="eliminarRegistro">
-                        </ListProductoComponent>
+                        </ListaCliente>
                     </div>
                 </div>
             </div>
         </template>
     </MainLayout>
 
-    <ModalLayout id="modalRegistroProducto" :titulo="titulomodal" ref="thisModal">
+    <ModalLayout id="modalRegistroCliente" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
-            <RegistroProductoComponent 
+            <RegistroCliente
                 :routebase="routebase"
-                :producto="producto"
-                :categoria_list="categoria_list"
-                @refresh-table="cargarTableProducto">
-            </RegistroProductoComponent>
+                :cliente="cliente"
+                :membresia_list="membresia_list"
+                @refresh-table="cargarTableCliente">
+            </RegistroCliente>
         </template>
     </ModalLayout>
 </template>
@@ -40,21 +40,21 @@
 <script lang="js">
 
 import MainLayout from "../MainLayout.vue";
-import RegistroProductoComponent from "./registro-producto-component.vue";
-import ListProductoComponent from "./list-producto-component.vue";
+import RegistroCliente from "./RegistroCliente.vue";
+import ListaCliente from "./ListaCliente.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout.vue'
 import axios from "axios";
 
 export default {
-    name: "producto-component",
-    components: {MainLayout, ListProductoComponent, RegistroProductoComponent, ModalLayout},
+    name: "ClienteComponent",
+    components: {MainLayout, ListaCliente, RegistroCliente, ModalLayout},
     data(){
         return{
             titulomodal: '',
             datos: ref([]),
-            producto: {},
-            categoria_list: []
+            cliente: {},
+            membresia_list: []
         }
     },
     methods:{
@@ -64,39 +64,42 @@ export default {
                 self.datos = response.data.data;
             });
         },
-        cargarTableProducto(){
+        cargarTableCliente(){
             //Cerrar el Modal y Refrescar DataTable
             this.cerrarModal();
             this.listRegistros();
         },
         nuevoRegistro(){
-            this.producto = {
-                id_prod: 0,
-                nombre_prod: '',
-                codigo_prod: '',
-                idcat_prod: 0,
-                puntos_prod: 0,
-                precioc_prod: 0,
-                preciov_prod: 0,
-                obs_prod: ''
+            this.cliente = {
+                id_cli: 0,
+                nombrec_cli: '',
+                codigo_cli: '',
+                tipodoc_cli: '',
+                numerodoc_cli: '',
+                domicilio_cli: '',
+                telefono_cli: '',
+                email_cli: '',
+                idmembresia_cli: 0,
+                membresia: {},
+                obs_cli: ''
             };
-            this.titulomodal = 'Registro de Nuevo Producto';
-            this.cargarCategoriasList();
+            this.titulomodal = 'Registro de Nuevo Cliente';
+            this.cargarMembresiasList();
             this.abrirModal();
         },
-        cargarCategoriasList(){
+        cargarMembresiasList(){
             let self = this;
-            axios.get(this.routecategorias + '/list').then(response =>{
-                self.categoria_list = response.data.data;
+            axios.get(this.routemembresias + '/list').then(response =>{
+                self.membresia_list = response.data.data;
             });
         },
         editarRegistro(id){
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
-                self.producto = response.data.data;
+                self.cliente = response.data.data;
             });
-            this.titulomodal = 'Actualización de Producto';
-            this.cargarCategoriasList();
+            this.titulomodal = 'Actualización de Cliente';
+            this.cargarMembresiasList();
             this.abrirModal();
         },
         eliminarRegistro(id){
@@ -138,7 +141,7 @@ export default {
     },
     props:{
         routebase: String,
-        routecategorias: String
+        routemembresias: String
     },
     setup(){
         let thisModal= ref(null);

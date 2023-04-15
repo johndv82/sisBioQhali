@@ -10,25 +10,25 @@
     <div class="row form-group">
         <div class="col-md-12">
             <div class="table-responsive table--no-card m-b-30">
-                <table id="tblMembresias" class="table table-striped table-bordered display">
+                <table id="tblCategorias" class="table table-striped table-bordered display">
                     <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Monto</th>
-                            <th>Descuento</th>
+                            <th>Código</th>
+                            <th>Observación</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in datos_a_pintar" :key="item.id_cat">
-                            <td>{{ item.nombre_mem }}</td>
-                            <td>{{ item.monto_mem }}</td>
-                            <td>{{ item.descuento_mem }}</td>
+                            <td>{{ item.nombre_cat }}</td>
+                            <td>{{ item.codigo_cat }}</td>
+                            <td>{{ item.obs_cat }}</td>
                             <td>
-                                <button v-bind:id="'btnEditar-' + item.id_mem" class="btn btn-sm btn-warning"
-                                    @click="editar(item.id_mem)">Editar</button>&nbsp;
-                                <button v-bind:id="'btnEliminar-' + item.id_mem" class="btn btn-sm btn-danger"
-                                    @click="eliminar(item.id_mem)">Eliminar</button>
+                                <button v-bind:id="'btnEditar-' + item.id_cat" class="btn btn-sm btn-warning"
+                                    @click="editar(item.id_cat)">Editar</button>&nbsp;
+                                <button v-bind:id="'btnEliminar-' + item.id_cat" class="btn btn-sm btn-danger"
+                                    @click="eliminar(item.id_cat)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -58,7 +58,7 @@
 
 <script>
 export default {
-    name: "ListMembresiaComponent",
+    name: "ListaCategoria",
     data() {
         return {
             datos_parciales: [],
@@ -82,7 +82,7 @@ export default {
             }
         },
         datos_a_pintar() {
-            this.datos_parciales = this.datos.filter(mem => mem.nombre_mem.toLowerCase().includes(this.busqueda.toLowerCase()));
+            this.datos_parciales = this.datos.filter(cat => cat.nombre_cat.toLowerCase().includes(this.busqueda.toLowerCase()));
             return this.datos_parciales.slice(this.desde, this.hasta);
         }
     },

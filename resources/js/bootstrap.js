@@ -22,20 +22,20 @@ import { createApp } from 'vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-import categoriaComponent from "./components/categoria/categoria-component";
-import productoComponent from './components/producto/producto-component';
-import membresiaComponent from './components/membresia/membresia-component';
-import clienteComponent from './components/cliente/cliente-component';
+import CategoriaComponent from "./components/categoria/CategoriaComponent";
+import ProductoComponent from './components/producto/ProductoComponent';
+import MembresiaComponent from './components/membresia/MembresiaComponent';
+import ClienteComponent from './components/cliente/ClienteComponent';
 import ProveedorComponent from './components/proveedor/ProveedorComponent';
 
 //Inicializar VUE3
 const app = createApp({})
 
 app.use(VueSweetalert2);
-app.component('categoria-component', categoriaComponent)
-app.component('producto-component', productoComponent)
-app.component('membresia-component', membresiaComponent)
-app.component('cliente-component', clienteComponent);
+app.component('categoria-component', CategoriaComponent)
+app.component('producto-component', ProductoComponent)
+app.component('membresia-component', MembresiaComponent)
+app.component('cliente-component', ClienteComponent);
 app.component('proveedor-component', ProveedorComponent);
 app.mount('#app')
 

@@ -22,7 +22,7 @@
     </DataTable>
 </template>
 
-<script>
+<script lang="js">
 import DataTable from 'datatables.net-vue3'
 import DataTableLib from 'datatables.net-bs4'
 import Buttons from 'datatables.net-buttons-bs4'
@@ -42,7 +42,7 @@ DataTable.use(pdfmake);
 DataTable.use(ButtonHtml5);
 
 export default {
-    name: "TableCategoriaComponent",
+    name: "TableCategoria",
     components: {DataTable},
     data(){
         return{

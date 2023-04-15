@@ -44,7 +44,7 @@ import useVuelidate from '@vuelidate/core'
 import { required, maxLength, helpers } from '@vuelidate/validators'
 
 export default {
-    name: "RegistroCategoriaComponent",
+    name: "RegistroCategoria",
     setup () {
         return { v$: useVuelidate() }
     },

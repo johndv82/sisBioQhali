@@ -14,11 +14,11 @@
                                 </button>
                             </div>
                         </div>
-                        <ListMembresiaComponent 
+                        <ListaMembresia
                             :datos="datos" 
                             @editar_trigger="editarRegistro" 
                             @eliminar_trigger="eliminarRegistro">
-                        </ListMembresiaComponent>
+                        </ListaMembresia>
                     </div>
                 </div>
             </div>
@@ -27,11 +27,11 @@
 
     <ModalLayout id="modalRegistroMembresia" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
-            <RegistroMembresiaComponent 
+            <RegistroMembresia
                 :routebase="routebase"
                 :membresia="membresia"
                 @refresh-table="cargarTableMembresia">
-            </RegistroMembresiaComponent>
+            </RegistroMembresia>
         </template>
     </ModalLayout>
 </template>
@@ -39,15 +39,15 @@
 <script lang="js">
 
 import MainLayout from "../MainLayout.vue";
-import RegistroMembresiaComponent from "./registro-membresia-component.vue";
-import ListMembresiaComponent from "./list-membresia-component.vue";
+import RegistroMembresia from "./RegistroMembresia.vue";
+import ListaMembresia from "./ListaMembresia.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout.vue'
 import axios from "axios";
 
 export default {
-    name: "membresia-component",
-    components: {MainLayout, ListMembresiaComponent, RegistroMembresiaComponent, ModalLayout},
+    name: "MembresiaComponent",
+    components: {MainLayout, ListaMembresia, RegistroMembresia, ModalLayout},
     data(){
         return{
             titulomodal: '',

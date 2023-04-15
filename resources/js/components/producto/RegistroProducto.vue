@@ -129,7 +129,7 @@ import { required, maxLength, helpers, minValue, maxValue } from '@vuelidate/val
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
-    name: "RegistroProductoComponent",
+    name: "RegistroProducto",
     components: { VueNumeric },
     setup() {
         return { v$: useVuelidate() }

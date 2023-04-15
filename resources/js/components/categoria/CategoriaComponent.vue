@@ -14,11 +14,11 @@
                                 </button>
                             </div>
                         </div>
-                        <ListCategoriaComponent 
+                        <ListaCategoria
                             :datos="datos" 
                             @editar_trigger="editarRegistro" 
                             @eliminar_trigger="eliminarRegistro">
-                        </ListCategoriaComponent>
+                        </ListaCategoria>
                     </div>
                 </div>
             </div>
@@ -27,11 +27,11 @@
 
     <ModalLayout id="modalRegistroCategoria" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
-            <RegistroCategoriaComponent 
+            <RegistroCategoria
                 :routebase="routebase"
                 :categoria="categoria"
                 @refresh-table="cargarTableCategoria">
-            </RegistroCategoriaComponent>
+            </RegistroCategoria>
         </template>
     </ModalLayout>
 </template>
@@ -39,15 +39,15 @@
 <script lang="js">
 
 import MainLayout from "../MainLayout.vue";
-import RegistroCategoriaComponent from "./registro-categoria-component.vue";
-import ListCategoriaComponent from "./list-categoria-component.vue";
+import RegistroCategoria from "./RegistroCategoria.vue";
+import ListaCategoria from "./ListaCategoria.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout.vue'
 import axios from "axios";
 
 export default {
-    name: "categoria-component",
-    components: {MainLayout, ListCategoriaComponent, RegistroCategoriaComponent, ModalLayout},
+    name: "CategoriaComponent",
+    components: { MainLayout, RegistroCategoria, ModalLayout, ListaCategoria },
     data(){
         return{
             titulomodal: '',

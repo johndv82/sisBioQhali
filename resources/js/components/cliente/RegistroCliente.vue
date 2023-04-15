@@ -158,7 +158,7 @@ import { required, maxLength, minLength, helpers, minValue, email } from '@vueli
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
-    name: "RegistroClienteComponent",
+    name: "RegistroCliente",
     components: { VueNumeric },
     setup() {
         return { v$: useVuelidate() }

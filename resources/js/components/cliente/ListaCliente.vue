@@ -10,25 +10,29 @@
     <div class="row form-group">
         <div class="col-md-12">
             <div class="table-responsive table--no-card m-b-30">
-                <table id="tblCategorias" class="table table-striped table-bordered display">
+                <table id="tblClientes" class="table table-sm table-striped table-bordered display">
                     <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Código</th>
-                            <th>Observación</th>
+                            <th>Tipo Doc.</th>
+                            <th>Número Doc.</th>
+                            <th>Membresia</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in datos_a_pintar" :key="item.id_cat">
-                            <td>{{ item.nombre_cat }}</td>
-                            <td>{{ item.codigo_cat }}</td>
-                            <td>{{ item.obs_cat }}</td>
+                        <tr v-for="item in datos_a_pintar" :key="item.id_cli">
+                            <td>{{ item.nombrec_cli }}</td>
+                            <td>{{ item.codigo_cli }}</td>
+                            <td>{{ item.tipodoc_cli }}</td>
+                            <td>{{ item.numerodoc_cli }}</td>
+                            <td>{{ item.membresia.nombre_mem }}</td>
                             <td>
-                                <button v-bind:id="'btnEditar-' + item.id_cat" class="btn btn-sm btn-warning"
-                                    @click="editar(item.id_cat)">Editar</button>&nbsp;
-                                <button v-bind:id="'btnEliminar-' + item.id_cat" class="btn btn-sm btn-danger"
-                                    @click="eliminar(item.id_cat)">Eliminar</button>
+                                <button v-bind:id="'btnEditar-' + item.id_cli" class="btn btn-sm btn-warning"
+                                    @click="editar(item.id_cli)">Editar</button>&nbsp;
+                                <button v-bind:id="'btnEliminar-' + item.id_cli" class="btn btn-sm btn-danger"
+                                    @click="eliminar(item.id_cli)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -58,7 +62,7 @@
 
 <script>
 export default {
-    name: "ListCategoriaComponent",
+    name: "ListaClienteComponent",
     data() {
         return {
             datos_parciales: [],
@@ -82,7 +86,7 @@ export default {
             }
         },
         datos_a_pintar() {
-            this.datos_parciales = this.datos.filter(cat => cat.nombre_cat.toLowerCase().includes(this.busqueda.toLowerCase()));
+            this.datos_parciales = this.datos.filter(cli => cli.nombrec_cli.toLowerCase().includes(this.busqueda.toLowerCase()));
             return this.datos_parciales.slice(this.desde, this.hasta);
         }
     },

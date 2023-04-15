@@ -78,7 +78,7 @@ import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
     components: { VueNumeric },
-    name: "RegistroMembresiaComponent",
+    name: "RegistroMembresia",
     setup () {
         return { v$: useVuelidate() }
     },
