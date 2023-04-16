@@ -57,7 +57,7 @@
                         <label for="tipodoc" class="form-control-label">Tipo Doc.:</label>
                         <select name="tipodoc" id="tipodoc" class="form-control"
                             :class="{ 'is-invalid': v$.cliente.tipodoc_cli.$error }"
-                            v-model="v$.cliente.tipodoc_cli.$model" @change="numerodDoclength($event)">
+                            v-model="v$.cliente.tipodoc_cli.$model">
                             <option value="">Seleccione</option>
                             <option value="DNI">D.N.I.</option>
                             <option value="RUC">R.U.C.</option>
@@ -243,12 +243,13 @@ export default {
         },
         cancelar() {
             this.v$.$reset()
-        },
-        numerodDoclength(event){
-            let val = event.target.value;
-            if(val == "DNI"){
+        }
+    },
+    watch:{
+        'cliente.tipodoc_cli'(new_value){
+            if(new_value == "DNI"){
                 this.length_numerodoc = 8;
-            }else if (val == "RUC"){
+            }else if (new_value == "RUC"){
                 this.length_numerodoc = 11;
             }else{
                 this.length_numerodoc  =12;
