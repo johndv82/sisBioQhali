@@ -27,7 +27,11 @@
 
     <ModalLayout id="modalRegistroProveedor" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
-            
+            <RegistroProveedor
+                :routebase="routebase"
+                :proveedor="proveedor"
+                @refresh-table="cargarTableProveedor">
+            </RegistroProveedor>
         </template>
     </ModalLayout>
 </template>
@@ -36,13 +40,14 @@
 
 import MainLayout from "../MainLayout.vue";
 import ListaProveedor from "./ListaProveedor.vue";
+import RegistroProveedor from "./RegistroProveedor.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout.vue'
 import axios from "axios";
 
 export default {
     name: "ProveedorComponent",
-    components: {MainLayout, ListaProveedor, ModalLayout},
+    components: {MainLayout, ListaProveedor, ModalLayout, RegistroProveedor},
     data(){
         return{
             titulomodal: '',
@@ -79,7 +84,7 @@ export default {
         editarRegistro(id){
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
-                self.cliente = response.data.data;
+                self.proveedor = response.data.data;
             });
             this.titulomodal = 'Actualización de Proveedor';
             this.abrirModal();

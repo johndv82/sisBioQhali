@@ -61,7 +61,7 @@ class ProveedorController extends Controller
         $proveedor->domicilio_prov = $request->input('domicilio_prov')??'';
         $proveedor->telefono_prov = $request->input('telefono_prov')??'';
         $proveedor->email_prov = $request->input('email_prov')??'';
-        $proveedor->usercreated_cli = "USR1";
+        $proveedor->usercreated_prov = "USR1";
         $proveedor->save();
         return Response()->json([
             'msg' => 'Se registró correctamente',
@@ -100,7 +100,6 @@ class ProveedorController extends Controller
         $proveedor = Proveedor::find($id);
         $proveedor->nombre_prov = $request->input('nombre_prov');
         $proveedor->contacto_prov = $request->input('contacto_prov');
-        $proveedor->ruc_prov = $request->input('ruc_prov');
         $proveedor->domicilio_prov = $request->input('domicilio_prov')??'';
         $proveedor->telefono_prov = $request->input('telefono_prov')??'';
         $proveedor->email_prov = $request->input('email_prov')??'';

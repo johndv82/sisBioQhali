@@ -29,6 +29,10 @@
                             <a href="{{route('clientes.index')}}">
                                 <i class="fas fa-users"></i>Clientes</a>
                         </li>
+                        <li>
+                            <a href="{{route('proveedores.index')}}">
+                                <i class="fas fa-user-md"></i>Proveedores</a>
+                        </li>
                     </ul>
                 </li>
                 <!-- Ventas -->
