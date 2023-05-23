@@ -22,7 +22,8 @@
                         <label for="codigo" class="form-control-label">Código:</label>
                         <input type="text" id="codigo" name="codigo" class="form-control" 
                             :class="{ 'is-invalid': v$.cliente.codigo_cli.$error }"
-                            v-model="v$.cliente.codigo_cli.$model">
+                            v-model="v$.cliente.codigo_cli.$model"
+                            :disabled="v$.cliente.codigo_cli.$model != '' && v$.cliente.$model.id_cli != 0">
                         <div v-for="(error, index) of v$.cliente.codigo_cli.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}
@@ -57,7 +58,8 @@
                         <label for="tipodoc" class="form-control-label">Tipo Doc.:</label>
                         <select name="tipodoc" id="tipodoc" class="form-control"
                             :class="{ 'is-invalid': v$.cliente.tipodoc_cli.$error }"
-                            v-model="v$.cliente.tipodoc_cli.$model">
+                            v-model="v$.cliente.tipodoc_cli.$model"
+                            :disabled="v$.cliente.tipodoc_cli.$model != '' && v$.cliente.$model.id_cli != 0">
                             <option value="">Seleccione</option>
                             <option value="DNI">D.N.I.</option>
                             <option value="RUC">R.U.C.</option>
@@ -75,7 +77,8 @@
                         <label for="numerodoc" class="form-control-label">Número Doc.:</label>
                         <input type="text" id="numerodoc" name="numerodoc" class="form-control"
                             :class="{ 'is-invalid': v$.cliente.numerodoc_cli.$error }"
-                            v-model="v$.cliente.numerodoc_cli.$model">
+                            v-model="v$.cliente.numerodoc_cli.$model"
+                            :disabled="v$.cliente.numerodoc_cli.$model != '' && v$.cliente.$model.id_cli != 0">
                         <div v-for="(error, index) of v$.cliente.numerodoc_cli.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}
@@ -154,7 +157,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, maxLength, minLength, helpers, minValue, email } from '@vuelidate/validators'
+import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
@@ -184,7 +187,8 @@ export default {
                 numerodoc_cli:{
                     maxLength: helpers.withMessage('Longitud del campo es '+this.length_numerodoc+'.', maxLength(this.length_numerodoc)),
                     minLength: helpers.withMessage('Longitud del campo es '+this.length_numerodoc+'.', minLength(this.length_numerodoc)),
-                    required: helpers.withMessage('Campo de ingreso obligatorio.', required)
+                    required: helpers.withMessage('Campo de ingreso obligatorio.', required),
+                    numeric: helpers.withMessage('Campo de solo números', numeric),
                 },
                 idmembresia_cli: {
                     minValue: helpers.withMessage('Campo de selección obligatorio.', minValue(1))

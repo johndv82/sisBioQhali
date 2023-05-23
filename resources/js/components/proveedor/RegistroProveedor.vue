@@ -116,7 +116,7 @@
 
 <script lang="js">
 import useVuelidate from '@vuelidate/core'
-import { required, maxLength, minLength, helpers, minValue, email } from '@vuelidate/validators'
+import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
 
 export default {
     name: "RegistroProveedor",
@@ -140,7 +140,8 @@ export default {
                 ruc_prov:{
                     maxLength: helpers.withMessage('Longitud del campo es 11.', maxLength(11)),
                     minLength: helpers.withMessage('Longitud del campo es 11.', minLength(11)),
-                    required: helpers.withMessage('Campo de ingreso obligatorio.', required)
+                    required: helpers.withMessage('Campo de ingreso obligatorio.', required),
+                    numeric: helpers.withMessage('Campo de solo números', numeric),
                 },
                 domicilio_prov:{
                     maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200))

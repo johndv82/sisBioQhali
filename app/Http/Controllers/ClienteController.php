@@ -101,8 +101,6 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::find($id);
         $cliente->nombrec_cli = $request->input('nombrec_cli');
-        $cliente->tipodoc_cli = $request->input('tipodoc_cli');
-        $cliente->numerodoc_cli = $request->input('numerodoc_cli');
         $cliente->domicilio_cli = $request->input('domicilio_cli')??'';
         $cliente->telefono_cli = $request->input('telefono_cli')??'';
         $cliente->email_cli = $request->input('email_cli')??'';
