@@ -47,7 +47,7 @@ class MembresiaController extends Controller
         }
         $membresia = new Membresia();
         $membresia->id_mem = $nuevoIdMembresia;
-        $membresia->nombre_mem = $request->input('nombre_mem');
+        $membresia->nombre_mem = strtoupper($request->input('nombre_mem'));
         $membresia->monto_mem = $request->input('monto_mem');
         $membresia->descuento_mem = $request->input('descuento_mem');
         $membresia->obs_mem = $request->input('obs_mem')??'';

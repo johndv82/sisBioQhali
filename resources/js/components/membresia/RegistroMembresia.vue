@@ -87,7 +87,8 @@ export default {
             membresia: {
                 nombre_mem: {
                     required: helpers.withMessage('Campo de Ingreso es Obligatorio', required),
-                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(100))
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(100)),
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe, intente con otro.', this.validarNombreUnico)
                 },
                 monto_mem:{
                     maxValue: helpers.withMessage('Valor máximo es 99999.', maxValue(99999))
@@ -138,14 +139,26 @@ export default {
         },
         cancelar(){
             this.v$.$reset()
+        },
+        validarNombreUnico(value){
+            const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
+                if(valor.nombre_mem.toUpperCase() == value.toUpperCase() && valor.id_mem != this.membresia.id_mem){
+                    conteo++;
+                }
+                return conteo;
+            }, 0);
+            return cantidadDuplicados == 0;
         }
     },
     props:{
         routebase: String,
-        membresia: Object
+        membresia: Object,
+        datos: Array
     }
 }
 </script>
 <style scoped>
-
+#nombre{
+    text-transform: uppercase;
+}
 </style>
