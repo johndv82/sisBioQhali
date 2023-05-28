@@ -44,7 +44,8 @@
                         <label for="codigo" class="form-control-label">Código:</label>
                         <input type="text" id="codigo" name="codigo" class="form-control" 
                             :class="{ 'is-invalid': v$.producto.codigo_prod.$error }"
-                            v-model="v$.producto.codigo_prod.$model">
+                            v-model="v$.producto.codigo_prod.$model"
+                            :disabled="v$.producto.codigo_prod.$model != '' && v$.producto.$model.id_prod != 0">
                         <div v-for="(error, index) of v$.producto.codigo_prod.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}

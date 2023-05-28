@@ -7,7 +7,7 @@
                         <label for="nombre" class="form-control-label">Nombre:</label>
                         <input type="text" id="nombre" name="nombre" class="form-control"
                                :class="{ 'is-invalid': v$.categoria.nombre_cat.$error }"
-                               v-model="v$.categoria.nombre_cat.$model">
+                               v-model="v$.categoria.nombre_cat.$model" >
                         <div v-for="(error, index) of v$.categoria.nombre_cat.$errors" :key="index">
                             <div class="invalid-feedback d-block">
                                 {{ error.$message }}
@@ -40,7 +40,7 @@
 </template>
 
 <script lang="js">
-import useVuelidate from '@vuelidate/core'
+import { useVuelidate } from '@vuelidate/core'
 import { required, maxLength, helpers } from '@vuelidate/validators'
 
 export default {
@@ -53,7 +53,8 @@ export default {
             categoria: {
                 nombre_cat: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
-                    maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(100))
+                    maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(100)),
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe.', this.validarNombreUnico)
                 },
                 obs_cat:{
                     maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(250))
@@ -98,12 +99,30 @@ export default {
         },
         cancelar(){
             this.v$.$reset()
+        },
+        validarNombreUnico(value){
+            const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
+                if(valor.nombre_cat == value && valor.id_cat != this.categoria.id_cat){
+                    conteo++;
+                }
+                return conteo;
+            }, 0);
+            return cantidadDuplicados == 0;
         }
     },
     props:{
         routebase: String,
-        categoria: Object
-    }
+        categoria: Object,
+        datos: Array
+    },
+    watch: {
+        categoria: {
+            handler(nuevoValor) {
+                nuevoValor.nombre_cat = nuevoValor.nombre_cat.toUpperCase();
+            },
+            deep: true
+        }
+    },
 }
 </script>
 <style scoped>

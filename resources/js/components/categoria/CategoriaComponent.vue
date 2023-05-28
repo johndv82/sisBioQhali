@@ -30,6 +30,7 @@
             <RegistroCategoria
                 :routebase="routebase"
                 :categoria="categoria"
+                :datos="datos"
                 @refresh-table="cargarTableCategoria">
             </RegistroCategoria>
         </template>
@@ -81,9 +82,9 @@ export default {
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.categoria = response.data.data;
+                self.titulomodal = 'Actualización Categoria';
+                self.abrirModal();
             });
-            this.titulomodal = 'Actualización Categoria';
-            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({
