@@ -48,7 +48,7 @@ class ClienteController extends Controller
         
         $cliente = new Cliente();
         $cliente->id_cli = $nuevoIdCliente;
-        $cliente->nombrec_cli = $request->input('nombrec_cli');
+        $cliente->nombrec_cli = strtoupper($request->input('nombrec_cli'));
 
         $codigo = trim($request->input('codigo_cli') ?? '');
         if($codigo){

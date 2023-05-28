@@ -54,7 +54,7 @@ export default {
                 nombre_cat: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
                     maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(100)),
-                    validarNombreUnico: helpers.withMessage('El nombre ya existe.', this.validarNombreUnico)
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe, intente con otro.', this.validarNombreUnico)
                 },
                 obs_cat:{
                     maxLength: helpers.withMessage('Límite de caracteres superado.', maxLength(250))
@@ -102,7 +102,7 @@ export default {
         },
         validarNombreUnico(value){
             const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
-                if(valor.nombre_cat == value && valor.id_cat != this.categoria.id_cat){
+                if(valor.nombre_cat.toUpperCase() == value.toUpperCase() && valor.id_cat != this.categoria.id_cat){
                     conteo++;
                 }
                 return conteo;
@@ -114,18 +114,13 @@ export default {
         routebase: String,
         categoria: Object,
         datos: Array
-    },
-    watch: {
-        categoria: {
-            handler(nuevoValor) {
-                nuevoValor.nombre_cat = nuevoValor.nombre_cat.toUpperCase();
-            },
-            deep: true
-        }
-    },
+    }
 }
 </script>
 <style scoped>
+#nombre{
+    text-transform: uppercase;
+}
 #observaciones{
     resize: none;
 }

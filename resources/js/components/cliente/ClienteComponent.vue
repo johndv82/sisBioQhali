@@ -31,6 +31,7 @@
                 :routebase="routebase"
                 :cliente="cliente"
                 :membresia_list="membresia_list"
+                :datos="datos"
                 @refresh-table="cargarTableCliente">
             </RegistroCliente>
         </template>
@@ -97,10 +98,10 @@ export default {
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.cliente = response.data.data;
+                self.titulomodal = 'Actualización de Cliente';
+                self.cargarMembresiasList();
+                self.abrirModal();
             });
-            this.titulomodal = 'Actualización de Cliente';
-            this.cargarMembresiasList();
-            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({

@@ -176,7 +176,8 @@ export default {
             cliente: {
                 nombrec_cli: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
-                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200))
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200)),
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe, intente con otro.', this.validarNombreUnico)
                 },
                 codigo_cli:{
                     maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(20))
@@ -247,6 +248,15 @@ export default {
         },
         cancelar() {
             this.v$.$reset()
+        },
+        validarNombreUnico(value){
+            const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
+                if(valor.nombrec_cli.toUpperCase() == value.toUpperCase() && valor.id_cli != this.cliente.id_cli){
+                    conteo++;
+                }
+                return conteo;
+            }, 0);
+            return cantidadDuplicados == 0;
         }
     },
     watch:{
@@ -256,14 +266,15 @@ export default {
             }else if (new_value == "RUC"){
                 this.length_numerodoc = 11;
             }else{
-                this.length_numerodoc  =12;
+                this.length_numerodoc = 12;
             }
         }
     },
     props: {
         routebase: String,
         cliente: Object,
-        membresia_list: Array
+        membresia_list: Array,
+        datos: Array
     }
 }
 </script>
@@ -272,7 +283,10 @@ export default {
     margin-bottom: 3px !important;
 }
 #codigo{
-    text-transform:uppercase;
+    text-transform: uppercase;
+}
+#nombre{
+    text-transform: uppercase;
 }
 #observaciones{
     resize: none;

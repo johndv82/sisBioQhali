@@ -47,7 +47,7 @@ class CategoriaController extends Controller
         }
         $categoria = new Categoria();
         $categoria->id_cat = $nuevoIdCategoria;
-        $categoria->nombre_cat = $request->input('nombre_cat');
+        $categoria->nombre_cat = strtoupper($request->input('nombre_cat'));
         $categoria->codigo_cat = 'CTG' . sprintf('%05d', $nuevoIdCategoria);
         $categoria->obs_cat = $request->input('obs_cat')??'';
         $categoria->usercreated_cat = "USR1";
