@@ -142,7 +142,7 @@ export default {
         },
         validarNombreUnico(value){
             const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
-                if(valor.nombre_mem.toUpperCase() == value.toUpperCase() && valor.id_mem != this.membresia.id_mem){
+                if(valor.nombre_mem.trim().toUpperCase() == value.trim().toUpperCase() && valor.id_mem != this.membresia.id_mem){
                     conteo++;
                 }
                 return conteo;

@@ -128,7 +128,8 @@ export default {
             proveedor: {
                 nombre_prov: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
-                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200))
+                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(200)),
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe, intente con otro.', this.validarNombreUnico)
                 },
                 contacto_prov: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
@@ -194,11 +195,21 @@ export default {
         },
         cancelar() {
             this.v$.$reset()
+        },
+        validarNombreUnico(value){
+            const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
+                if(valor.nombre_prov.trim().toUpperCase() == value.trim().toUpperCase() && valor.id_prov != this.proveedor.id_prov){
+                    conteo++;
+                }
+                return conteo;
+            }, 0);
+            return cantidadDuplicados == 0;
         }
     },
     props: {
         routebase: String,
-        proveedor: Object
+        proveedor: Object,
+        datos: Array
     }
 }
 </script>
@@ -208,7 +219,10 @@ export default {
     margin-bottom: 3px !important;
 }
 #codigo{
-    text-transform:uppercase;
+    text-transform: uppercase;
+}
+#nombre{
+    text-transform: uppercase;
 }
 #observaciones{
     resize: none;

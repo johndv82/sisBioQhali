@@ -30,6 +30,7 @@
             <RegistroProveedor
                 :routebase="routebase"
                 :proveedor="proveedor"
+                :datos="datos"
                 @refresh-table="cargarTableProveedor">
             </RegistroProveedor>
         </template>
@@ -85,9 +86,9 @@ export default {
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.proveedor = response.data.data;
+                self.titulomodal = 'Actualización de Proveedor';
+                self.abrirModal();
             });
-            this.titulomodal = 'Actualización de Proveedor';
-            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({

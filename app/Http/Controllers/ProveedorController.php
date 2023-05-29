@@ -48,7 +48,7 @@ class ProveedorController extends Controller
         
         $proveedor = new Proveedor();
         $proveedor->id_prov = $nuevoIdProveedor;
-        $proveedor->nombre_prov = $request->input('nombre_prov');
+        $proveedor->nombre_prov = strtoupper($request->input('nombre_prov'));
         $proveedor->contacto_prov = $request->input('contacto_prov');
 
         $codigo = trim($request->input('codigo_prov') ?? '');
@@ -98,7 +98,7 @@ class ProveedorController extends Controller
     public function update(Request $request, $id)
     {
         $proveedor = Proveedor::find($id);
-        $proveedor->nombre_prov = $request->input('nombre_prov');
+        $proveedor->nombre_prov = strtoupper($request->input('nombre_prov'));
         $proveedor->contacto_prov = $request->input('contacto_prov');
         $proveedor->domicilio_prov = $request->input('domicilio_prov')??'';
         $proveedor->telefono_prov = $request->input('telefono_prov')??'';

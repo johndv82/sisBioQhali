@@ -100,7 +100,7 @@ class ClienteController extends Controller
     public function update(Request $request, $id)
     {
         $cliente = Cliente::find($id);
-        $cliente->nombrec_cli = $request->input('nombrec_cli');
+        $cliente->nombrec_cli = strtoupper($request->input('nombrec_cli'));
         $cliente->domicilio_cli = $request->input('domicilio_cli')??'';
         $cliente->telefono_cli = $request->input('telefono_cli')??'';
         $cliente->email_cli = $request->input('email_cli')??'';

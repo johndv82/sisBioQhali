@@ -251,7 +251,7 @@ export default {
         },
         validarNombreUnico(value){
             const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
-                if(valor.nombrec_cli.toUpperCase() == value.toUpperCase() && valor.id_cli != this.cliente.id_cli){
+                if(valor.nombrec_cli.trim().toUpperCase() == value.trim().toUpperCase() && valor.id_cli != this.cliente.id_cli){
                     conteo++;
                 }
                 return conteo;
