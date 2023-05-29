@@ -141,6 +141,7 @@ export default {
                 nombre_prod: {
                     required: helpers.withMessage('Campo de ingreso obligatorio.', required),
                     maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(300)),
+                    validarNombreUnico: helpers.withMessage('El nombre ya existe, intente con otro.', this.validarNombreUnico)
                 },
                 codigo_prod:{
                     maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(20)),
@@ -202,12 +203,22 @@ export default {
         },
         cancelar() {
             this.v$.$reset()
+        },
+        validarNombreUnico(value){
+            const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
+                if(valor.nombre_prod.trim().toUpperCase() == value.trim().toUpperCase() && valor.id_prod != this.producto.id_prod){
+                    conteo++;
+                }
+                return conteo;
+            }, 0);
+            return cantidadDuplicados == 0;
         }
     },
     props: {
         routebase: String,
         producto: Object,
-        categoria_list: Array
+        categoria_list: Array,
+        datos: Array
     }
 }
 </script>
@@ -217,6 +228,9 @@ export default {
 }
 #codigo{
     text-transform:uppercase;
+}
+#nombre{
+    text-transform: uppercase;
 }
 #observacion{
     resize: none;

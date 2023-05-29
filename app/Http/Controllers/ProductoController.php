@@ -48,7 +48,7 @@ class ProductoController extends Controller
         }
         $producto = new Producto();
         $producto->id_prod = $nuevoIdProducto;
-        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->nombre_prod = strtoupper($request->input('nombre_prod'));
         
         $codigo = trim($request->input('codigo_prod') ?? '');
         if($codigo){
@@ -97,7 +97,7 @@ class ProductoController extends Controller
     public function update(Request $request, $id)
     {
         $producto = Producto::find($id);
-        $producto->nombre_prod = $request->input('nombre_prod');
+        $producto->nombre_prod = strtoupper($request->input('nombre_prod'));
         $producto->idcat_prod = $request->input('idcat_prod');
         $producto->puntos_prod = $request->input('puntos_prod');
         $producto->precioc_prod = $request->input('precioc_prod');

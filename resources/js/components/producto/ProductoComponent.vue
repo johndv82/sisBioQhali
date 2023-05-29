@@ -31,6 +31,7 @@
                 :routebase="routebase"
                 :producto="producto"
                 :categoria_list="categoria_list"
+                :datos="datos"
                 @refresh-table="cargarTableProducto">
             </RegistroProducto>
         </template>
@@ -94,10 +95,10 @@ export default {
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.producto = response.data.data;
+                self.titulomodal = 'Actualización de Producto';
+                self.cargarCategoriasList();
+                self.abrirModal();
             });
-            this.titulomodal = 'Actualización de Producto';
-            this.cargarCategoriasList();
-            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({
