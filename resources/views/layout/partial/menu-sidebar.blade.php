@@ -43,7 +43,7 @@
                             <a href="#"><i class="fas fa-map"></i>Nueva Venta</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-map"></i>Consulta de Ventas</a>
+                            <a href="{{route('ventas.index')}}"><i class="fas fa-map"></i>Consulta de Ventas</a>
                         </li>
                     </ul>
                 </li>
