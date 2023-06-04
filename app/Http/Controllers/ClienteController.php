@@ -89,6 +89,24 @@ class ClienteController extends Controller
         ]);
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function findbydocument(Request $request)
+    {
+        $respuesta = 404;
+        $cliente = Cliente::where('numerodoc_cli', $request->input('numero_documento'))->first();
+        if($cliente != null){
+            $respuesta = 200;
+        }
+        return Response()->json([
+            'data' => $cliente, 'code' => $respuesta
+        ]);
+    }
+
 
     /**
      * Update the specified resource in storage.

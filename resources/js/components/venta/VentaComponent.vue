@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <div class="row form-group">
                             <div class="col-md-3">
-                                <button class="btn btn-outline-secondary" id="btnNuevo">
+                                <button class="btn btn-outline-secondary" id="btnNuevo" @click="nuevoRegistro">
                                     Nueva Venta
                                 </button>
                             </div>
@@ -84,6 +84,9 @@ export default {
                     });
                 }
             })
+        },
+        nuevoRegistro(){
+            window.location.href = this.routebase + '/create';
         }
     },
     mounted() {

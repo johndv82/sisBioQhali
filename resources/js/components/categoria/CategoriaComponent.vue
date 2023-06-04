@@ -44,7 +44,6 @@ import RegistroCategoria from "./RegistroCategoria.vue";
 import ListaCategoria from "./ListaCategoria.vue";
 import { ref } from 'vue';
 import ModalLayout from '../ModalLayout.vue'
-import axios from "axios";
 
 export default {
     name: "CategoriaComponent",

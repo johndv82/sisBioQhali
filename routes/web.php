@@ -26,6 +26,7 @@ Route::get('/categorias/list', [CategoriaController::class, 'list'])->name('cate
 Route::get('/productos/list', [ProductoController::class, 'list'])->name('productos.list');
 Route::get('/membresias/list', [MembresiaController::class, 'list'])->name('membresias.list');
 Route::get('/clientes/list', [ClienteController::class, 'list'])->name('clientes.list');
+Route::post('/clientes/findbydocument', [ClienteController::class, 'findbydocument'])->name('clientes.findbydocument');
 Route::get('/proveedores/list', [ProveedorController::class, 'list'])->name('proveedores.list');
 Route::get('/ventas/list', [VentaController::class, 'list'])->name('ventas.list');
 
