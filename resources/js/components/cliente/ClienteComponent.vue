@@ -29,8 +29,8 @@
         <template #mcontenido>
             <RegistroCliente
                 :routebase="routebase"
+                :routemembresias="routemembresias"
                 :cliente="cliente"
-                :membresia_list="membresia_list"
                 :datos="datos"
                 @refresh-table="cargarTableCliente">
             </RegistroCliente>
@@ -85,21 +85,13 @@ export default {
                 obs_cli: ''
             };
             this.titulomodal = 'Registro de Nuevo Cliente';
-            this.cargarMembresiasList();
             this.abrirModal();
-        },
-        cargarMembresiasList(){
-            let self = this;
-            axios.get(this.routemembresias + '/list').then(response =>{
-                self.membresia_list = response.data.data;
-            });
         },
         editarRegistro(id){
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.cliente = response.data.data;
                 self.titulomodal = 'Actualización de Cliente';
-                self.cargarMembresiasList();
                 self.abrirModal();
             });
         },

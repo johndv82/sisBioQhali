@@ -5,7 +5,6 @@
 @endsection
 
 @section('contenido')
-
     <cliente-component 
         routebase="{{ URL::to('/clientes') }}"
         routemembresias="{{ URL::to('/membresias') }}">

@@ -168,7 +168,8 @@ export default {
     },
     data(){
         return {
-            length_numerodoc :0
+            length_numerodoc: 0,
+            membresia_list: []
         }
     },
     validations() {
@@ -211,6 +212,13 @@ export default {
         }
     },
     emits: ["refresh-table"],
+    created(){
+        //Cargar combo Membresisas
+        let self = this;
+        axios.get(this.routemembresias + '/list').then(response =>{
+            self.membresia_list = response.data.data;
+        });
+    },
     methods: {
         guardar() {
             this.v$.$validate()
@@ -273,8 +281,8 @@ export default {
     props: {
         routebase: String,
         cliente: Object,
-        membresia_list: Array,
-        datos: Array
+        datos: Array,
+        routemembresias: String
     }
 }
 </script>
