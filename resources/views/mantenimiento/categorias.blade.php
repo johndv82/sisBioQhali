@@ -7,7 +7,7 @@
 @section('contenido')
 
     <categoria-component 
-        routebase="{{ URL::to('/categorias') }}">
+        raiz="{{ URL::to('/') }}">
     </categoria-component>
 
 @endsection

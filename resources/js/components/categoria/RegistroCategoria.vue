@@ -71,9 +71,9 @@ export default {
                 let idcategoria = this.categoria.id_cat;
                 let peticion = null;
                 if(idcategoria == 0){
-                    peticion = axios.post(this.routebase, this.categoria)
+                    peticion = axios.post(this.raiz + '/categorias/', this.categoria)
                 }else{
-                    peticion = axios.put(this.routebase + '/' + idcategoria, this.categoria)
+                    peticion = axios.put(this.raiz + '/categorias/' + idcategoria, this.categoria)
                 }
 
                 peticion.then(function (response) {
@@ -111,7 +111,7 @@ export default {
         }
     },
     props:{
-        routebase: String,
+        raiz: String,
         categoria: Object,
         datos: Array
     }
