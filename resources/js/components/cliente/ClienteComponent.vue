@@ -28,8 +28,7 @@
     <ModalLayout id="modalRegistroCliente" :titulo="titulomodal" ref="thisModal">
         <template #mcontenido>
             <RegistroCliente
-                :routebase="routebase"
-                :routemembresias="routemembresias"
+                :raiz="raiz"
                 :cliente="cliente"
                 :datos="datos"
                 @refresh-table="cargarTableCliente">
@@ -61,7 +60,7 @@ export default {
     methods:{
         listRegistros(){
             let self = this;
-            axios.get(this.routebase + '/list').then(response =>{
+            axios.get(this.raiz + '/clientes/list').then(response =>{
                 self.datos = response.data.data;
             });
         },
@@ -89,7 +88,7 @@ export default {
         },
         editarRegistro(id){
             let self = this;
-            axios.get(this.routebase + '/' +id).then(response =>{
+            axios.get(this.raiz + '/clientes/' +id).then(response =>{
                 self.cliente = response.data.data;
                 self.titulomodal = 'Actualización de Cliente';
                 self.abrirModal();
@@ -109,7 +108,7 @@ export default {
                 if (result.isConfirmed) {
                     //Eliminar
                     let self = this;
-                    axios.delete(this.routebase + '/' +id)
+                    axios.delete(this.raiz + '/clientes/' +id)
                     .then(response =>{
                         self.$swal({
                             title: response.data.msg,
@@ -133,8 +132,7 @@ export default {
         this.listRegistros();
     },
     props:{
-        routebase: String,
-        routemembresias: String
+        raiz: String
     },
     setup(){
         let thisModal= ref(null);

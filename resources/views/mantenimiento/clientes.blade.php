@@ -6,8 +6,7 @@
 
 @section('contenido')
     <cliente-component 
-        routebase="{{ URL::to('/clientes') }}"
-        routemembresias="{{ URL::to('/membresias') }}">
+        raiz="{{ URL::to('/') }}">
     </cliente-component>
 
 @endsection

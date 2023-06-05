@@ -215,7 +215,7 @@ export default {
     created(){
         //Cargar combo Membresisas
         let self = this;
-        axios.get(this.routemembresias + '/list').then(response =>{
+        axios.get(this.raiz + '/membresias/list').then(response =>{
             self.membresia_list = response.data.data;
         });
     },
@@ -227,9 +227,9 @@ export default {
                 let idcliente = this.cliente.id_cli;
                 let peticion = null;
                 if (idcliente == 0) {
-                    peticion = axios.post(this.routebase, this.cliente)
+                    peticion = axios.post(this.raiz + '/clientes/', this.cliente)
                 } else {
-                    peticion = axios.put(this.routebase + '/' + idcliente, this.cliente)
+                    peticion = axios.put(this.raiz + '/clientes/' + idcliente, this.cliente)
                 }
 
                 peticion
@@ -279,10 +279,9 @@ export default {
         }
     },
     props: {
-        routebase: String,
+        raiz: String,
         cliente: Object,
-        datos: Array,
-        routemembresias: String
+        datos: Array
     }
 }
 </script>
