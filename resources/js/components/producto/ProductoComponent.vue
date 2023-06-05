@@ -29,8 +29,8 @@
         <template #mcontenido>
             <RegistroProducto 
                 :routebase="routebase"
+                :routecategorias="routecategorias"
                 :producto="producto"
-                :categoria_list="categoria_list"
                 :datos="datos"
                 @refresh-table="cargarTableProducto">
             </RegistroProducto>
@@ -54,8 +54,7 @@ export default {
         return{
             titulomodal: '',
             datos: ref([]),
-            producto: {},
-            categoria_list: []
+            producto: {}
         }
     },
     methods:{
@@ -82,21 +81,13 @@ export default {
                 obs_prod: ''
             };
             this.titulomodal = 'Registro de Nuevo Producto';
-            this.cargarCategoriasList();
             this.abrirModal();
-        },
-        cargarCategoriasList(){
-            let self = this;
-            axios.get(this.routecategorias + '/list').then(response =>{
-                self.categoria_list = response.data.data;
-            });
         },
         editarRegistro(id){
             let self = this;
             axios.get(this.routebase + '/' +id).then(response =>{
                 self.producto = response.data.data;
                 self.titulomodal = 'Actualización de Producto';
-                self.cargarCategoriasList();
                 self.abrirModal();
             });
         },

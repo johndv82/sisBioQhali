@@ -135,6 +135,11 @@ export default {
     setup() {
         return { v$: useVuelidate() }
     },
+    data(){
+        return{
+            categoria_list: []
+        }
+    },
     validations() {
         return {
             producto: {
@@ -167,6 +172,13 @@ export default {
         }
     },
     emits: ["refresh-table"],
+    created(){
+        //Cargar combo Categorias
+        let self = this;
+        axios.get(this.routecategorias + '/list').then(response =>{
+            self.categoria_list = response.data.data;
+        });
+    },
     methods: {
         guardar() {
             this.v$.$validate()
@@ -217,7 +229,7 @@ export default {
     props: {
         routebase: String,
         producto: Object,
-        categoria_list: Array,
+        routecategorias: String,
         datos: Array
     }
 }
