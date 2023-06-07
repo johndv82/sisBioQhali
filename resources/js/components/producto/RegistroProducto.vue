@@ -175,7 +175,7 @@ export default {
     created(){
         //Cargar combo Categorias
         let self = this;
-        axios.get(this.routecategorias + '/list').then(response =>{
+        axios.get(this.raiz + '/categorias/list/').then(response =>{
             self.categoria_list = response.data.data;
         });
     },
@@ -187,9 +187,9 @@ export default {
                 let idproducto = this.producto.id_prod;
                 let peticion = null;
                 if (idproducto == 0) {
-                    peticion = axios.post(this.routebase, this.producto)
+                    peticion = axios.post(this.raiz + '/productos/', this.producto)
                 } else {
-                    peticion = axios.put(this.routebase + '/' + idproducto, this.producto)
+                    peticion = axios.put(this.raiz + '/productos/' + idproducto, this.producto)
                 }
 
                 peticion.then(function (response) {
@@ -227,9 +227,8 @@ export default {
         }
     },
     props: {
-        routebase: String,
+        raiz: String,
         producto: Object,
-        routecategorias: String,
         datos: Array
     }
 }
