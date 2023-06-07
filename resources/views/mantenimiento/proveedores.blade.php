@@ -6,7 +6,7 @@
 
 @section('contenido')
     <proveedor-component
-        routebase="{{ URL::to('/proveedores') }}">
+        raiz="{{ URL::to('/') }}">
     </proveedor-component>
 
 @endsection

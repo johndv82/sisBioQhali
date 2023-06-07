@@ -166,9 +166,9 @@ export default {
                 let idproveedor = this.proveedor.id_prov;
                 let peticion = null;
                 if (idproveedor == 0) {
-                    peticion = axios.post(this.routebase, this.proveedor)
+                    peticion = axios.post(this.raiz + '/proveedores/', this.proveedor)
                 } else {
-                    peticion = axios.put(this.routebase + '/' + idproveedor, this.proveedor)
+                    peticion = axios.put(this.raiz + '/proveedores/' + idproveedor, this.proveedor)
                 }
 
                 peticion
@@ -207,7 +207,7 @@ export default {
         }
     },
     props: {
-        routebase: String,
+        raiz: String,
         proveedor: Object,
         datos: Array
     }
