@@ -111,9 +111,9 @@ export default {
                 let idmembresia = this.membresia.id_mem;
                 let peticion = null;
                 if(idmembresia == 0){
-                    peticion = axios.post(this.routebase, this.membresia)
+                    peticion = axios.post(this.raiz + '/membresias/', this.membresia)
                 }else{
-                    peticion = axios.put(this.routebase + '/' + idmembresia, this.membresia)
+                    peticion = axios.put(this.raiz + '/membresias/' + idmembresia, this.membresia)
                 }
 
                 peticion.then(function (response) {
@@ -151,7 +151,7 @@ export default {
         }
     },
     props:{
-        routebase: String,
+        raiz: String,
         membresia: Object,
         datos: Array
     }

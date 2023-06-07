@@ -7,7 +7,7 @@
 @section('contenido')
 
     <membresia-component 
-        routebase="{{ URL::to('/membresias') }}">
+        raiz="{{ URL::to('/') }}">
     </membresia-component>
 
 @endsection
