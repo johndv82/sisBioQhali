@@ -7,7 +7,7 @@
 @section('contenido')
     
 <venta-component
-routebase="{{ URL::to('/ventas') }}">
+    raiz="{{ URL::to('/') }}">
 </venta-component>
 
 @endsection

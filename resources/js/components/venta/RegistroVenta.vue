@@ -43,8 +43,8 @@
                             <div class="row form-group">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="observaciones" class="form-control-label">Observaciones:</label>
-                                        <textarea rows="3" id="observaciones" name="observaciones" class="form-control"
+                                        <label for="obs_ven" class="form-control-label">Observaciones:</label>
+                                        <textarea rows="3" id="obs_ven" name="obs_ven" class="form-control"
                                             :class="{ 'is-invalid': v$.venta.obs_ven.$error }"
                                             v-model="v$.venta.obs_ven.$model"></textarea>
                                         <div v-for="(error, index) of v$.venta.obs_ven.$errors" :key="index">
@@ -66,20 +66,30 @@
             </div>
         </template>
     </MainLayout>
+    <ModalLayout id="modalRegistroCliente" :titulo="titulomodal" ref="thisModal">
+        <template #mcontenido>
+            <RegistroCliente
+                :raiz="raiz"
+                :datos="datos_cliente"
+                :id_cliente="id_cliente"
+                @refresh-table="retornoModalCliente">
+            </RegistroCliente>
+        </template>
+    </ModalLayout>
 </template>
 
 <script lang="js">
 import MainLayout from "../MainLayout.vue";
+import ModalLayout from "../ModalLayout.vue";
+import RegistroCliente from "../cliente/RegistroCliente.vue";
 import useVuelidate from '@vuelidate/core'
+import { ref } from 'vue';
 import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
     name: "RegistroVenta",
-    components: { VueNumeric, MainLayout},
-    setup() {
-        return { v$: useVuelidate() }
-    },
+    components: { VueNumeric, MainLayout, ModalLayout, RegistroCliente},
     data() {
         return {
             venta: {
@@ -95,12 +105,14 @@ export default {
                 fecha_ven: new Date(1900, 0, 1),
                 obs_ven: 0
             },
-            cliente: {},
+            datos_cliente: ref([]),
+            titulomodal: '',
             membresia_list: [],
             detalle_venta: [],
             documento_cliente: '',
             nombre_cliente: '',
-            nombre_producto: ''
+            nombre_producto: '',
+            id_cliente: -1
         }
     },
     validations() {
@@ -115,7 +127,7 @@ export default {
     methods: {
         buscarCliente(){
             let self = this;
-            axios.post(this.routecliente + '/findbydocument/', {'numero_documento': this.documento_cliente}).then(response =>{
+            axios.post(this.raiz + '/clientes/findbydocument/', {'numero_documento': this.documento_cliente}).then(response =>{
                 let cliente = response.data.data;
                 if(cliente == null){
                     self.nombre_cliente = "";
@@ -137,15 +149,36 @@ export default {
             });
         },
         agregarCliente(){
-
+            //Obtener datos de clientes para evaluar duplicidad
+            let self = this;
+            axios.get(this.raiz + '/clientes/list').then(response =>{
+                self.datos_cliente = response.data.data;
+            });
+            this.id_cliente = 0;
+            this.titulomodal = 'Registro de Nuevo Cliente';
+            this.abrirModal();
+        },
+        retornoModalCliente(){
+            //Cerrar el Modal
+            this.cerrarModal();
         },
         cancelar() {
             //this.v$.$reset()
         }
     },
     props: {
-        routebase: String,
-        routecliente: String
+        raiz: String
+    },
+    setup(){
+        let thisModal= ref(null);
+        function abrirModal(){
+            thisModal.value.show();
+        }
+
+        function cerrarModal(){
+            thisModal.value.close();
+        }
+        return {abrirModal, cerrarModal, thisModal, v$: useVuelidate()}
     }
 }
 </script>

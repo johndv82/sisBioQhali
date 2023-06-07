@@ -28,7 +28,6 @@
 <script lang="js">
 
 import MainLayout from "../MainLayout.vue";
-//import RegistroMembresia from "./RegistroMembresia.vue";
 import ListaVenta from "./ListaVenta.vue";
 import { ref } from 'vue';
 import axios from "axios";
@@ -44,7 +43,7 @@ export default {
     methods:{
         listRegistros(){
             let self = this;
-            axios.get(this.routebase + '/list').then(response =>{
+            axios.get(this.raiz + '/ventas/list').then(response =>{
                 self.datos = response.data.data;
             });
         },
@@ -66,7 +65,7 @@ export default {
                 if (result.isConfirmed) {
                     //Eliminar
                     let self = this;
-                    axios.delete(this.routebase + '/' +id)
+                    axios.delete(this.raiz + '/ventas/' +id)
                     .then(response =>{
                         self.$swal({
                             title: response.data.msg,
@@ -86,14 +85,14 @@ export default {
             })
         },
         nuevoRegistro(){
-            window.location.href = this.routebase + '/create';
+            window.location.href = this.raiz + '/ventas/create';
         }
     },
     mounted() {
         this.listRegistros();
     },
     props:{
-        routebase: String
+        raiz: String
     }
 }
 </script>

@@ -29,7 +29,7 @@
         <template #mcontenido>
             <RegistroCliente
                 :raiz="raiz"
-                :cliente="cliente"
+                :id_cliente="id_cliente"
                 :datos="datos"
                 @refresh-table="cargarTableCliente">
             </RegistroCliente>
@@ -53,8 +53,8 @@ export default {
         return{
             titulomodal: '',
             datos: ref([]),
-            cliente: {},
-            membresia_list: []
+            membresia_list: [],
+            id_cliente: -1
         }
     },
     methods:{
@@ -70,29 +70,14 @@ export default {
             this.listRegistros();
         },
         nuevoRegistro(){
-            this.cliente = {
-                id_cli: 0,
-                nombrec_cli: '',
-                codigo_cli: '',
-                tipodoc_cli: '',
-                numerodoc_cli: '',
-                domicilio_cli: '',
-                telefono_cli: '',
-                email_cli: '',
-                idmembresia_cli: 0,
-                membresia: {},
-                obs_cli: ''
-            };
+            this.id_cliente = 0;
             this.titulomodal = 'Registro de Nuevo Cliente';
             this.abrirModal();
         },
         editarRegistro(id){
-            let self = this;
-            axios.get(this.raiz + '/clientes/' +id).then(response =>{
-                self.cliente = response.data.data;
-                self.titulomodal = 'Actualización de Cliente';
-                self.abrirModal();
-            });
+            this.id_cliente = id;
+            this.titulomodal = 'Actualización de Cliente';
+            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({

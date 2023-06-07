@@ -7,7 +7,7 @@
 @section('contenido')
     
 <registro-venta
-routebase="{{ URL::to('/ventas') }}" routecliente="{{ URL::to('/clientes') }}">
+    raiz="{{ URL::to('/') }}">
 </registro-venta>
 
 @endsection

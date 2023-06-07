@@ -169,7 +169,8 @@ export default {
     data(){
         return {
             length_numerodoc: 0,
-            membresia_list: []
+            membresia_list: [],
+            cliente: {}
         }
     },
     validations() {
@@ -255,7 +256,8 @@ export default {
             }
         },
         cancelar() {
-            this.v$.$reset()
+            this.v$.$reset();
+            this.resetCliente();
         },
         validarNombreUnico(value){
             const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
@@ -265,6 +267,20 @@ export default {
                 return conteo;
             }, 0);
             return cantidadDuplicados == 0;
+        },
+        resetCliente(){
+            this.cliente = {
+                id_cli: 0,
+                nombrec_cli: '',
+                codigo_cli: '',
+                tipodoc_cli: '',
+                numerodoc_cli: '',
+                domicilio_cli:'',
+                telefono_cli: '',
+                email_cli: '',
+                idmembresia_cli: 0,
+                obs_cli: ''
+            }
         }
     },
     watch:{
@@ -276,11 +292,24 @@ export default {
             }else{
                 this.length_numerodoc = 12;
             }
+        },
+        'id_cliente'(new_id){
+            console.log(new_id)
+            if(new_id == 0){
+                //Nuevo Registro
+                this.resetCliente();
+            }else{
+                axios.get(this.raiz + '/clientes/' + new_id).then(response =>{
+                    this.cliente = response.data.data;
+                });
+            }
         }
     },
     props: {
         raiz: String,
-        cliente: Object,
+        id_cliente: {
+            type: Number
+        },
         datos: Array
     }
 }
