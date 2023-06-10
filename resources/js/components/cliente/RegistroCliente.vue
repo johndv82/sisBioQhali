@@ -294,7 +294,6 @@ export default {
             }
         },
         'id_cliente'(new_id){
-            console.log(new_id)
             if(new_id == 0){
                 //Nuevo Registro
                 this.resetCliente();
