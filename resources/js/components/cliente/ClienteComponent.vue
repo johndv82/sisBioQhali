@@ -53,7 +53,6 @@ export default {
         return{
             titulomodal: '',
             datos: ref([]),
-            membresia_list: [],
             id_cliente: -1
         }
     },

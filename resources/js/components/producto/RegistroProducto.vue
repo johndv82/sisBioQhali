@@ -137,7 +137,8 @@ export default {
     },
     data(){
         return{
-            categoria_list: []
+            categoria_list: [],
+            producto: {}
         }
     },
     validations() {
@@ -214,7 +215,8 @@ export default {
             }
         },
         cancelar() {
-            this.v$.$reset()
+            this.v$.$reset();
+            this.resetProducto();
         },
         validarNombreUnico(value){
             const cantidadDuplicados = this.datos.reduce((conteo, valor) =>{
@@ -224,11 +226,37 @@ export default {
                 return conteo;
             }, 0);
             return cantidadDuplicados == 0;
+        },
+        resetProducto(){
+            this.producto = {
+                id_prod: 0,
+                nombre_prod: '',
+                codigo_prod: '',
+                idcat_prod: 0,
+                puntos_prod: 0,
+                precioc_prod: 0,
+                preciov_prod: 0,
+                obs_prod: ''
+            }
+        }
+    },
+    watch:{
+        'id_producto'(new_id){
+            if(new_id == 0){
+                //Nuevo Registro
+                this.resetProducto();
+            }else{
+                axios.get(this.raiz + '/productos/' + new_id).then(response =>{
+                    this.producto = response.data.data;
+                });
+            }
         }
     },
     props: {
         raiz: String,
-        producto: Object,
+        id_producto: {
+            type: Number
+        },
         datos: Array
     }
 }

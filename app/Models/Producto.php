@@ -19,4 +19,8 @@ class Producto extends Model
     ];
 
     public $timestamps = false;
+
+    public function categoria(){
+        return $this->belongsTo(Categoria::class, 'idcat_prod', 'id_cat');
+    }
 }

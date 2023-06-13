@@ -27,7 +27,7 @@ class ProductoController extends Controller
     public function list()
     {
         $respuesta = 404;
-        $productos = Producto::where('estado_prod', 1)->get();
+        $productos = Producto::with('categoria')->where('estado_prod', 1)->get();
         if($productos != null){
             $respuesta = 200;
         }

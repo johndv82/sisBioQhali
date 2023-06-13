@@ -20,9 +20,9 @@
                                                 :readonly="bc.habilitar_autocomplete">
                                             </div>
                                             <div class="col-md-3">
-                                                <button type="button" class="btn btn-secondary mr-2" id="btnBuscarCliente"
+                                                <button type="button" class="btn btn-secondary btn-sm mr-2" id="btnBuscarCliente"
                                                     @click="buscarCliente()" :disabled="bc.habilitar_autocomplete">Buscar</button>
-                                                <button type="button" class="btn btn-success" id="btnBuscarCliente"
+                                                <button type="button" class="btn btn-success btn-sm" id="btnBuscarCliente"
                                                 @click="agregarCliente()">Nuevo</button>
                                             </div>
                                             <div class="col-md-3">
@@ -39,7 +39,7 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <div class="form-group row">
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 align-self-center">
                                                 <label for="lblcliente" class="form-control-label">Cliente:</label>
                                             </div>
                                             <div class="col-md-10">
@@ -63,27 +63,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="obs_ven" class="form-control-label">Observaciones:</label>
-                                            <textarea rows="3" id="obs_ven" name="obs_ven" class="form-control"
-                                                :class="{ 'is-invalid': v$.venta.obs_ven.$error }"
-                                                v-model="v$.venta.obs_ven.$model"></textarea>
-                                            <div v-for="(error, index) of v$.venta.obs_ven.$errors" :key="index">
-                                                <div class="invalid-feedback d-block">
-                                                    {{ error.$message }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="card-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                    @click="cancelar()">Cancelar</button>
-                                <button type="button" class="btn btn-primary" id="btnRegistrar">Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -116,6 +95,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <BuscarProducto :raiz="raiz" @agregar_detalle_trigger="agregarDetalle">
+                        </BuscarProducto>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            @click="cancelar()">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="btnRegistrar">Guardar</button>
+                    </div>
+                </div>
             </form>
         </template>
     </MainLayout>
@@ -132,6 +124,7 @@
 import MainLayout from "../MainLayout.vue";
 import ModalLayout from "../ModalLayout.vue";
 import RegistroCliente from "../cliente/RegistroCliente.vue";
+import BuscarProducto from "./BuscarProducto.vue"
 import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue';
 import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
@@ -139,7 +132,7 @@ import VueNumeric from '@handcrafted-market/vue3-numeric';
 
 export default {
     name: "RegistroVenta",
-    components: { VueNumeric, MainLayout, ModalLayout, RegistroCliente },
+    components: { VueNumeric, MainLayout, ModalLayout, RegistroCliente, BuscarProducto},
     data() {
         return {
             venta: {
@@ -172,9 +165,6 @@ export default {
     validations() {
         return {
             venta: {
-                obs_ven: {
-                    maxLength: helpers.withMessage('Limite de caracteres superado.', maxLength(250))
-                }
             }
         }
     },
@@ -238,6 +228,9 @@ export default {
             if(this.bc.habilitar_autocomplete == true){
                 this.bc.buscar_nombre_foco = true;
             }
+        },
+        agregarDetalle(det){
+            console.log(det);
         }
     },
     computed:{

@@ -29,7 +29,7 @@
         <template #mcontenido>
             <RegistroProducto 
                 :raiz="raiz"
-                :producto="producto"
+                :id_producto="id_producto"
                 :datos="datos"
                 @refresh-table="cargarTableProducto">
             </RegistroProducto>
@@ -53,7 +53,7 @@ export default {
         return{
             titulomodal: '',
             datos: ref([]),
-            producto: {}
+            id_producto: -1
         }
     },
     methods:{
@@ -69,26 +69,14 @@ export default {
             this.listRegistros();
         },
         nuevoRegistro(){
-            this.producto = {
-                id_prod: 0,
-                nombre_prod: '',
-                codigo_prod: '',
-                idcat_prod: 0,
-                puntos_prod: 0,
-                precioc_prod: 0,
-                preciov_prod: 0,
-                obs_prod: ''
-            };
+            this.id_producto = 0;
             this.titulomodal = 'Registro de Nuevo Producto';
             this.abrirModal();
         },
         editarRegistro(id){
-            let self = this;
-            axios.get(this.raiz + '/productos/' +id).then(response =>{
-                self.producto = response.data.data;
-                self.titulomodal = 'Actualización de Producto';
-                self.abrirModal();
-            });
+            this.id_producto = id;
+            this.titulomodal = 'Actualización de Producto';
+            this.abrirModal();
         },
         eliminarRegistro(id){
             this.$swal({
