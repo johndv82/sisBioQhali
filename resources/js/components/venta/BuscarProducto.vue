@@ -5,66 +5,62 @@
         </div>
         <div class="card-body">
             <div class="row form-group">
-                <div class="col-md-12">
+                <div class="col-md-10">
                     <div class="form-group row">
-                        <div class="col-md-10">
-                            <div class="form-group row">
-                                <div class="col-md-12" style="display: inline-flex;">
-                                    Producto:&nbsp;
-                                    <span class="invalid-feedback d-flex" v-if="venta_id_producto == 0">(*)Obligatorio</span>
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Descripción"
-                                class="form-control" v-model="buscar_nombre"
-                                @focus="buscar_nombre_foco = true" @blur="perderFocoProducto" :class="{ 'is-invalid': (venta_id_producto == 0) }">
-                            <span class="select2-container select2-container--default select2-container--open" v-show="busquedaProductoDinamic">
-                                <span class="select2-dropdown">
-                                    <span class="select2-results">
-                                        <ul class="select2-results__options" role="tree" id="select2-property-va-results" aria-expanded="true" aria-hidden="false">
-                                            <li class="select2-results__option" role="treeitem" aria-selected="false" 
-                                            v-for="producto in busquedaProductoDinamic" :key="producto.id_prod" @click="seleccionarProducto(producto)">
-                                                {{ producto.nombre_prod }}
-                                            </li>
-                                        </ul>
-                                    </span>
-                                </span>
+                        <div class="col-md-12" style="display: inline-flex;">
+                            Producto:&nbsp;
+                            <span class="invalid-feedback d-flex" v-if="venta_id_producto == 0">(*)Obligatorio</span>
+                        </div>
+                    </div>
+                    <input type="text" placeholder="Descripción"
+                        class="form-control" v-model="buscar_nombre"
+                        @focus="buscar_nombre_foco = true" @blur="perderFocoProducto" :class="{ 'is-invalid': (venta_id_producto == 0) }">
+                    <span class="select2-container select2-container--default select2-container--open" v-show="busquedaProductoDinamic">
+                        <span class="select2-dropdown">
+                            <span class="select2-results">
+                                <ul class="select2-results__options" role="tree" id="select2-property-va-results" aria-expanded="true" aria-hidden="false">
+                                    <li class="select2-results__option" role="treeitem" aria-selected="false" 
+                                    v-for="producto in busquedaProductoDinamic" :key="producto.id_prod" @click="seleccionarProducto(producto)">
+                                        {{ producto.nombre_prod }}
+                                    </li>
+                                </ul>
                             </span>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-control-label">Puntos:</label>
-                            <vue-numeric class="form-control" readonly="true" v-model="puntos"
-                                separator="," :precision="2">
-                            </vue-numeric>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-md-6">
-                            <label class="form-control-label">Categoria:</label>
-                            <input type="text" class="form-control" v-model="categoria" readonly="true">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-control-label">Precio:</label>
-                            <vue-numeric class="form-control" 
-                                v-model="preciov" readonly="true"
-                                separator="," :precision="2" currency="S/.">
-                            </vue-numeric>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-control-label">Cantidad:</label>
-                            <vue-numeric class="form-control" 
-                                v-model="cantidad" 
-                                separator="," :precision="2" v-bind:min="1" v-bind:max="100">
-                            </vue-numeric>
-                        </div>
-                        <div class="col-md-2 align-self-end">
-                            <button type="button" class="btn btn-success btn-sm" id="btnAgregarProducto"
-                                @click="agregarProductoDetalle()">Agregar a Detalle</button>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-
-                    </div>
+                        </span>
+                    </span>
                 </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Puntos:</label>
+                    <vue-numeric class="form-control" readonly="true" v-model="puntos"
+                        separator="," :precision="2">
+                    </vue-numeric>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    <label class="form-control-label">Categoria:</label>
+                    <input type="text" class="form-control" v-model="categoria" readonly="true">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Precio:</label>
+                    <vue-numeric class="form-control" 
+                        v-model="preciov" readonly="true"
+                        separator="," :precision="2" currency="S/.">
+                    </vue-numeric>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-control-label">Cantidad:</label>
+                    <vue-numeric class="form-control" 
+                        v-model="cantidad" 
+                        separator="," :precision="2" v-bind:min="1" v-bind:max="100">
+                    </vue-numeric>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <button type="button" class="btn btn-success btn-sm" id="btnAgregarProducto"
+                        @click="agregarProductoDetalle()">Agregar a Detalle</button>
+                </div>
+            </div>
+            <div class="form-group row">
+
             </div>
         </div>
     </div>
@@ -155,6 +151,6 @@ export default {
 </script>
 <style scoped>
 .form-group {
-    margin-bottom: 3px !important;
+    margin-bottom: 5px !important;
 }
 </style>

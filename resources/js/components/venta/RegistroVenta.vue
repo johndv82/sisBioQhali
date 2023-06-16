@@ -16,17 +16,17 @@
                                 <div class="row form-group">
                                     <div class="col-md-12">
                                         <div class="form-group row">
-                                            <div class="col-md-5">
-                                                <label for="dni" class="form-control-label">Número de Comprobante:</label>
+                                            <div class="col-md-3">
+                                                <label for="dni" class="form-control-label">Número:</label>
                                             </div>
                                             <div class="col-md-3">
                                                 <input type="text" id="numero_comprobante" name="numero_comprobante"
                                                     class="form-control" placeholder="000">
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <label for="dni" class="form-control-label">Serie:</label>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-3">
                                                 <input type="text" id="serie" name="serie" class="form-control">
                                             </div>
                                         </div>
@@ -145,10 +145,6 @@ export default {
     }
 }
 </script>
-<style scoped>.form-group {
-    margin-bottom: 3px !important;
-}
+<style scoped>
 
-#observaciones {
-    resize: none;
-}</style>
+</style>

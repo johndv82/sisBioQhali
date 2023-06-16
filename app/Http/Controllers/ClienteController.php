@@ -98,7 +98,7 @@ class ClienteController extends Controller
     public function findbydocument(Request $request)
     {
         $respuesta = 404;
-        $cliente = Cliente::where('numerodoc_cli', $request->input('numero_documento'))->first();
+        $cliente = Cliente::with('membresia')->where('numerodoc_cli', $request->input('numero_documento'))->first();
         if($cliente != null){
             $respuesta = 200;
         }
