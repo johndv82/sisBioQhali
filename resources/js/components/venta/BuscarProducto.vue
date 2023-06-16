@@ -83,7 +83,6 @@ export default {
             buscar_nombre: '',
             buscar_nombre_foco: false,
             datos_producto: ref([]),
-            id_producto: -1,
             categoria: '',
             puntos: 0,
             preciov: 0,
