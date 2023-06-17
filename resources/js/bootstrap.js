@@ -21,6 +21,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import { createApp } from 'vue'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
+import '@vuepic/vue-datepicker/dist/main.css'
 
 import CategoriaComponent from "./components/categoria/CategoriaComponent";
 import ProductoComponent from './components/producto/ProductoComponent';

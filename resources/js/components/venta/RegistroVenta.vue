@@ -32,6 +32,15 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row form-group">
+                                    <VueDatePicker 
+                                        v-model="venta.fecha_ven" 
+                                        auto-apply 
+                                        :close-on-auto-apply="true"
+                                        :enable-time-picker="false"
+                                        locale="es">
+                                    </VueDatePicker>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,10 +80,11 @@ import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue';
 import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
+import VueDatePicker from '@vuepic/vue-datepicker';
 
 export default {
     name: "RegistroVenta",
-    components: { VueNumeric, MainLayout, ModalLayout, RegistroCliente, BuscarProducto, BuscarCliente},
+    components: { VueNumeric, MainLayout, ModalLayout, RegistroCliente, BuscarProducto, BuscarCliente, VueDatePicker},
     data() {
         return {
             venta: {
@@ -87,7 +97,7 @@ export default {
                 igv_ven: 0,
                 valorigv_ven: 0,
                 dscto_ven: 0,
-                fecha_ven: new Date(1900, 0, 1),
+                fecha_ven: new Date(),
                 obs_ven: 0
             },
             datos_cliente: ref([]),
