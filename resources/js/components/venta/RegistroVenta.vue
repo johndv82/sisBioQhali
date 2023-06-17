@@ -14,32 +14,31 @@
                             </div>
                             <div class="card-body">
                                 <div class="row form-group">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <div class="col-md-3">
-                                                <label for="dni" class="form-control-label">Número:</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" id="numero_comprobante" name="numero_comprobante"
-                                                    class="form-control" placeholder="000">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="dni" class="form-control-label">Serie:</label>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <input type="text" id="serie" name="serie" class="form-control">
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <label for="dni" class="form-control-label">Número:</label>
+                                        <input type="text" id="numero_comprobante" name="numero_comprobante"
+                                            class="form-control" placeholder="000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dni" class="form-control-label">Serie:</label>
+                                        <input type="text" id="serie" name="serie" class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
-                                    <VueDatePicker 
-                                        v-model="venta.fecha_ven" 
-                                        auto-apply 
-                                        :close-on-auto-apply="true"
-                                        :enable-time-picker="false"
-                                        locale="es">
-                                    </VueDatePicker>
+                                    <div class="col-md-6">
+                                        <label for="dni" class="form-control-label">Fecha:</label>
+                                        <VueDatePicker 
+                                            v-model="venta.fecha_ven" 
+                                            auto-apply 
+                                            :close-on-auto-apply="true"
+                                            :enable-time-picker="false"
+                                            locale="es" :format="formatDate">
+                                        </VueDatePicker>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="tipo" class="form-control-label">Tipo:</label>
+                                        <input type="text" id="tipo" class="form-control" value="BOLETA" readonly="true">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -143,6 +142,14 @@ export default {
         raiz: String
     },
     setup() {
+        const date = ref(new Date());
+        const formatDate = (date) => {
+            const day = ('0'+ (date.getDate())).slice(-2);
+            const month = ('0'+ (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
         let thisModal = ref(null);
         function abrirModal() {
             thisModal.value.show();
@@ -151,10 +158,12 @@ export default {
         function cerrarModal() {
             thisModal.value.close();
         }
-        return { abrirModal, cerrarModal, thisModal, v$: useVuelidate() }
+        return { abrirModal, cerrarModal, thisModal, v$: useVuelidate(), formatDate }
     }
 }
 </script>
 <style scoped>
-
+.form-group {
+    margin-bottom: 5px !important;
+}
 </style>
