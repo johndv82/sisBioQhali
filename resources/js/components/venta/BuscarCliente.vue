@@ -90,7 +90,9 @@ export default {
                 axios.post(this.raiz + '/clientes/findbydocument/', { 'numero_documento': this.buscar_documento }).then(response => {
                     let cliente = response.data.data;
                     if (cliente == null) {
-                        self.buscar_nombre = "";
+                        self.buscar_nombre = '';
+                        self.domicilio = '';
+                        self.membresia = '';
                         self.$swal({
                             title: "Cliente no Encontrado.",
                             icon: 'warning',
@@ -121,6 +123,7 @@ export default {
             this.buscar_documento = '';
             this.buscar_nombre = '';
             this.domicilio = '';
+            this.membresia = '';
             this.venta_id_cliente = 0;
         },
         seleccionarCliente(cliente){
