@@ -1,24 +1,26 @@
 <template>
     <MainLayout>
         <template #mbody>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">Listado de Producto</strong>
-                    </div>
-                    <div class="card-body">
-                        <div class="row form-group">
-                            <div class="col-md-3">
-                                <button class="btn btn-outline-secondary" id="btnNuevo" @click="nuevoRegistro">
-                                    Nuevo Producto
-                                </button>
-                            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <strong class="card-title">Listado de Producto</strong>
                         </div>
-                        <ListaProducto
-                            :datos="datos" 
-                            @editar_trigger="editarRegistro" 
-                            @eliminar_trigger="eliminarRegistro">
-                        </ListaProducto>
+                        <div class="card-body">
+                            <div class="row form-group">
+                                <div class="col-md-3">
+                                    <button class="btn btn-outline-secondary" id="btnNuevo" @click="nuevoRegistro">
+                                        Nuevo Producto
+                                    </button>
+                                </div>
+                            </div>
+                            <ListaProducto
+                                :datos="datos" 
+                                @editar_trigger="editarRegistro" 
+                                @eliminar_trigger="eliminarRegistro">
+                            </ListaProducto>
+                        </div>
                     </div>
                 </div>
             </div>

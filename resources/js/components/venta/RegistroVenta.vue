@@ -52,9 +52,47 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                            @click="cancelar()">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="btnRegistrar">Guardar</button>
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Detalle de Venta</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table--no-card m-b-30">
+                                    <table class="table table-borderless table-striped table-earning">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-right" style="width: 10%;">Cantidad</th>
+                                                <th style="width: 50%;">Descripción</th>
+                                                <th class="text-right" style="width: 20%;">Precio</th>
+                                                <th class="text-right" style="width: 20%;">Importe</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right">1</td>
+                                                <td>iPhone X 64Gb Grey</td>
+                                                <td class="text-right">$999.00</td>
+                                                <td class="text-right">$999.00</td>
+                                                <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right">1</td>
+                                                <td>Samsung S8 Black</td>
+                                                <td class="text-right">$756.00</td>
+                                                <td class="text-right">$756.00</td>
+                                                <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                    @click="cancelar()">Cancelar</button>
+                                <button type="button" class="btn btn-primary float-right" id="btnRegistrar">Guardar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>

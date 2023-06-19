@@ -1,8 +1,8 @@
 <template>
     <div class="main-content">
-        <div class="section__content section__content--p30">
+        <div class="section__content section__content--p10">
             <div class="container-fluid">
-                <mbody class="row">
+                <mbody>
                     <slot name="mbody"></slot>
                 </mbody>
             </div>
@@ -18,5 +18,7 @@ export default {
 </script>
 
 <style scoped>
-
+.main-content{
+    padding-top: 95px;
+}
 </style>
