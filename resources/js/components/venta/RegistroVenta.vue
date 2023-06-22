@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped table-earning">
+                                    <table class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
                                                 <th class="text-right" style="width: 10%;">Cantidad</th>
@@ -69,19 +69,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="text-right">1</td>
-                                                <td>iPhone X 64Gb Grey</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td class="text-right">$999.00</td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                            <tr v-for="item in datos_detalle" :key="item.id_producto">
+                                                <td class="text-right">{{ item.cantidad }}</td>
+                                                <td>{{ item.descripcion }}</td>
+                                                <td class="text-right">{{ item.preciov }}</td>
+                                                <td class="text-right">{{ formatoNumero(item.cantidad * item.preciov) }}</td>
+                                                <td><button type="button" class="btn btn-danger btn-sm" @click="eliminarDetalle(item.id_producto)">Eliminar</button></td>
                                             </tr>
-                                            <tr>
-                                                <td class="text-right">1</td>
-                                                <td>Samsung S8 Black</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td class="text-right">$756.00</td>
-                                                <td><button type="button" class="btn btn-danger btn-sm">Eliminar</button></td>
+                                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                                <td></td><td></td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>TOTAL: </strong>
+                                                </td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>{{ total_datos_detalle }}</strong>
+                                                </td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -137,6 +140,7 @@ export default {
                 fecha_ven: new Date(),
                 obs_ven: 0
             },
+            datos_detalle: [],
             datos_cliente: ref([]),
             id_cliente: -1
         }
@@ -169,12 +173,51 @@ export default {
         },
         cancelar() {
             //this.v$.$reset()
+            window.location.href = this.raiz + '/ventas';
         },
         agregarDetalle(det){
-            console.log(det);
+            this.datos_detalle.push(det);
+            this.datos_detalle = this.agruparArrayDetalle(this.datos_detalle);
+        },
+        agruparArrayDetalle(arreglo){
+            var helper = {};
+            var result = arreglo.reduce(function(r, o) {
+            var key = o.id_producto;
+            
+            if(!helper[key]) {
+                helper[key] = Object.assign({}, o);
+                r.push(helper[key]);
+            } else {
+                helper[key].cantidad += o.cantidad;
+            }
+            return r;
+            }, []);
+            return result;
+        },
+        formatoNumero(n, tipo="decimal"){
+            let numero = Math.round(n * 100) / 100;
+            const formateado = numero.toLocaleString("es-PE", {
+                style: tipo,
+                currency: "PEN"
+            });
+            return formateado;
+        },
+        eliminarDetalle(id){
+            const index = this.datos_detalle.findIndex(item => item.id_producto === id);
+            if (index !== -1) {
+                this.datos_detalle.splice(index, 1);
+            }
         }
     },
     computed:{
+        total_datos_detalle(){
+            let importeTotal = 0;
+            for (let i = 0; i < this.datos_detalle.length; i++) {
+                let importe = this.datos_detalle[i].preciov * this.datos_detalle[i].cantidad;
+                importeTotal += importe;
+            }
+            return this.formatoNumero(importeTotal, "currency");
+        }
     },
     props: {
         raiz: String
@@ -203,5 +246,8 @@ export default {
 <style scoped>
 .form-group {
     margin-bottom: 5px !important;
+}
+.table-data3 tbody td{
+    font-size: 16px;
 }
 </style>

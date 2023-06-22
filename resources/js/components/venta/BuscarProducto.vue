@@ -110,6 +110,7 @@ export default {
             if(this.cantidad > 0 && this.venta_id_producto != 0){
                 const detalle = {
                     id_producto: this.venta_id_producto,
+                    descripcion: this.buscar_nombre,
                     categoria: this.categoria,
                     preciov: this.preciov,
                     cantidad: this.cantidad
