@@ -4,7 +4,9 @@
             <form id="frmVenta" autocomplete="off" onsubmit="return false;">
                 <div class="row">
                     <div class="col-md-8">
-                        <BuscarCliente :raiz="raiz" :datos="datos_cliente" @agregar_cliente_trigger="agregarCliente">
+                        <BuscarCliente :raiz="raiz" :datos="datos_cliente" 
+                            @agregar_cliente_trigger="agregarCliente"
+                            @buscar_cliente_trigger="buscarCliente">
                         </BuscarCliente>
                     </div>
                     <div class="col-md-4">
@@ -32,7 +34,9 @@
                                             auto-apply 
                                             :close-on-auto-apply="true"
                                             :enable-time-picker="false"
-                                            locale="es" :format="formatDate">
+                                            locale="es" 
+                                            :format="formatDate"
+                                            :clearable="false">
                                         </VueDatePicker>
                                     </div>
                                     <div class="col-md-6">
@@ -93,7 +97,11 @@
                             <div class="card-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                     @click="cancelar()">Cancelar</button>
-                                <button type="button" class="btn btn-primary float-right" id="btnRegistrar">Guardar</button>
+                                <button type="button" class="btn btn-primary float-right" id="btnRegistrar"
+                                    :class="{'disabled': !producto_cliente_select}" 
+                                    :disabled="!producto_cliente_select"
+                                    @click="guardar()">
+                                    Guardar</button>
                             </div>
                         </div>
                     </div>
@@ -166,6 +174,9 @@ export default {
             this.id_cliente = 0;
             this.abrirModal();
         },
+        buscarCliente(new_id){
+            this.venta.idcliente_ven = new_id;
+        },
         retornoModalCliente() {
             //Cerrar el Modal y actualizar datos de cliente para el autocomplete
             this.cerrarModal();
@@ -207,6 +218,9 @@ export default {
             if (index !== -1) {
                 this.datos_detalle.splice(index, 1);
             }
+        },
+        guardar(){ //Guardar Venta
+
         }
     },
     computed:{
@@ -217,6 +231,12 @@ export default {
                 importeTotal += importe;
             }
             return this.formatoNumero(importeTotal, "currency");
+        },
+        producto_cliente_select(){
+            let valid = false;
+            valid = (this.datos_detalle.length > 0) ? true : false;
+            valid = (this.venta.idcliente_ven > 0) ? true : false;
+            return valid;
         }
     },
     props: {

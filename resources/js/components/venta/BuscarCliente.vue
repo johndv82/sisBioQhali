@@ -82,7 +82,7 @@ export default {
             membresia: ''
         }
     },
-    emits: ['agregar_cliente_trigger'],
+    emits: ['agregar_cliente_trigger', 'buscar_cliente_trigger'],
     methods: {
         buscarCliente() {
             let self = this;
@@ -159,6 +159,11 @@ export default {
                     }
                 });
             }
+        }
+    },
+    watch:{
+        'venta_id_cliente'(new_id_cliente){
+            this.$emit('buscar_cliente_trigger', new_id_cliente);
         }
     },
     props: {
