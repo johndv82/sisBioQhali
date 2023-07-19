@@ -17,13 +17,13 @@
                             <div class="card-body">
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label for="dni" class="form-control-label">Número:</label>
-                                        <input type="text" id="numero_comprobante" name="numero_comprobante"
-                                            class="form-control" placeholder="000">
+                                        <label for="dni" class="form-control-label">Serie:</label>
+                                        <input type="text" id="serie" name="serie" class="form-control" value="001">
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="dni" class="form-control-label">Serie:</label>
-                                        <input type="text" id="serie" name="serie" class="form-control">
+                                        <label for="dni" class="form-control-label">Número:</label>
+                                        <input type="text" id="numero_comprobante" name="numero_comprobante"
+                                            class="form-control">
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -98,7 +98,6 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                     @click="cancelar()">Cancelar</button>
                                 <button type="button" class="btn btn-primary float-right" id="btnRegistrar"
-                                    :class="{'disabled': !producto_cliente_select}" 
                                     :disabled="!producto_cliente_select"
                                     @click="guardar()">
                                     Guardar</button>
@@ -233,10 +232,7 @@ export default {
             return this.formatoNumero(importeTotal, "currency");
         },
         producto_cliente_select(){
-            let valid = false;
-            valid = (this.datos_detalle.length > 0) ? true : false;
-            valid = (this.venta.idcliente_ven > 0) ? true : false;
-            return valid;
+            return (this.datos_detalle.length > 0) && (this.venta.idcliente_ven > 0);
         }
     },
     props: {
@@ -269,5 +265,8 @@ export default {
 }
 .table-data3 tbody td{
     font-size: 16px;
+}
+button:disabled{
+    cursor: default;
 }
 </style>
