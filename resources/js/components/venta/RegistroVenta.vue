@@ -13,17 +13,31 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Comprobante</strong>
+                                <label class="float-right"><input type="checkbox" id="chkAcumular" 
+                                    v-model="acumulado"/> 
+                                    Acumular Venta</label>
                             </div>
                             <div class="card-body">
                                 <div class="row form-group">
                                     <div class="col-md-6">
                                         <label for="dni" class="form-control-label">Serie:</label>
-                                        <input type="text" id="serie" name="serie" class="form-control" value="001">
+                                        <div class="float-right">
+                                            <span class="invalid-feedback d-inline">{{ validateSerie }}</span>
+                                        </div>
+                                        <vue-numeric id="serie_comprobante" class="form-control" 
+                                            v-model="venta.seriecomp_ven"
+                                            separator="," :precision="0" :disabled="acumulado">
+                                        </vue-numeric>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="dni" class="form-control-label">Número:</label>
-                                        <input type="text" id="numero_comprobante" name="numero_comprobante"
-                                            class="form-control">
+                                        <div class="float-right">
+                                            <span class="invalid-feedback d-inline">{{ validateNumero  }}</span>
+                                        </div>
+                                        <vue-numeric id="numero_comprobante" class="form-control" 
+                                            v-model="venta.numerocomp_ven"
+                                            separator="," :precision="0" :disabled="acumulado">
+                                        </vue-numeric>
                                     </div>
                                 </div>
                                 <div class="row form-group">
@@ -97,6 +111,7 @@
                             <div class="card-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                     @click="cancelar()">Cancelar</button>
+                                
                                 <button type="button" class="btn btn-primary float-right" id="btnRegistrar"
                                     :disabled="!producto_cliente_select"
                                     @click="guardar()">
@@ -125,7 +140,6 @@ import BuscarProducto from "./BuscarProducto.vue"
 import BuscarCliente from './BuscarCliente.vue'
 import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue';
-import { required, maxLength, minLength, helpers, minValue, email, numeric } from '@vuelidate/validators'
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 import VueDatePicker from '@vuepic/vue-datepicker';
 
@@ -136,8 +150,8 @@ export default {
         return {
             venta: {
                 idcliente_ven: 0,
-                numerocomp_ven: '',
-                seriecomp_ven: 0,
+                seriecomp_ven: 1,
+                numerocomp_ven: 0,
                 tipocomp_ven: 0,
                 total_ven: 0,
                 subtotal_ven: 0,
@@ -149,13 +163,8 @@ export default {
             },
             datos_detalle: [],
             datos_cliente: ref([]),
-            id_cliente: -1
-        }
-    },
-    validations() {
-        return {
-            venta: {
-            }
+            id_cliente: -1,
+            acumulado: false
         }
     },
     created(){
@@ -232,7 +241,25 @@ export default {
             return this.formatoNumero(importeTotal, "currency");
         },
         producto_cliente_select(){
-            return (this.datos_detalle.length > 0) && (this.venta.idcliente_ven > 0);
+            return (this.datos_detalle.length > 0) && 
+                    (this.venta.idcliente_ven > 0) && 
+                    (this.validateNumero == "") && (this.validateSerie == "");
+        },
+        validateSerie(){
+            if(!this.acumulado){
+                return (this.venta.seriecomp_ven > 0) ? "": "(*)Req.";
+            }else{
+                return "";
+            }
+        },
+        validateNumero(){
+            if(!this.acumulado){
+                if(!this.acumulado){
+                    return (this.venta.numerocomp_ven > 0 ) ? "": "(*)Req.";
+                }
+            }else{
+                return "";
+            }
         }
     },
     props: {
