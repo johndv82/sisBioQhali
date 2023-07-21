@@ -15,4 +15,8 @@ class Venta extends Model
     ];
 
     public $timestamps = false;
+
+    public function detalle(){
+        return $this->hasMany(DetalleVenta::class,'idventa_detven','id_ven');
+    }
 }

@@ -59,9 +59,6 @@
                         @click="agregarProductoDetalle()">Agregar a Detalle</button>
                 </div>
             </div>
-            <div class="form-group row">
-
-            </div>
         </div>
     </div>
 </template>

@@ -15,4 +15,9 @@ class DetalleVenta extends Model
     ];
 
     public $timestamps = false;
+
+    public function venta()
+    {
+        return $this->belongsTo(Venta::class,'idventa_detven','id_ven');
+    }
 }

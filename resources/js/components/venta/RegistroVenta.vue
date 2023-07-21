@@ -13,7 +13,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">Comprobante</strong>
-                                <label class="float-right"><input type="checkbox" id="chkAcumular" 
+                                <label class="form-check-label float-right"><input type="checkbox" id="chkAcumular" 
                                     v-model="acumulado"/> 
                                     Acumular Venta</label>
                             </div>
@@ -97,10 +97,30 @@
                                             <tr class="table-info" v-show="datos_detalle.length > 0">
                                                 <td></td><td></td>
                                                 <td class="text-right" style="width: 20%;">
+                                                    <strong>SUB TOTAL: </strong>
+                                                </td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>{{ total_datos_detalle - (total_datos_detalle * 0.18) }}</strong>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                                <td></td><td></td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>IGV (18%): </strong>
+                                                </td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>{{ total_datos_detalle * 0.18 }}</strong>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                                <td></td><td></td>
+                                                <td class="text-right" style="width: 20%;">
                                                     <strong>TOTAL: </strong>
                                                 </td>
                                                 <td class="text-right" style="width: 20%;">
-                                                    <strong>{{ total_datos_detalle }}</strong>
+                                                    <strong>{{ formatoNumero(total_datos_detalle, "currency") }}</strong>
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -159,7 +179,7 @@ export default {
                 valorigv_ven: 0,
                 dscto_ven: 0,
                 fecha_ven: new Date(),
-                obs_ven: 0
+                obs_ven: ''
             },
             datos_detalle: [],
             datos_cliente: ref([]),
@@ -228,7 +248,31 @@ export default {
             }
         },
         guardar(){ //Guardar Venta
+            let self = this;
+            let peticion = null;
+            this.venta['detalle_venta'] = this.datos_detalle;
+            peticion = axios.post(this.raiz + '/ventas/', this.venta)
 
+            peticion.then(function (response) {
+                if(response.data.code == 200){
+                    self.$swal({
+                        title: response.data.msg,
+                        icon: 'success',
+                        iconColor: 'white',
+                        color: 'white',
+                        toast: true,
+                        position: 'top-right',
+                        background: '#62c429',
+                        showConfirmButton: false,
+                        timer: 2500,
+                        timerProgressBar: true
+                    });
+                }else{
+                    console.error(response.data.msg);
+                }
+            }).catch(function (error) {
+                console.error(error);
+            });
         }
     },
     computed:{
@@ -238,7 +282,7 @@ export default {
                 let importe = this.datos_detalle[i].preciov * this.datos_detalle[i].cantidad;
                 importeTotal += importe;
             }
-            return this.formatoNumero(importeTotal, "currency");
+            return importeTotal;
         },
         producto_cliente_select(){
             return (this.datos_detalle.length > 0) && 
