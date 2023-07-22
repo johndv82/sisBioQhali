@@ -256,16 +256,15 @@ export default {
             peticion.then(function (response) {
                 if(response.data.code == 200){
                     self.$swal({
-                        title: response.data.msg,
+                        title: "Éxito",
+                        text: "Venta Registrada Correctamente",
                         icon: 'success',
-                        iconColor: 'white',
-                        color: 'white',
-                        toast: true,
-                        position: 'top-right',
-                        background: '#62c429',
-                        showConfirmButton: false,
-                        timer: 2500,
-                        timerProgressBar: true
+                        showConfirmButton: true
+                    }).then((result)=>{
+                        if (result.isConfirmed) {
+                            //Redirigir a Consulta de Ventas
+                            window.location.href = self.raiz + '/ventas/';
+                        }
                     });
                 }else{
                     console.error(response.data.msg);

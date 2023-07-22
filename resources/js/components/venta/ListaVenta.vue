@@ -12,7 +12,7 @@
                 <table id="tblVentas" class="table table-sm table-striped table-bordered display">
                     <thead>
                         <tr>
-                            <th>IDCliente</th>
+                            <th>Cliente</th>
                             <th>numero</th>
                             <th>serie</th>
                             <th>total</th>
@@ -21,14 +21,14 @@
                     </thead>
                     <tbody>
                         <tr v-for="item in datos_a_pintar" :key="item.id_ven">
-                            <td>{{ item.idcliente_ven }}</td>
+                            <td>{{ item.cliente.nombrec_cli }}</td>
                             <td>{{ item.numerocomp_ven }}</td>
                             <td>{{ item.seriecomp_ven }}</td>
                             <td>{{ item.total_ven }}</td>
                             <td>
-                                <button v-bind:id="'btnEditar-' + item.id_ven" class="btn btn-sm btn-warning"
-                                    @click="editar(item.id_ven)">Editar</button>&nbsp;
-                                <button v-bind:id="'btnEliminar-' + item.id_ven" class="btn btn-sm btn-danger"
+                                <button v-bind:id="'btnVerdetalle' + item.id_ven" class="btn btn-sm btn-info"
+                                    @click="editar(item.id_ven)">Ver Detalle</button>&nbsp;
+                                <button v-bind:id="'btnEliminar' + item.id_ven" class="btn btn-sm btn-danger"
                                     @click="eliminar(item.id_ven)">Eliminar</button>
                             </td>
                         </tr>

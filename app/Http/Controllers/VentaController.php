@@ -28,7 +28,7 @@ class VentaController extends Controller
     public function list()
     {
         $respuesta = 404;
-        $ventas = Venta::where('estado_ven', 1)->get();
+        $ventas = Venta::with('cliente')->where('estado_ven', 1)->get();
         if($ventas != null){
             $respuesta = 200;
         }
