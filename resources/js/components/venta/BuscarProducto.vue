@@ -12,7 +12,7 @@
                             <span class="invalid-feedback d-flex" v-if="venta_id_producto == 0">(*)Obligatorio</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="Descripción"
+                    <input type="text" placeholder="Descripción" id="txtBuscarProductoNombre"
                         class="form-control" v-model="buscar_nombre"
                         @focus="buscar_nombre_foco = true" @blur="perderFocoProducto" :class="{ 'is-invalid': (venta_id_producto == 0) }">
                     <span class="select2-container select2-container--default select2-container--open" v-show="busquedaProductoDinamic">
@@ -150,5 +150,8 @@ export default {
 <style scoped>
 .form-group {
     margin-bottom: 5px !important;
+}
+#txtBuscarProductoNombre{
+    text-transform: uppercase;
 }
 </style>

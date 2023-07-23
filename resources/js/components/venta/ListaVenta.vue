@@ -13,18 +13,20 @@
                     <thead>
                         <tr>
                             <th>Cliente</th>
-                            <th>numero</th>
-                            <th>serie</th>
-                            <th>total</th>
+                            <th>Serie-Número</th>
+                            <th>Total</th>
+                            <th>Dscto.</th>
+                            <th>Fecha</th>
                             <th>Acción</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in datos_a_pintar" :key="item.id_ven">
                             <td>{{ item.cliente.nombrec_cli }}</td>
-                            <td>{{ item.numerocomp_ven }}</td>
-                            <td>{{ item.seriecomp_ven }}</td>
-                            <td>{{ item.total_ven }}</td>
+                            <td>{{ item.seriecomp_ven + " - " + item.numerocomp_ven }}</td>
+                            <td>{{ formatoNumero(item.total_ven, 'currency') }}</td>
+                            <td>{{ formatoNumero(item.dscto_ven, 'currency') }}</td>
+                            <td>{{ item.fecha_ven }}</td>
                             <td>
                                 <button v-bind:id="'btnVerdetalle' + item.id_ven" class="btn btn-sm btn-info"
                                     @click="editar(item.id_ven)">Ver Detalle</button>&nbsp;
@@ -109,7 +111,15 @@ export default {
         },
         eliminar(id) {
             this.$emit('eliminar_trigger', id);
-        }
+        },
+        formatoNumero(n, tipo="decimal"){
+            let numero = Math.round(n * 100) / 100;
+            const formateado = numero.toLocaleString("es-PE", {
+                style: tipo,
+                currency: "PEN"
+            });
+            return formateado;
+        },
     },
     props: {
         datos: {

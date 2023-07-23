@@ -30,7 +30,7 @@
                             <span class="invalid-feedback d-inline" v-if="venta_id_cliente == 0">(*)Obligatorio</span>
                         </div>
                     </div>
-                    <input type="text" placeholder="Nombre Completo"
+                    <input type="text" placeholder="Nombre Completo" id="txtBuscarClienteNombre"
                             class="form-control" :readonly="!habilitar_autocomplete" v-model="buscar_nombre"
                             @focus="cambiarFocoNombreCliente" @blur="perderFocoNombreCliente" :class="{ 'is-invalid': (venta_id_cliente == 0) }">
                     <span class="select2-container select2-container--default select2-container--open" v-show="busquedaClientesDinamic">
@@ -176,5 +176,8 @@ export default {
 <style scoped>
 .form-group {
     margin-bottom: 5px !important;
+}
+#txtBuscarClienteNombre{
+    text-transform: uppercase;
 }
 </style>

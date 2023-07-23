@@ -90,8 +90,8 @@
                                             <tr v-for="item in datos_detalle" :key="item.id_producto">
                                                 <td class="text-right">{{ item.cantidad }}</td>
                                                 <td>{{ item.descripcion }}</td>
-                                                <td class="text-right">{{ item.preciov }}</td>
-                                                <td class="text-right">{{ formatoNumero(item.cantidad * item.preciov) }}</td>
+                                                <td class="text-right">{{ formatoNumero(item.preciov, "currency") }}</td>
+                                                <td class="text-right">{{ formatoNumero(item.cantidad * item.preciov, "currency") }}</td>
                                                 <td><button type="button" class="btn btn-danger btn-sm" @click="eliminarDetalle(item.id_producto)">Eliminar</button></td>
                                             </tr>
                                             <tr class="table-info" v-show="datos_detalle.length > 0">
@@ -100,7 +100,7 @@
                                                     <strong>SUB TOTAL: </strong>
                                                 </td>
                                                 <td class="text-right" style="width: 20%;">
-                                                    <strong>{{ total_datos_detalle - (total_datos_detalle * 0.18) }}</strong>
+                                                    <strong>{{ (total_datos_detalle - (total_datos_detalle * 0.18)).toFixed(2) }}</strong>
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -110,7 +110,7 @@
                                                     <strong>IGV (18%): </strong>
                                                 </td>
                                                 <td class="text-right" style="width: 20%;">
-                                                    <strong>{{ total_datos_detalle * 0.18 }}</strong>
+                                                    <strong>{{ (total_datos_detalle * 0.18).toFixed(2) }}</strong>
                                                 </td>
                                                 <td></td>
                                             </tr>
@@ -290,7 +290,7 @@ export default {
         },
         validateSerie(){
             if(!this.acumulado){
-                return (this.venta.seriecomp_ven > 0) ? "": "(*)Req.";
+                return (this.venta.seriecomp_ven > 0) ? "": "(*)Oblig.";
             }else{
                 return "";
             }
@@ -298,7 +298,7 @@ export default {
         validateNumero(){
             if(!this.acumulado){
                 if(!this.acumulado){
-                    return (this.venta.numerocomp_ven > 0 ) ? "": "(*)Req.";
+                    return (this.venta.numerocomp_ven > 0 ) ? "": "(*)Oblig.";
                 }
             }else{
                 return "";
