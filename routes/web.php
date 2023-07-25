@@ -29,6 +29,7 @@ Route::get('/clientes/list', [ClienteController::class, 'list'])->name('clientes
 Route::post('/clientes/findbydocument', [ClienteController::class, 'findbydocument'])->name('clientes.findbydocument');
 Route::get('/proveedores/list', [ProveedorController::class, 'list'])->name('proveedores.list');
 Route::get('/ventas/list', [VentaController::class, 'list'])->name('ventas.list');
+Route::get('/ventas/getnumerocomp', [VentaController::class, 'getNumeroComprobante'])->name('ventas.getnumerocomp');
 
 Route::resources([
     'categorias' => CategoriaController::class,

@@ -127,6 +127,15 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="observaciones" class="form-control-label">Observaciones:</label>
+                                            <textarea rows="3" id="observaciones" class="form-control" 
+                                                v-model="venta.obs_ven"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -188,6 +197,7 @@ export default {
         }
     },
     created(){
+        this.cargarNumeroComprobante();
         this.cargarDatosCliente();
     },
     methods: {
@@ -196,6 +206,13 @@ export default {
             let self = this;
             axios.get(this.raiz + '/clientes/list').then(response => {
                 self.datos_cliente = response.data.data;
+            });
+        },
+        cargarNumeroComprobante(){
+            //Obtenemos el número de comprobante próximo para el registro de la venta.
+            let self = this;
+            axios.get(this.raiz + '/ventas/getnumerocomp').then(response => {
+                self.venta.numerocomp_ven = response.data.data;
             });
         },
         agregarCliente() {

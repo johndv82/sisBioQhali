@@ -93,7 +93,7 @@ class VentaController extends Controller
         $venta->saldo_ven = 0;
         $venta->tipocambio_ven = 'PEN';
         $venta->valorcambio_ven = 0;
-        $venta->obs_ven = ' ';
+        $venta->obs_ven = $request->input('obs_ven');;
         $venta->usercreated_ven = "USR1";
 
         try {
@@ -133,6 +133,23 @@ class VentaController extends Controller
                 'code' => 500
             ]);
         } 
+    }
+
+    /**
+     * Returna último Número de Comprobante.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getNumeroComprobante()
+    {
+        $ultimo_numero = Venta::all()->last()->numerocomp_ven;
+        if($ultimo_numero != null){
+            $ultimo_numero = (int)$ultimo_numero + 1;
+        }else{
+            $ultimo_numero = 1;
+        }
+        return response()->json(['data' => $ultimo_numero, 'code' => '200']);
     }
 
     /**
