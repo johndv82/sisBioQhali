@@ -1,11 +1,4 @@
-<template>
-    <div class="form-group row">
-        <label for="txtBuscar" class="col-sm-2 col-form-label">Buscar: </label>
-        <div class="col-sm-10">
-            <input type="seach" class="form-control" id="txtBuscar" placeholder="Criterio de búsqueda" />
-        </div>
-    </div>
-    
+<template>    
     <div class="row form-group">
         <div class="col-md-12">
             <div class="table-responsive table--no-card m-b-30">
@@ -59,7 +52,8 @@
     </div>
 </template>
 
-<script>
+<script lang="js">
+
 export default {
     name: "ListaVenta",
     data() {
@@ -88,11 +82,6 @@ export default {
             return this.datos_parciales.slice(this.desde, this.hasta);
         }
     },
-    watch:{
-        busqueda(){
-            this.boton_page_click(1);
-        }
-    },
     emits: ['eliminar_trigger'],
     methods: {
         boton_page_click(bot) {
@@ -119,7 +108,7 @@ export default {
                 currency: "PEN"
             });
             return formateado;
-        },
+        }
     },
     props: {
         datos: {

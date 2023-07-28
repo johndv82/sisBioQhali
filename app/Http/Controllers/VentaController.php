@@ -25,11 +25,12 @@ class VentaController extends Controller
      *
      * @return Response
      */
-    public function list()
+    public function list(Request $request)
     {
         $respuesta = 404;
-        $hoy = date("Y-m-d");
-        $ventas = Venta::with('cliente')->where([['estado_ven', 1], ['fecha_ven', $hoy]])->get();
+        $fecha_ini = date("Y-m-d", strtotime($request->input('fecha_ini')));
+        $fecha_fin = date("Y-m-d", strtotime($request->input('fecha_fin')));
+        $ventas = Venta::with('cliente')->where('estado_ven', 1)->whereBetween('fecha_ven', [$fecha_ini, $fecha_fin])->get();
         if($ventas != null){
             $respuesta = 200;
         }
@@ -87,14 +88,14 @@ class VentaController extends Controller
         $venta->igv_ven = ($total_venta * 0.18);
         $venta->valorigv_ven = 18;
         $venta->dscto_ven = 0;
-        $venta->fecha_ven = date('Y/m/d', $fecha_venta);
+        $venta->fecha_ven = date('Y-m-d', $fecha_venta);
         $venta->montoresto_ven = 0;
         $venta->formapago_ven = 'CONTADO';
-        $venta->numeropago_ven = ' ';
+        $venta->numeropago_ven = '';
         $venta->saldo_ven = 0;
         $venta->tipocambio_ven = 'PEN';
         $venta->valorcambio_ven = 0;
-        $venta->obs_ven = $request->input('obs_ven');;
+        $venta->obs_ven = $request->input('obs_ven')??'';
         $venta->usercreated_ven = "USR1";
 
         try {

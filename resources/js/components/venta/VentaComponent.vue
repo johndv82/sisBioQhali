@@ -14,6 +14,37 @@
                                 </button>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="dtInicio" class="col-sm-2 col-form-label">Filtrar desde: </label>
+                            <div class="col-sm-3">
+                                <VueDatePicker id="dtInicio"
+                                    v-model="filtro_fecha_ini" 
+                                    auto-apply 
+                                    :close-on-auto-apply="true"
+                                    :enable-time-picker="false"
+                                    locale="es" 
+                                    :format="formatDate"
+                                    :clearable="false">
+                                </VueDatePicker>
+                            </div>
+                            <label for="dtFin" class="col-sm-2 col-form-label">Hasta: </label>
+                            <div class="col-sm-3">
+                                <VueDatePicker id="dtFin"
+                                    v-model="filtro_fecha_fin" 
+                                    auto-apply 
+                                    :close-on-auto-apply="true"
+                                    :enable-time-picker="false"
+                                    locale="es" 
+                                    :format="formatDate"
+                                    :clearable="false">
+                                </VueDatePicker>
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" id="btnFiltrar" @click="filtrarVentas">
+                                    Buscar
+                                </button>
+                            </div>
+                        </div>
                         <ListaVenta
                             :datos="datos" 
                             @eliminar_trigger="eliminarRegistro">
@@ -31,19 +62,26 @@ import MainLayout from "../MainLayout.vue";
 import ListaVenta from "./ListaVenta.vue";
 import { ref } from 'vue';
 import axios from "axios";
+import VueDatePicker from '@vuepic/vue-datepicker';
 
 export default {
     name: "VentaComponent",
-    components: {MainLayout, ListaVenta},
+    components: {MainLayout, ListaVenta, VueDatePicker},
     data(){
         return{
-            datos: ref([])
+            datos: ref([]),
+            filtro_fecha_ini: new Date(),
+            filtro_fecha_fin: new Date()
         }
     },
     methods:{
         listRegistros(){
             let self = this;
-            axios.get(this.raiz + '/ventas/list').then(response =>{
+            let req = {
+                fecha_ini : this.filtro_fecha_ini,
+                fecha_fin : this.filtro_fecha_fin
+            }
+            axios.post(this.raiz + '/ventas/list', req).then(response =>{
                 self.datos = response.data.data;
             });
         },
@@ -86,7 +124,20 @@ export default {
         },
         nuevoRegistro(){
             window.location.href = this.raiz + '/ventas/create';
+        },
+        filtrarVentas(){
+            this.listRegistros();
         }
+    },
+    setup() {
+        const date = ref(new Date());
+        const formatDate = (date) => {
+            const day = ('0'+ (date.getDate())).slice(-2);
+            const month = ('0'+ (date.getMonth() + 1)).slice(-2);
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+        return { formatDate }
     },
     mounted() {
         this.listRegistros();

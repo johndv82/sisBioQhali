@@ -52,7 +52,6 @@
                                             :format="formatDate"
                                             :clearable="false">
                                         </VueDatePicker>
-                                        {{venta.fecha_ven}}
                                     </div>
                                     <div class="col-md-6">
                                         <label for="tipo" class="form-control-label">Tipo:</label>
