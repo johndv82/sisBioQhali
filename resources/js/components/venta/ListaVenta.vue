@@ -22,7 +22,7 @@
                             <td>{{ item.fecha_ven }}</td>
                             <td>
                                 <button v-bind:id="'btnVerdetalle' + item.id_ven" class="btn btn-sm btn-info"
-                                    @click="editar(item.id_ven)">Ver Detalle</button>&nbsp;
+                                    @click="verdetalle(item.id_ven)">Ver Detalle</button>&nbsp;
                                 <button v-bind:id="'btnEliminar' + item.id_ven" class="btn btn-sm btn-danger"
                                     @click="eliminar(item.id_ven)">Eliminar</button>
                             </td>
@@ -82,7 +82,7 @@ export default {
             return this.datos_parciales.slice(this.desde, this.hasta);
         }
     },
-    emits: ['eliminar_trigger'],
+    emits: ['eliminar_trigger', 'verdetalle_trigger'],
     methods: {
         boton_page_click(bot) {
             this.current_page = bot;
@@ -95,9 +95,6 @@ export default {
         previous_page_click() {
             this.boton_page_click(this.current_page - 1);
         },
-        editar(id) {
-            //redirigir a la ruta laravel edit
-        },
         eliminar(id) {
             this.$emit('eliminar_trigger', id);
         },
@@ -108,6 +105,9 @@ export default {
                 currency: "PEN"
             });
             return formateado;
+        },
+        verdetalle(id){
+            this.$emit('verdetalle_trigger', id);
         }
     },
     props: {

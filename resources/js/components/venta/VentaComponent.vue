@@ -47,13 +47,67 @@
                         </div>
                         <ListaVenta
                             :datos="datos" 
-                            @eliminar_trigger="eliminarRegistro">
+                            @eliminar_trigger="eliminarVenta"
+                            @verdetalle_trigger="verDetalleVenta">
                         </ListaVenta>
                     </div>
                 </div>
             </div>
         </template>
     </MainLayout>
+    <ModalLayout id="modalVerDetalleVenta" titulo="Detalle de Venta" ref="thisModal" class_modal="modal-lg">
+        <template #mcontenido>
+            <div class="modal-body">
+                <div class="table-responsive table--no-card m-b-30">
+                    <table class="table table-borderless table-data3">
+                        <thead>
+                            <tr>
+                                <th class="text-right" style="width: 10%;">Cantidad</th>
+                                <th style="width: 50%;">Descripción</th>
+                                <th class="text-right" style="width: 20%;">Precio</th>
+                                <th class="text-right" style="width: 20%;">Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in datos_detalle" :key="item.id_detven">
+                                <td class="text-right">{{ item.cantidad_detven }}</td>
+                                <td>{{ item.producto.nombre_prod }}</td>
+                                <td class="text-right">{{ formatoNumero(item.precio_detven, "currency") }}</td>
+                                <td class="text-right">{{ formatoNumero(item.cantidad_detven * item.precio_detven, "currency") }}</td>
+                            </tr>
+                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                <td></td><td></td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>SUB TOTAL: </strong>
+                                </td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>{{ (total_datos_detalle - (total_datos_detalle * 0.18)).toFixed(2) }}</strong>
+                                </td>
+                            </tr>
+                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                <td></td><td></td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>IGV (18%): </strong>
+                                </td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>{{ (total_datos_detalle * 0.18).toFixed(2) }}</strong>
+                                </td>
+                            </tr>
+                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                <td></td><td></td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>TOTAL: </strong>
+                                </td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>{{ formatoNumero(total_datos_detalle, "currency") }}</strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </template>
+    </ModalLayout>
 </template>
 
 <script lang="js">
@@ -63,13 +117,15 @@ import ListaVenta from "./ListaVenta.vue";
 import { ref } from 'vue';
 import axios from "axios";
 import VueDatePicker from '@vuepic/vue-datepicker';
+import ModalLayout from '../ModalLayout.vue'
 
 export default {
     name: "VentaComponent",
-    components: {MainLayout, ListaVenta, VueDatePicker},
+    components: {MainLayout, ListaVenta, VueDatePicker, ModalLayout},
     data(){
         return{
             datos: ref([]),
+            datos_detalle: ref([]),
             filtro_fecha_ini: new Date(),
             filtro_fecha_fin: new Date()
         }
@@ -85,11 +141,13 @@ export default {
                 self.datos = response.data.data;
             });
         },
-        cargarTableMembresia(){
-            //Refrescar DataTable
-            this.listRegistros();
+        listDetalleVenta(id){
+            let self = this;
+            axios.get(this.raiz + '/ventas/listdetalle/' + id).then(response =>{
+                self.datos_detalle = response.data.data;
+            });
         },
-        eliminarRegistro(id){
+        eliminarVenta(id){
             this.$swal({
             title: '¿Está seguro que desea eliminar el registro?',
             text: "¡No podrás revertir esto!",
@@ -122,11 +180,33 @@ export default {
                 }
             })
         },
+        formatoNumero(n, tipo="decimal"){
+            let numero = Math.round(n * 100) / 100;
+            const formateado = numero.toLocaleString("es-PE", {
+                style: tipo,
+                currency: "PEN"
+            });
+            return formateado;
+        },
         nuevoRegistro(){
             window.location.href = this.raiz + '/ventas/create';
         },
         filtrarVentas(){
             this.listRegistros();
+        },
+        verDetalleVenta(id){
+            this.listDetalleVenta(id);
+            this.abrirModal();
+        }
+    },
+    computed:{
+        total_datos_detalle(){
+            let importeTotal = 0;
+            for (let i = 0; i < this.datos_detalle.length; i++) {
+                let importe = this.datos_detalle[i].precio_detven * this.datos_detalle[i].cantidad_detven;
+                importeTotal += importe;
+            }
+            return importeTotal;
         }
     },
     setup() {
@@ -137,7 +217,16 @@ export default {
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
         }
-        return { formatDate }
+
+        let thisModal= ref(null);
+        function abrirModal(){
+            thisModal.value.show();
+        }
+
+        function cerrarModal(){
+            thisModal.value.close();
+        }
+        return {abrirModal, cerrarModal, thisModal, formatDate}
     },
     mounted() {
         this.listRegistros();

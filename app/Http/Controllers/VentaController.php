@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DetalleVenta;
 use App\Models\Venta;
+use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,22 @@ class VentaController extends Controller
             $respuesta = 200;
         }
         return response()->json(['data' => $ventas, 'code' => $respuesta]);
+    }
+
+    /**
+     * Return a listing of the Venta Detail.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function listdetalle($id)
+    {
+        $respuesta = 404;
+        $detalle = DetalleVenta::with('producto')->where('idventa_detven', $id)->get();
+        if($detalle != null){
+            $respuesta = 200;
+        }
+        return response()->json(['data' => $detalle, 'code' => $respuesta]);
     }
 
     /**
@@ -140,7 +157,6 @@ class VentaController extends Controller
     /**
      * Returna último Número de Comprobante.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function getNumeroComprobante()
@@ -155,17 +171,6 @@ class VentaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -173,6 +178,25 @@ class VentaController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+
+        DB::beginTransaction();
+        try {
+            $venta = Venta::find($id);
+            $venta->estado_ven = 0;
+            $venta->usermodified_ven = "USR1_DELETE";
+            $venta->save();
+
+            Inventario::where('idmovimiento_inv', $id)->update(['estado_inv' => 0]);
+
+            DB::commit();
+            $code = 200;
+            $message = "Se eliminó correctamente";
+        } catch (\Exception $e) {
+            DB::rollback();
+            $code = 500;
+            $message = $e->getMessage();
+        }
+        return response()->json(['code'=>$code, 'msg'=>$message]);
     }
 }
