@@ -40,7 +40,7 @@
                     <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ventas</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="#"><i class="fas fa-map"></i>Nueva Venta</a>
+                            <a href="{{route('ventas.create')}}"><i class="fas fa-map"></i>Nueva Venta</a>
                         </li>
                         <li>
                             <a href="{{route('ventas.index')}}"><i class="fas fa-map"></i>Consulta de Ventas</a>

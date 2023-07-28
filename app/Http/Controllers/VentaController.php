@@ -28,7 +28,8 @@ class VentaController extends Controller
     public function list()
     {
         $respuesta = 404;
-        $ventas = Venta::with('cliente')->where('estado_ven', 1)->get();
+        $hoy = date("Y-m-d");
+        $ventas = Venta::with('cliente')->where([['estado_ven', 1], ['fecha_ven', $hoy]])->get();
         if($ventas != null){
             $respuesta = 200;
         }
@@ -159,29 +160,6 @@ class VentaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return response()->view('ventas.editar');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
     {
         //
     }
