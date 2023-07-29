@@ -90,7 +90,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Find by document specified.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

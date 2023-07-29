@@ -87,6 +87,24 @@ class ProveedorController extends Controller
         ]);
     }
 
+    /**
+     * Find by RUC specified.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function findbyruc(Request $request)
+    {
+        $respuesta = 404;
+        $cliente = Proveedor::where('ruc_prov', $request->input('numero_ruc'))->first();
+        if($cliente != null){
+            $respuesta = 200;
+        }
+        return Response()->json([
+            'data' => $cliente, 'code' => $respuesta
+        ]);
+    }
+
 
     /**
      * Update the specified resource in storage.
