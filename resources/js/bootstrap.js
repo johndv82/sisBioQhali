@@ -30,6 +30,7 @@ import ClienteComponent from './components/cliente/ClienteComponent';
 import ProveedorComponent from './components/proveedor/ProveedorComponent';
 import VentaComponente from './components/venta/VentaComponent.vue';
 import RegistroVenta from './components/venta/RegistroVenta.vue';
+import CompraComponent from './components/compra/CompraComponent.vue';
 
 //Inicializar VUE3
 const app = createApp({})
@@ -42,6 +43,7 @@ app.component('cliente-component', ClienteComponent);
 app.component('proveedor-component', ProveedorComponent);
 app.component('venta-component', VentaComponente);
 app.component('registro-venta', RegistroVenta);
+app.component('compra-component', CompraComponent);
 app.mount('#app')
 
 

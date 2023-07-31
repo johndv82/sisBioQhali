@@ -52,10 +52,10 @@
                     <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Compras</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="#"><i class="fas fa-shopping-cart"></i>Nueva Compra</a>
+                            <a href="{{route('compras.create')}}"><i class="fas fa-shopping-cart"></i>Nueva Compra</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-clone"></i>Consulta de Compras</a>
+                            <a href="{{route('compras.index')}}"><i class="fas fa-clone"></i>Consulta de Compras</a>
                         </li>
                     </ul>
                 </li>

@@ -165,8 +165,8 @@
 import MainLayout from "../MainLayout.vue";
 import ModalLayout from "../ModalLayout.vue";
 import RegistroCliente from "../cliente/RegistroCliente.vue";
-import BuscarProducto from "./BuscarProducto.vue"
-import BuscarCliente from './BuscarCliente.vue'
+import BuscarProducto from "../producto/BuscarProducto.vue"
+import BuscarCliente from '../cliente/BuscarCliente.vue'
 import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue';
 import VueNumeric from '@handcrafted-market/vue3-numeric';

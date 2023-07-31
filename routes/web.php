@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MembresiaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CompraController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\VentaController;
 
@@ -33,13 +34,17 @@ Route::post('/ventas/list', [VentaController::class, 'list'])->name('ventas.list
 Route::get('/ventas/getnumerocomp', [VentaController::class, 'getNumeroComprobante'])->name('ventas.getnumerocomp');
 Route::get('/ventas/listdetalle/{id}', [VentaController::class, 'listdetalle'])->name('ventas.listdetalle');
 
+Route::post('/compras/list', [CompraController::class, 'list'])->name('compras.list');
+Route::get('/compras/listdetalle/{id}', [CompraController::class, 'listdetalle'])->name('compras.listdetalle');
+
 Route::resources([
     'categorias' => CategoriaController::class,
     'productos' => ProductoController::class,
     'membresias' => MembresiaController::class,
     'clientes' => ClienteController::class,
     'proveedores' => ProveedorController::class,
-    'ventas' => VentaController::class
+    'ventas' => VentaController::class,
+    'compras' => CompraController::class,
 ]);
 
 
