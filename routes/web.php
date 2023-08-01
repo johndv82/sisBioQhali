@@ -29,7 +29,7 @@ Route::get('/membresias/list', [MembresiaController::class, 'list'])->name('memb
 Route::get('/clientes/list', [ClienteController::class, 'list'])->name('clientes.list');
 Route::post('/clientes/findbydocument', [ClienteController::class, 'findbydocument'])->name('clientes.findbydocument');
 Route::get('/proveedores/list', [ProveedorController::class, 'list'])->name('proveedores.list');
-Route::post('/proveedores/findbyruc', [ClienteController::class, 'findbyruc'])->name('proveedores.findbyruc');
+Route::post('/proveedores/findbyruc', [ProveedorController::class, 'findbyruc'])->name('proveedores.findbyruc');
 Route::post('/ventas/list', [VentaController::class, 'list'])->name('ventas.list');
 Route::get('/ventas/getnumerocomp', [VentaController::class, 'getNumeroComprobante'])->name('ventas.getnumerocomp');
 Route::get('/ventas/listdetalle/{id}', [VentaController::class, 'listdetalle'])->name('ventas.listdetalle');
