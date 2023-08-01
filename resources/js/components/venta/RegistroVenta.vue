@@ -167,7 +167,6 @@ import ModalLayout from "../ModalLayout.vue";
 import RegistroCliente from "../cliente/RegistroCliente.vue";
 import BuscarProducto from "../producto/BuscarProducto.vue"
 import BuscarCliente from '../cliente/BuscarCliente.vue'
-import useVuelidate from '@vuelidate/core'
 import { ref } from 'vue';
 import VueNumeric from '@handcrafted-market/vue3-numeric';
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -228,7 +227,6 @@ export default {
             this.cargarDatosCliente();
         },
         cancelar() {
-            //this.v$.$reset()
             window.location.href = this.raiz + '/ventas';
         },
         agregarDetalle(det){
@@ -342,7 +340,7 @@ export default {
         function cerrarModal() {
             thisModal.value.close();
         }
-        return { abrirModal, cerrarModal, thisModal, v$: useVuelidate(), formatDate }
+        return { abrirModal, cerrarModal, thisModal, formatDate }
     }
 }
 </script>

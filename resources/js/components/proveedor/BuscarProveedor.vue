@@ -38,7 +38,7 @@
                             <span class="select2-results">
                                 <ul class="select2-results__options" role="tree" id="select2-property-va-results" aria-expanded="true" aria-hidden="false">
                                     <li class="select2-results__option" role="treeitem" aria-selected="false" 
-                                    v-for="prov in busquedaProveedoresDinamic" :key="proveedor.id_prov" @click="seleccionarProveedor(prov)">
+                                    v-for="prov in busquedaProveedoresDinamic" :key="prov.id_prov" @click="seleccionarProveedor(prov)">
                                         {{ prov.nombre_prov }}
                                     </li>
                                 </ul>

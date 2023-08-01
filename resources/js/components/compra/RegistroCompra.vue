@@ -22,7 +22,7 @@
                                         </div>
                                         <vue-numeric id="serie_comprobante" class="form-control" 
                                             v-model="compra.seriecomp_com"
-                                            separator="," :precision="0" :disabled="acumulado">
+                                            separator="," :precision="0">
                                         </vue-numeric>
                                     </div>
                                     <div class="col-md-6">
@@ -32,7 +32,7 @@
                                         </div>
                                         <vue-numeric id="numero_comprobante" class="form-control" 
                                             v-model="compra.numerocomp_com"
-                                            separator="," :precision="0" :disabled="acumulado">
+                                            separator="," :precision="0">
                                         </vue-numeric>
                                     </div>
                                 </div>
