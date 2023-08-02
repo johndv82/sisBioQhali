@@ -9,6 +9,7 @@
                             <th>Serie-Número</th>
                             <th>Total</th>
                             <th>Dscto.</th>
+                            <th>Total c/Dscto.</th>
                             <th>Fecha</th>
                             <th>Acción</th>
                         </tr>
@@ -18,11 +19,12 @@
                             <td>{{ item.cliente.nombrec_cli }}</td>
                             <td>{{ item.seriecomp_ven + " - " + item.numerocomp_ven }}</td>
                             <td>{{ formatoNumero(item.total_ven, 'currency') }}</td>
-                            <td>{{ formatoNumero(item.dscto_ven, 'currency') }}</td>
+                            <td>{{ formatoNumero(item.dscto_ven) }}%</td>
+                            <td>{{ formatoNumero(item.total_ven - (item.total_ven * (item.dscto_ven / 100)), 'currency') }}</td>
                             <td>{{ item.fecha_ven }}</td>
                             <td>
                                 <button v-bind:id="'btnVerdetalle' + item.id_ven" class="btn btn-sm btn-info"
-                                    @click="verdetalle(item.id_ven)">Ver Detalle</button>&nbsp;
+                                    @click="verdetalle(item.id_ven, item.dscto_ven)">Ver Detalle</button>&nbsp;
                                 <button v-bind:id="'btnEliminar' + item.id_ven" class="btn btn-sm btn-danger"
                                     @click="eliminar(item.id_ven)">Eliminar</button>
                             </td>
@@ -106,8 +108,8 @@ export default {
             });
             return formateado;
         },
-        verdetalle(id){
-            this.$emit('verdetalle_trigger', id);
+        verdetalle(id, dscto){
+            this.$emit('verdetalle_trigger', id, dscto);
         }
     },
     props: {

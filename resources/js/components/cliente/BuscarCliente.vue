@@ -12,7 +12,7 @@
                         :readonly="habilitar_autocomplete">
                         <div class="input-group-btn">
                             <button id="btnBuscarCliente" class="btn btn-secondary" 
-                            @click="buscarCliente()" :disabled="habilitar_autocomplete">Buscar</button>
+                            @click="buscarCliente()" :disabled="habilitar_autocomplete"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,8 @@ export default {
             habilitar_autocomplete: false,
             buscar_nombre_foco: false,
             domicilio: '',
-            membresia: ''
+            membresia: '',
+            descuento_membresia: 0
         }
     },
     emits: ['agregar_cliente_trigger', 'buscar_cliente_trigger'],
@@ -93,6 +94,7 @@ export default {
                         self.buscar_nombre = '';
                         self.domicilio = '';
                         self.membresia = '';
+                        self.descuento_membresia = 0;
                         self.$swal({
                             title: "Cliente no Encontrado.",
                             icon: 'warning',
@@ -109,6 +111,7 @@ export default {
                         self.buscar_nombre = cliente.nombrec_cli;
                         self.domicilio = cliente.domicilio_cli;
                         self.membresia = cliente.membresia.nombre_mem;
+                        self.descuento_membresia = cliente.membresia.descuento_mem;
                         self.venta_id_cliente = cliente.id_cli;
                         self.habilitar_autocomplete = false;
                     }
@@ -124,6 +127,7 @@ export default {
             this.buscar_nombre = '';
             this.domicilio = '';
             this.membresia = '';
+            this.descuento_membresia = 0;
             this.venta_id_cliente = 0;
         },
         seleccionarCliente(cliente){
@@ -131,6 +135,7 @@ export default {
             this.buscar_nombre = cliente.nombrec_cli;
             this.domicilio = cliente.domicilio_cli;
             this.membresia = cliente.membresia.nombre_mem;
+            this.descuento_membresia = cliente.membresia.descuento_mem;
             this.buscar_documento = cliente.numerodoc_cli;
             this.buscar_nombre_foco = false;
         },
@@ -163,7 +168,7 @@ export default {
     },
     watch:{
         'venta_id_cliente'(new_id_cliente){
-            this.$emit('buscar_cliente_trigger', new_id_cliente);
+            this.$emit('buscar_cliente_trigger', new_id_cliente, this.descuento_membresia);
         }
     },
     props: {

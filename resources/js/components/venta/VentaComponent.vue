@@ -62,9 +62,9 @@
                     <table class="table table-borderless table-data3">
                         <thead>
                             <tr>
-                                <th class="text-right" style="width: 10%;">Cantidad</th>
+                                <th class="text-right" style="width: 5%;">Cant.</th>
                                 <th style="width: 50%;">Descripción</th>
-                                <th class="text-right" style="width: 20%;">Precio</th>
+                                <th class="text-right" style="width: 25%;">Precio</th>
                                 <th class="text-right" style="width: 20%;">Importe</th>
                             </tr>
                         </thead>
@@ -102,6 +102,15 @@
                                     <strong>{{ formatoNumero(total_datos_detalle, "currency") }}</strong>
                                 </td>
                             </tr>
+                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                <td></td><td></td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>TOTAL Dscto. ({{ dscto_venta }}%): </strong>
+                                </td>
+                                <td class="text-right" style="width: 20%;">
+                                    <strong>{{ formatoNumero(total_datos_detalle - (total_datos_detalle * (dscto_venta / 100)), "currency") }}</strong>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -127,7 +136,8 @@ export default {
             datos: ref([]),
             datos_detalle: ref([]),
             filtro_fecha_ini: new Date(),
-            filtro_fecha_fin: new Date()
+            filtro_fecha_fin: new Date(),
+            dscto_venta: 0
         }
     },
     methods:{
@@ -194,9 +204,10 @@ export default {
         filtrarVentas(){
             this.listRegistros();
         },
-        verDetalleVenta(id){
+        verDetalleVenta(id, dscto){
             this.listDetalleVenta(id);
             this.abrirModal();
+            this.dscto_venta = dscto;
         }
     },
     computed:{

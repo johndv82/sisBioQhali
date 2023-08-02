@@ -124,6 +124,16 @@
                                                 </td>
                                                 <td></td>
                                             </tr>
+                                            <tr class="table-info" v-show="datos_detalle.length > 0">
+                                                <td></td><td></td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>TOTAL Dscto. ({{ venta.dscto_ven }}%): </strong>
+                                                </td>
+                                                <td class="text-right" style="width: 20%;">
+                                                    <strong>{{ formatoNumero(total_datos_detalle - (total_datos_detalle * (venta.dscto_ven / 100)), "currency") }}</strong>
+                                                </td>
+                                                <td></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -218,8 +228,9 @@ export default {
             this.id_cliente = 0;
             this.abrirModal();
         },
-        buscarCliente(new_id){
+        buscarCliente(new_id, dscto_membresia){
             this.venta.idcliente_ven = new_id;
+            this.venta.dscto_ven = dscto_membresia;
         },
         retornoModalCliente() {
             //Cerrar el Modal y actualizar datos de cliente para el autocomplete

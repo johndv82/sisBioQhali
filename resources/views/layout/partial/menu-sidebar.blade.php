@@ -15,15 +15,15 @@
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
                             <a href="{{route('productos.index')}}">
-                                <i class="fas fa-box"></i>Productos</a>
+                                <i class="fas fa-inbox"></i>Productos</a>
                         </li>
                         <li>
                             <a href="{{route('categorias.index')}}">
-                                <i class="fas fa-gear"></i>Categorías</a>
+                                <i class="fas fa-tags"></i>Categorías</a>
                         </li>
                         <li>
                             <a href="{{route('membresias.index')}}">
-                                <i class="fas fa-user-circle"></i>Membresias</a>
+                                <i class="fas fa-star"></i>Membresias</a>
                         </li>
                         <li>
                             <a href="{{route('clientes.index')}}">
@@ -37,25 +37,28 @@
                 </li>
                 <!-- Ventas -->
                 <li class="has-sub">
-                    <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Ventas</a>
+                    <a class="js-arrow" href="#"><i class="fas fa-dollar"></i>Ventas</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="{{route('ventas.create')}}"><i class="fas fa-dollar"></i>Nueva Venta</a>
+                            <a href="{{route('ventas.create')}}"><i class="fas fa-plus-circle"></i>Nueva Venta</a>
                         </li>
                         <li>
-                            <a href="{{route('ventas.index')}}"><i class="fas fa-clone"></i>Consulta de Ventas</a>
+                            <a href="{{route('ventas.index')}}"><i class="fas fa-file-text"></i>Consulta de Ventas</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-th"></i>Acumulados</a>
                         </li>
                     </ul>
                 </li>
                 <!-- Compras -->
                 <li class="has-sub">
-                    <a class="js-arrow" href="#"><i class="fas fa-qrcode"></i>Compras</a>
+                    <a class="js-arrow" href="#"><i class="fas fa-shopping-cart"></i>Compras</a>
                     <ul class="navbar-mobile-sub__list list-unstyled js-sub-list">
                         <li>
-                            <a href="{{route('compras.create')}}"><i class="fas fa-shopping-cart"></i>Nueva Compra</a>
+                            <a href="{{route('compras.create')}}"><i class="fas fa-plus-circle"></i>Nueva Compra</a>
                         </li>
                         <li>
-                            <a href="{{route('compras.index')}}"><i class="fas fa-clone"></i>Consulta de Compras</a>
+                            <a href="{{route('compras.index')}}"><i class="fas fa-file-text"></i>Consulta de Compras</a>
                         </li>
                     </ul>
                 </li>

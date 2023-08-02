@@ -12,7 +12,7 @@
                         :readonly="habilitar_autocomplete">
                         <div class="input-group-btn">
                             <button id="btnBuscarProveedor" class="btn btn-secondary" 
-                            @click="buscarProveedor()" :disabled="habilitar_autocomplete">Buscar</button>
+                            @click="buscarProveedor()" :disabled="habilitar_autocomplete"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,6 @@
                         </span>
                     </span>
                 </div>
-
             </div>
             <div class="row form-group">
                 <div class="col-md-6">

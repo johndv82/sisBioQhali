@@ -104,7 +104,7 @@ class VentaController extends Controller
         $venta->subtotal_ven = $total_venta - ($total_venta * 0.18);
         $venta->igv_ven = ($total_venta * 0.18);
         $venta->valorigv_ven = 18;
-        $venta->dscto_ven = 0;
+        $venta->dscto_ven = (int)$request->input('dscto_ven');
         $venta->fecha_ven = date('Y-m-d', $fecha_venta);
         $venta->montoresto_ven = 0;
         $venta->formapago_ven = 'CONTADO';
