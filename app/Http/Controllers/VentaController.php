@@ -8,9 +8,20 @@ use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Services\AcumuladoService;
+use App\Services\VentaService;
 
 class VentaController extends Controller
 {
+    protected $serviceAcumulado;
+    protected $serviceVenta;
+
+    public function __construct(AcumuladoService $acumuladoServ, VentaService $ventaServ)
+    {
+        $this->serviceAcumulado = $acumuladoServ;
+        $this->serviceVenta = $ventaServ;
+    }
+
     /**
      * Display a view of the resource.
      *
@@ -80,6 +91,7 @@ class VentaController extends Controller
         $detalle_venta = [];
         $total_venta = 0;
         $fecha_venta = strtotime($request->input('fecha_ven'));
+        $acumulado = (bool)$request->input('acumulado');
 
         foreach($request->input('detalle_venta') as $key => $item){
             $total_venta += $item['cantidad'] * $item['preciov'];
@@ -116,31 +128,11 @@ class VentaController extends Controller
         $venta->usercreated_ven = "USR1";
 
         try {
-            $row_count = 0;
-            DB::statement('call insertVenta(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                array(
-                    $venta->id_ven,
-                    $venta->idcliente_ven,
-                    $venta->numerocomp_ven,
-                    $venta->seriecomp_ven,
-                    $venta->tipocomp_ven,
-                    $venta->total_ven,
-                    $venta->subtotal_ven,
-                    $venta->igv_ven,
-                    $venta->valorigv_ven,
-                    $venta->dscto_ven,
-                    $venta->fecha_ven,
-                    $venta->montoresto_ven,
-                    $venta->formapago_ven,
-                    $venta->numeropago_ven,
-                    $venta->saldo_ven,
-                    $venta->tipocambio_ven,
-                    $venta->valorcambio_ven,
-                    $venta->obs_ven,
-                    $venta->usercreated_ven,
-                    json_encode($detalle_venta),
-                    $row_count,
-                ));
+            if($acumulado){
+                $this->serviceAcumulado->create($venta, $detalle_venta);
+            }else{
+                $this->serviceVenta->create($venta, $detalle_venta);
+            }
 
             return Response()->json([
                 'msg' => 'Se registró correctamente',

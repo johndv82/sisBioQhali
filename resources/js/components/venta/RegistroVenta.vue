@@ -277,6 +277,7 @@ export default {
             let self = this;
             let peticion = null;
             this.venta['detalle_venta'] = this.datos_detalle;
+            this.venta['acumulado'] = this.acumulado;
             peticion = axios.post(this.raiz + '/ventas/', this.venta)
 
             peticion.then(function (response) {
