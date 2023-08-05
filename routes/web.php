@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AcumuladoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
@@ -37,6 +38,8 @@ Route::get('/ventas/listdetalle/{id}', [VentaController::class, 'listdetalle'])-
 Route::post('/compras/list', [CompraController::class, 'list'])->name('compras.list');
 Route::get('/compras/listdetalle/{id}', [CompraController::class, 'listdetalle'])->name('compras.listdetalle');
 
+Route::post('/acumulados/list', [AcumuladoController::class, 'list'])->name('acumulados.list');
+
 Route::resources([
     'categorias' => CategoriaController::class,
     'productos' => ProductoController::class,
@@ -45,6 +48,7 @@ Route::resources([
     'proveedores' => ProveedorController::class,
     'ventas' => VentaController::class,
     'compras' => CompraController::class,
+    'acumulados' => AcumuladoController::class
 ]);
 
 

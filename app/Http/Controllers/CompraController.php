@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\DetalleCompra;
 use App\Models\Compra;
-use App\Models\Inventario;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
+use App\Services\CompraService;
 
 class CompraController extends Controller
 {
+    protected $serviceCompra;
+
+    public function __construct(CompraService $compraServ)
+    {
+        $this->serviceCompra = $compraServ;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -100,7 +106,7 @@ class CompraController extends Controller
         $compra->seriecomp_com = $request->input('seriecomp_com');
         $compra->numerocomp_com = $request->input('numerocomp_com');
         $compra->tipocambio_com = 'PEN';
-        $compra->valorcambio_com = 0;
+        $compra->valorcambio_com = 1;
         $compra->total_com = $total_compra;
         $compra->subtotal_com = $total_compra - ($total_compra * 0.18);
         $compra->igv_com = ($total_compra * 0.18);
@@ -111,27 +117,7 @@ class CompraController extends Controller
         $compra->usercreated_com = "USR1";
 
         try {
-            $row_count = 0;
-            DB::statement('call insertCompra(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
-                array(
-                    $compra->id_com,
-                    $compra->idproveedor_com,
-                    $compra->numerocomp_com,
-                    $compra->seriecomp_com,
-                    $compra->fecha_com,
-                    $compra->tipocambio_com,
-                    $compra->valorcambio_com,
-                    $compra->subtotal_com,
-                    $compra->igv_com,
-                    $compra->valorigv_com,
-                    $compra->dscto_com,
-                    $compra->total_com,
-                    $compra->obs_com,
-                    $compra->usercreated_com,
-                    json_encode($detalle_compra),
-                    $row_count,
-                ));
-
+            $this->serviceCompra->create($compra, $detalle_compra);
             return Response()->json([
                 'msg' => 'Se registró correctamente',
                 'code' => 200

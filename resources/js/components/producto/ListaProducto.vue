@@ -67,7 +67,7 @@ export default {
         return {
             datos_parciales: [],
             current_page: 1,
-            rows: 10,
+            rows: 20,
             desde: 0,
             hasta: 0,
             busqueda: ''

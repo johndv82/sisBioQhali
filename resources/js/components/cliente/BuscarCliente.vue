@@ -6,10 +6,10 @@
         <div class="card-body">
             <div class="row form-group">
                 <div class="col-md-5">
-                    <label for="dni" class="form-control-label">Documento:</label>
+                    <label for="documento" class="form-control-label">Documento:</label>
                     <div class="input-group">
                         <input type="text" class="form-control" placeholder="Número de Documento" v-model="buscar_documento"
-                        :readonly="habilitar_autocomplete">
+                        :readonly="habilitar_autocomplete" id="documento">
                         <div class="input-group-btn">
                             <button id="btnBuscarCliente" class="btn btn-secondary" 
                             @click="buscarCliente()" :disabled="habilitar_autocomplete"><i class="fas fa-search"></i></button>
@@ -58,7 +58,7 @@
                     <input type="text" class="form-control" v-model="membresia" readonly="true">
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <button type="button" class="btn btn-success float-right" id="btnBuscarCliente"
+                    <button type="button" class="btn btn-success float-right" id="btnBuscarCliente" :class="{'display_btn_add': !display_btn_add}"
                     @click="agregarCliente()">Nuevo</button>
                 </div>
             </div>
@@ -67,7 +67,6 @@
 </template>
 
 <script lang='js'>
-import { ref } from 'vue';
 
 export default {
     name: 'BuscarCliente',
@@ -91,6 +90,7 @@ export default {
                 axios.post(this.raiz + '/clientes/findbydocument/', { 'numero_documento': this.buscar_documento }).then(response => {
                     let cliente = response.data.data;
                     if (cliente == null) {
+                        self.venta_id_cliente = 0;
                         self.buscar_nombre = '';
                         self.domicilio = '';
                         self.membresia = '';
@@ -174,6 +174,10 @@ export default {
     props: {
         raiz: String,
         datos: Array,
+        display_btn_add:{
+            type: Boolean,
+            default: true
+        }
     },
 }
 </script>
@@ -184,5 +188,8 @@ export default {
 }
 #txtBuscarClienteNombre{
     text-transform: uppercase;
+}
+.display_btn_add{
+    display: none;
 }
 </style>

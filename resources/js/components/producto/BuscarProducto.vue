@@ -113,11 +113,11 @@ export default {
                     categoria: this.categoria,
                     precioc: this.precioc,
                     preciov: this.preciov,
+                    puntos: this.puntos,
                     cantidad: this.cantidad
                 }
                 this.$emit('agregar_detalle_trigger', detalle);
             }
-            
         }
     },
     computed:{

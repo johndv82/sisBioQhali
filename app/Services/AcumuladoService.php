@@ -21,7 +21,7 @@ class AcumuladoService{
                 $acumulado->preciouni_acum = $item['Precio'];
                 $acumulado->cantidad_acum = $item['Cantidad'];
                 $acumulado->medidaprod_acum = $item['MedidaProd'];
-                $acumulado->puntos_acum = 0;
+                $acumulado->puntos_acum = $item['Puntos'];
                 $acumulado->valorigv_acum = $venta->valorigv_ven;
                 $acumulado->dscto_acum = $venta->dscto_ven;
                 $acumulado->formapago_acum = $venta->formapago_ven;

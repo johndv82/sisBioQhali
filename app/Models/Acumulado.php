@@ -16,4 +16,8 @@ class Acumulado extends Model
     ];
 
     public $timestamps = false;
+
+    public function producto(){
+        return $this->belongsTo(Producto::class, 'idproducto_acum', 'id_prod');
+    }
 }

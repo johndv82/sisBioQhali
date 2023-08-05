@@ -100,6 +100,7 @@ class VentaController extends Controller
                 'IdVenta' => (int)$nuevoIdVenta,
                 'Precio' => (double)$item['preciov'],
                 'Cantidad' => (int)$item['cantidad'],
+                'Puntos' => (double)$item['puntos'],
                 'MedidaProd' => 'ENTERO',
                 'UserCreated' => 'USR1',
             );
@@ -123,7 +124,7 @@ class VentaController extends Controller
         $venta->numeropago_ven = '';
         $venta->saldo_ven = 0;
         $venta->tipocambio_ven = 'PEN';
-        $venta->valorcambio_ven = 0;
+        $venta->valorcambio_ven = 1;
         $venta->obs_ven = $request->input('obs_ven')??'';
         $venta->usercreated_ven = "USR1";
 

@@ -46,7 +46,7 @@
                             <a href="{{route('ventas.index')}}"><i class="fas fa-file-text"></i>Consulta de Ventas</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-th"></i>Acumulados</a>
+                            <a href="{{route('acumulados.index')}}"><i class="fas fa-th"></i>Acumulados</a>
                         </li>
                     </ul>
                 </li>

@@ -20,7 +20,7 @@
                             <div class="card-body">
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label for="dni" class="form-control-label">Serie:</label>
+                                        <label for="serie_comprobante" class="form-control-label">Serie:</label>
                                         <div class="float-right">
                                             <span class="invalid-feedback d-inline">{{ validateSerie }}</span>
                                         </div>
@@ -30,7 +30,7 @@
                                         </vue-numeric>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="dni" class="form-control-label">Número:</label>
+                                        <label for="numero_comprobante" class="form-control-label">Número:</label>
                                         <div class="float-right">
                                             <span class="invalid-feedback d-inline">{{ validateNumero  }}</span>
                                         </div>
@@ -42,8 +42,8 @@
                                 </div>
                                 <div class="row form-group">
                                     <div class="col-md-6">
-                                        <label for="dni" class="form-control-label">Fecha:</label>
-                                        <VueDatePicker 
+                                        <label for="fecha" class="form-control-label">Fecha:</label>
+                                        <VueDatePicker id="fecha"
                                             v-model="venta.fecha_ven" 
                                             auto-apply 
                                             :close-on-auto-apply="true"

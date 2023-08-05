@@ -32,6 +32,7 @@ import VentaComponente from './components/venta/VentaComponent.vue';
 import RegistroVenta from './components/venta/RegistroVenta.vue';
 import CompraComponent from './components/compra/CompraComponent.vue';
 import RegistroCompra from './components/compra/RegistroCompra.vue';
+import AcumuladoComponent from './components/acumulado/AcumuladoComponent.vue';
 
 //Inicializar VUE3
 const app = createApp({})
@@ -46,6 +47,7 @@ app.component('venta-component', VentaComponente);
 app.component('registro-venta', RegistroVenta);
 app.component('compra-component', CompraComponent);
 app.component('registro-compra', RegistroCompra);
+app.component('acumulado-component', AcumuladoComponent);
 app.mount('#app')
 
 
